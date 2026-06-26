@@ -155,23 +155,23 @@ const expertisePoints = [
 ];
 
 const serviceAreas = [
-  "Carova",
-  "Corolla",
-  "Duck",
-  "Southern Shores",
-  "Kitty Hawk",
-  "Kill Devil Hills",
-  "Nags Head",
-  "Manteo",
-  "Wanchese",
-  "Rodanthe",
-  "Waves",
-  "Salvo",
-  "Avon",
-  "Buxton",
-  "Frisco",
-  "Hatteras",
-  "Ocracoke",
+  { name: "Carova", slug: "carova-home-insurance" },
+  { name: "Corolla", slug: "corolla-home-insurance" },
+  { name: "Duck", slug: "duck-nc-home-insurance" },
+  { name: "Southern Shores", slug: "southern-shores-home-insurance" },
+  { name: "Kitty Hawk", slug: "kitty-hawk-home-insurance" },
+  { name: "Kill Devil Hills", slug: "kill-devil-hills-home-insurance" },
+  { name: "Nags Head", slug: "nags-head-home-insurance" },
+  { name: "Manteo", slug: "manteo-home-insurance" },
+  { name: "Wanchese", slug: "wanchese-home-insurance" },
+  { name: "Rodanthe", slug: "rodanthe-home-insurance" },
+  { name: "Waves", slug: "waves-nc-home-insurance" },
+  { name: "Salvo", slug: "salvo-home-insurance" },
+  { name: "Avon", slug: "avon-nc-home-insurance" },
+  { name: "Buxton", slug: "buxton-home-insurance" },
+  { name: "Frisco", slug: "frisco-home-insurance" },
+  { name: "Hatteras", slug: "hatteras-home-insurance" },
+  { name: "Ocracoke", slug: "ocracoke-home-insurance" },
 ];
 
 function Logo() {
@@ -347,9 +347,9 @@ function App() {
           <div className="hero-copy">
             <h1 id="hero-title">Find Outer Banks property insurance for your coastal home</h1>
             <p>
-              Answer a few coastal-specific questions and our guided check organizes
-              the details a local licensed agency needs to shop homeowners, wind,
-              flood, and rental-use options.
+              Tell us about your Outer Banks property, and we'll prepare the details
+              a licensed Outer Banks insurance expert needs to review homeowners,
+              wind, flood, and rental coverage options.
             </p>
 
             <div className="hero-actions">
@@ -674,9 +674,14 @@ function App() {
           </div>
           <ul aria-label="Outer Banks service areas">
             {serviceAreas.map((area) => (
-              <li key={area}>
-                <MapPin size={16} aria-hidden="true" />
-                {area}
+              <li key={area.slug}>
+                <a
+                  href={`/${area.slug}/`}
+                  aria-label={`${area.name} home insurance guide`}
+                >
+                  <MapPin size={16} aria-hidden="true" />
+                  {area.name}
+                </a>
               </li>
             ))}
           </ul>

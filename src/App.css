@@ -1212,11 +1212,6 @@ select {
 }
 
 .service-area-section li {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 42px;
-  padding: 0 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
@@ -1224,9 +1219,32 @@ select {
   font-size: 14px;
   font-weight: 760;
   box-shadow: 0 9px 24px rgba(22, 36, 54, 0.05);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
 }
 
-.service-area-section li svg {
+.service-area-section li:hover {
+  border-color: rgba(0, 127, 131, 0.42);
+  box-shadow: 0 12px 28px rgba(22, 36, 54, 0.08);
+  transform: translateY(-1px);
+}
+
+.service-area-section li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 14px;
+}
+
+.service-area-section li a:focus-visible {
+  outline: 3px solid rgba(0, 127, 131, 0.22);
+  outline-offset: 3px;
+}
+
+.service-area-section li a svg {
   color: var(--teal);
   flex: 0 0 auto;
 }
