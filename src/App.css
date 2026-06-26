@@ -437,41 +437,6 @@ img {
   text-align: right;
 }
 
-.assistant-note {
-  display: grid;
-  grid-template-columns: 38px 1fr;
-  gap: 10px;
-  align-items: center;
-  margin: 12px 0 14px;
-  padding: 10px;
-  border-radius: 8px;
-  background: #eaf7f7;
-}
-
-.assistant-note > span {
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--teal);
-  color: white;
-  font-size: 13px;
-  font-weight: 850;
-}
-
-.assistant-note p {
-  margin: 0;
-  color: #1c4350;
-  font-size: 13px;
-  line-height: 1.35;
-}
-
-.assistant-note strong {
-  display: block;
-  color: var(--teal-dark);
-}
-
 .hero-rate-list {
   display: grid;
   border: 1px solid var(--line);
@@ -530,12 +495,8 @@ img {
 }
 
 .hero-rate-row > span {
-  display: inline-grid;
+  display: inline-flex;
   align-items: center;
-  min-height: 30px;
-  padding: 0 10px;
-  border-radius: 8px;
-  background: #eaf7f7;
   color: var(--teal-dark);
   font-size: 12px;
   font-weight: 850;
@@ -914,10 +875,7 @@ select {
 .quote-copy em {
   width: fit-content;
   margin-top: 7px;
-  padding: 4px 8px;
-  border-radius: 8px;
-  background: var(--teal);
-  color: #fff;
+  color: var(--teal-dark);
   font-size: 11px;
   font-style: normal;
   font-weight: 820;
@@ -1084,6 +1042,142 @@ select {
   line-height: 1.48;
 }
 
+.expertise-section {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.72fr) minmax(620px, 1fr);
+  gap: 44px;
+  align-items: start;
+  padding: 64px max(28px, calc((100vw - var(--max)) / 2));
+  background: #fff;
+}
+
+.expertise-copy span {
+  display: block;
+  color: #815f00;
+  font-size: 13px;
+  font-weight: 860;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.expertise-copy h2 {
+  max-width: 660px;
+  margin: 18px 0 0;
+  color: var(--ink);
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.08;
+  font-weight: 880;
+  letter-spacing: 0;
+}
+
+.expertise-copy p {
+  max-width: 650px;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.expertise-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.expertise-grid article {
+  min-height: 210px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f9fcfd;
+}
+
+.expertise-grid svg {
+  color: var(--teal);
+}
+
+.expertise-grid h3 {
+  margin: 18px 0 8px;
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1.22;
+}
+
+.expertise-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.local-image-section {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.52fr) minmax(660px, 1fr);
+  gap: 42px;
+  align-items: start;
+  padding: 22px max(28px, calc((100vw - var(--max)) / 2)) 72px;
+  background: #fff;
+}
+
+.local-image-copy h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.08;
+  font-weight: 880;
+  letter-spacing: 0;
+}
+
+.local-image-copy p {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.local-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.local-image-grid figure,
+.seo-local-image {
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(22, 36, 54, 0.07);
+}
+
+.local-image-grid img,
+.seo-local-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.local-image-grid figcaption,
+.seo-local-image figcaption {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px 14px;
+}
+
+.local-image-grid figcaption strong,
+.seo-local-image figcaption strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.local-image-grid figcaption a,
+.seo-local-image figcaption a {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
 .service-area-section {
   display: grid;
   grid-template-columns: minmax(320px, 0.72fr) minmax(520px, 1fr);
@@ -1224,15 +1318,12 @@ select {
 }
 
 .seo-eyebrow {
-  display: inline-flex;
-  min-height: 34px;
-  align-items: center;
-  padding: 0 12px;
-  border-radius: 8px;
-  background: #eaf7f7;
+  display: block;
   color: var(--teal-dark);
   font-size: 13px;
   font-weight: 860;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .seo-hero h1 {
@@ -1247,6 +1338,11 @@ select {
   color: var(--muted);
   font-size: 19px;
   line-height: 1.55;
+}
+
+.seo-side {
+  display: grid;
+  gap: 18px;
 }
 
 .seo-summary-card {
@@ -1285,6 +1381,10 @@ select {
   color: var(--teal);
 }
 
+.seo-local-image img {
+  height: 260px;
+}
+
 .seo-content-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1318,11 +1418,31 @@ select {
   line-height: 1.55;
 }
 
+.seo-topic-section,
 .seo-faq-section,
 .seo-related-section {
   width: min(100% - 56px, 1120px);
   margin: 0 auto;
   padding: 8px 0 58px;
+}
+
+.seo-topic-section {
+  padding-top: 0;
+}
+
+.seo-topic-section h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 30px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.seo-topic-section p {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.58;
 }
 
 .seo-faq-section > div {
@@ -1412,7 +1532,7 @@ select {
   margin-top: 28px;
 }
 
-.quote-intake-form {
+.quote-review-form {
   grid-template-columns: minmax(300px, 820px);
   max-width: 920px;
   margin-right: auto;
@@ -1479,7 +1599,7 @@ select {
   grid-column: 1 / -1;
 }
 
-.quote-intake-form .primary-button {
+.quote-review-form .primary-button {
   width: fit-content;
   min-width: 240px;
   justify-self: center;
@@ -1553,9 +1673,10 @@ select {
 
 .site-footer p {
   grid-column: 1 / -1;
-  margin: 0;
+  max-width: 980px;
+  margin: 0 auto;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.45;
   text-align: center;
 }
@@ -1774,6 +1895,8 @@ select {
   .workflow-chain,
   .proof-list,
   .quote-form,
+  .local-image-section,
+  .local-image-grid,
   .seo-links-section,
   .seo-hero,
   .seo-content-grid,
@@ -1795,6 +1918,8 @@ select {
 
   .workflow-section,
   .service-area-section,
+  .expertise-section,
+  .local-image-section,
   .search-intent-section,
   .trust-section,
   .seo-links-section {
@@ -1804,6 +1929,7 @@ select {
 
   .seo-hero,
   .seo-content-grid,
+  .seo-topic-section,
   .seo-faq-section,
   .seo-related-section {
     width: auto;
@@ -1821,6 +1947,13 @@ select {
   }
 
   .need-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .expertise-section,
+  .expertise-grid,
+  .local-image-section,
+  .local-image-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1941,10 +2074,6 @@ select {
     display: none;
   }
 
-  .assistant-note {
-    grid-template-columns: 1fr;
-  }
-
   .logo {
     gap: 7px;
     font-size: 17px;
@@ -1957,9 +2086,16 @@ select {
 
   .steps-section h2,
   .trust-intro h2,
+  .local-image-copy h2,
   .search-intent-copy h2,
+  .seo-topic-section h2,
   .quote-cta-section h2 {
     font-size: 34px;
+  }
+
+  .local-image-grid img,
+  .seo-local-image img {
+    height: 210px;
   }
 
   .workflow-copy h2 {

@@ -19,7 +19,7 @@ import {
   X,
 } from "lucide-react";
 import homeImage from "./assets/obx-coastal-home.png";
-import { getSeoPageByPath, seoPages } from "./seoPages.js";
+import { getSeoPageByPath, homepageImages, seoPages } from "./seoPages.js";
 
 const steps = [
   {
@@ -86,7 +86,7 @@ const faqs = [
   {
     question: "Who helps me choose a policy?",
     answer:
-      "Insurance advice, quotes, binding, and servicing are handled by licensed agency partners. The AI intake simply helps make the conversation faster and more complete.",
+      "Insurance advice, quotes, binding, and servicing are handled by licensed agency partners. The guided coverage check helps make the conversation faster and more complete.",
   },
 ];
 
@@ -131,7 +131,31 @@ const insuranceNeeds = [
   },
 ];
 
+const expertisePoints = [
+  {
+    icon: Home,
+    title: "Coastal home coverage",
+    text: "For primary homes, second homes, condos, cottages, and beach houses across Outer Banks, North Carolina.",
+  },
+  {
+    icon: Wind,
+    title: "Wind and hail review",
+    text: "For roof age, openings, wind deductibles, named storm questions, and coastal exposure from Corolla to Ocracoke.",
+  },
+  {
+    icon: Waves,
+    title: "Flood insurance guidance",
+    text: "For flood zones, elevation certificates, lender requirements, NFIP questions, and private flood options when available.",
+  },
+  {
+    icon: Umbrella,
+    title: "Rental and liability needs",
+    text: "For weekly rentals, second homes, furnished properties, guest exposure, liability, and loss-of-rent conversations.",
+  },
+];
+
 const serviceAreas = [
+  "Carova",
   "Corolla",
   "Duck",
   "Southern Shores",
@@ -188,12 +212,12 @@ function App() {
 
   useEffect(() => {
     if (!activeSeoPage) {
-      document.title = "OBXNCInsurance.com | Outer Banks Property Insurance";
+      document.title = "OBXNCInsurance.com | Outer Banks, NC Property Insurance";
       document
         .querySelector('meta[name="description"]')
         ?.setAttribute(
           "content",
-          "Compare Outer Banks property insurance for homes, wind and hail, flood, second homes, and rentals with licensed local agency review.",
+          "Compare Outer Banks, NC property insurance for homes, wind and hail, flood, second homes, vacation rentals, and licensed local agency review.",
         );
       document
         .querySelector('link[rel="canonical"]')
@@ -323,8 +347,8 @@ function App() {
           <div className="hero-copy">
             <h1 id="hero-title">Find Outer Banks property insurance for your coastal home</h1>
             <p>
-              Answer a few coastal-specific questions and our AI organizes the
-              details a local licensed agency needs to shop homeowners, wind,
+              Answer a few coastal-specific questions and our guided check organizes
+              the details a local licensed agency needs to shop homeowners, wind,
               flood, and rental-use options.
             </p>
 
@@ -347,7 +371,7 @@ function App() {
               </div>
             </div>
             <p className="legal-line">
-              Insurance advice, quotes, and policy placement are provided by licensed agency partners.
+              Quotes, advice, and policy placement are provided by licensed agency partners.
             </p>
           </div>
 
@@ -418,14 +442,6 @@ function App() {
                 </div>
               </div>
 
-              <div className="assistant-note">
-                <span aria-hidden="true">AI</span>
-                <p>
-                  <strong>OBX coverage assistant</strong>
-                  Coastal details are organized for a local insurance review.
-                </p>
-              </div>
-
               <div className="panel-step">
                 <span>3.</span>
                 <strong>Prepare your coverage search</strong>
@@ -475,7 +491,7 @@ function App() {
 
         <section id="wind-flood" className="workflow-section" aria-labelledby="workflow-title">
           <div className="workflow-copy">
-            <h2 id="workflow-title">AI gets your coastal home ready for a local expert</h2>
+            <h2 id="workflow-title">Your coastal home details, ready for a local expert</h2>
             <p>
               Outer Banks insurance can involve homeowners coverage, wind and hail,
               flood, and rental-use questions. We help collect the right details
@@ -502,7 +518,7 @@ function App() {
               <div>
                 <strong>A licensed agency partner reviews your options.</strong>
                 <span>
-                  We make the intake smarter. Licensed professionals handle quotes,
+                  We make the first step smarter. Licensed professionals handle quotes,
                   advice, binding, and policy servicing.
                 </span>
               </div>
@@ -596,6 +612,57 @@ function App() {
           </div>
         </section>
 
+        <section className="expertise-section" aria-labelledby="expertise-title">
+          <div className="expertise-copy">
+            <span>Outer Banks, North Carolina insurance expertise</span>
+            <h2 id="expertise-title">Built around the coverage questions OBX owners actually face</h2>
+            <p>
+              From Carova and Corolla down through Hatteras Island and Ocracoke,
+              coastal insurance can change block by block. We help you prepare
+              the details a licensed local agency partner needs for homeowners,
+              wind and hail, flood, vacation rental, second home, condo, landlord,
+              and liability conversations.
+            </p>
+          </div>
+          <div className="expertise-grid">
+            {expertisePoints.map((point) => {
+              const Icon = point.icon;
+              return (
+                <article key={point.title}>
+                  <Icon size={28} aria-hidden="true" />
+                  <h3>{point.title}</h3>
+                  <p>{point.text}</p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="local-image-section" aria-labelledby="local-image-title">
+          <div className="local-image-copy">
+            <h2 id="local-image-title">Local insurance context from Corolla to Ocracoke</h2>
+            <p>
+              OBX property coverage depends on the real place around the home:
+              dunes, soundside water, rental use, roof age, flood zone, and how
+              exposed the property is to coastal weather. These pages are built
+              around the towns residents, buyers, and rental owners actually search.
+            </p>
+          </div>
+          <div className="local-image-grid">
+            {homepageImages.map((image) => (
+              <figure key={image.caption}>
+                <img src={image.url} alt={image.alt} loading="lazy" />
+                <figcaption>
+                  <strong>{image.caption}</strong>
+                  <a href={image.creditUrl} target="_blank" rel="noreferrer">
+                    Image source: {image.credit}
+                  </a>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+
         <section id="service-area" className="service-area-section" aria-labelledby="service-title">
           <div>
             <h2 id="service-title">Outer Banks insurance help by town</h2>
@@ -624,7 +691,7 @@ function App() {
             </p>
           </div>
           <div className="seo-link-grid">
-            {seoPages.slice(0, 12).map((page) => (
+            {seoPages.map((page) => (
               <a href={`/${page.slug}/`} key={page.slug}>
                 <span>{page.eyebrow}</span>
                 <strong>{page.h1}</strong>
@@ -657,7 +724,7 @@ function App() {
 
         <section id="quote" className="quote-cta-section" aria-labelledby="quote-title">
           <h2 id="quote-title">Check your OBX property</h2>
-          <form className="quote-form quote-intake-form" onSubmit={startQuote}>
+          <form className="quote-form quote-review-form" onSubmit={startQuote}>
             <label className="sr-only" htmlFor="property-address">
               Enter your Outer Banks property address
             </label>
@@ -790,10 +857,10 @@ function App() {
           <a href="#local-agents">Licensing</a>
         </nav>
         <p>
-          OBXNCInsurance.com is an insurance shopping and intake website.
-          Insurance advice, quotes, binding, and servicing are provided by licensed
-          agency partners. Availability varies by carrier, location, underwriting,
-          and state rules.
+          OBXNCInsurance.com helps Outer Banks property owners prepare a coverage
+          request for licensed local agency review. Quotes, advice, binding, and
+          service are provided by licensed agency partners. Options vary by
+          property and carrier.
         </p>
       </footer>
     </div>
@@ -819,7 +886,7 @@ function CoverageConsole({
         </div>
         <span className="secure-session">
           <Lock size={14} aria-hidden="true" />
-          Secure intake
+          Secure review
         </span>
       </div>
 
@@ -958,10 +1025,10 @@ function SiteFooter() {
         <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
       </nav>
       <p>
-        OBXNCInsurance.com is an insurance shopping and intake website.
-        Insurance advice, quotes, binding, and servicing are provided by licensed
-        agency partners. Availability varies by carrier, location, underwriting,
-        and state rules.
+        OBXNCInsurance.com helps Outer Banks property owners prepare a coverage
+        request for licensed local agency review. Quotes, advice, binding, and
+        service are provided by licensed agency partners. Options vary by
+        property and carrier.
       </p>
     </footer>
   );
@@ -989,17 +1056,28 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
               </a>
             </div>
           </div>
-          <aside className="seo-summary-card" aria-label="Page summary">
-            <strong>{page.intent}</strong>
-            <ul>
-              {page.checklist.map((item) => (
-                <li key={item}>
-                  <CheckCircle2 size={18} aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <div className="seo-side">
+            <figure className="seo-local-image">
+              <img src={page.image.url} alt={page.image.alt} loading="eager" />
+              <figcaption>
+                <strong>{page.image.caption}</strong>
+                <a href={page.image.creditUrl} target="_blank" rel="noreferrer">
+                  Image source: {page.image.credit}
+                </a>
+              </figcaption>
+            </figure>
+            <aside className="seo-summary-card" aria-label="Page summary">
+              <strong>{page.intent}</strong>
+              <ul>
+                {page.checklist.map((item) => (
+                  <li key={item}>
+                    <CheckCircle2 size={18} aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          </div>
         </section>
 
         <section className="seo-content-grid" aria-label={`${page.eyebrow} guide`}>
@@ -1009,6 +1087,15 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
               <p>{section.body}</p>
             </article>
           ))}
+        </section>
+
+        <section className="seo-topic-section" aria-labelledby="seo-topic-title">
+          <h2 id="seo-topic-title">Local insurance searches this guide supports</h2>
+          <p>
+            {page.keywords.join(", ")}. The goal is to give Outer Banks, North
+            Carolina property owners a clearer starting point before a licensed
+            agency partner reviews available options.
+          </p>
         </section>
 
         <section className="seo-faq-section" aria-labelledby="seo-faq-title">

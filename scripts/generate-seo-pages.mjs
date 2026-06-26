@@ -25,6 +25,7 @@ const updateMeta = (html, page) => {
         url: canonical,
         name: page.title,
         description: page.description,
+        image: page.image.url,
         isPartOf: {
           "@id": `${siteUrl}/#website`,
         },
@@ -34,9 +35,10 @@ const updateMeta = (html, page) => {
         "@type": "Service",
         "@id": `${canonical}#service`,
         name: page.eyebrow,
-        serviceType: "Property insurance intake and licensed agency review",
+        serviceType: "Property insurance shopping and licensed agency review",
         areaServed: "Outer Banks, North Carolina",
         description: page.description,
+        image: page.image.url,
         provider: {
           "@id": `${siteUrl}/#organization`,
         },
@@ -79,12 +81,24 @@ const updateMeta = (html, page) => {
       `<meta property="og:description" content="${escapeHtml(page.description)}" />`,
     )
     .replace(
+      /<meta\s+property="og:image"\s+content="[^"]*"\s*\/>/,
+      `<meta property="og:image" content="${escapeHtml(page.image.url)}" />`,
+    )
+    .replace(
+      /<meta\s+property="og:image:alt"\s+content="[^"]*"\s*\/>/,
+      `<meta property="og:image:alt" content="${escapeHtml(page.image.alt)}" />`,
+    )
+    .replace(
       /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/>/,
       `<meta name="twitter:title" content="${escapeHtml(page.title)}" />`,
     )
     .replace(
       /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/>/,
       `<meta name="twitter:description" content="${escapeHtml(page.description)}" />`,
+    )
+    .replace(
+      /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/>/,
+      `<meta name="twitter:image" content="${escapeHtml(page.image.url)}" />`,
     )
     .replace(
       "</head>",
@@ -99,6 +113,10 @@ const renderStaticBody = (page) => `
           <h1>${escapeHtml(page.h1)}</h1>
           <p>${escapeHtml(page.intro)}</p>
           <p>${escapeHtml(page.support)}</p>
+          <figure>
+            <img src="${escapeHtml(page.image.url)}" alt="${escapeHtml(page.image.alt)}" />
+            <figcaption>${escapeHtml(page.image.caption)}. Image source: ${escapeHtml(page.image.credit)}.</figcaption>
+          </figure>
           <a href="/#quote">Start my OBX check</a>
         </section>
         <section>
@@ -114,6 +132,10 @@ const renderStaticBody = (page) => `
         </section>`,
           )
           .join("")}
+        <section>
+          <h2>Local insurance searches this guide supports</h2>
+          <p>${escapeHtml(page.keywords.join(", "))}. The goal is to give Outer Banks, North Carolina property owners a clearer starting point before a licensed agency partner reviews available options.</p>
+        </section>
         <section>
           <h2>Questions about ${escapeHtml(page.eyebrow)}</h2>
           ${page.faqs

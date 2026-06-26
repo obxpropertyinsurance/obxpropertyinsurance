@@ -1,4 +1,140 @@
-export const seoPages = [
+export const localImages = {
+  outerBanks: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Outer_Banks_-_Beach.jpg/1920px-Outer_Banks_-_Beach.jpg",
+    alt: "Outer Banks North Carolina beach and dunes for coastal property insurance",
+    caption: "Outer Banks, North Carolina coastline",
+    credit: "Jarek Tuszynski, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Outer_Banks_-_Beach.jpg",
+  },
+  nagsHead: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Nags_Head%2C_North_Carolina_beach_houses.jpg/1920px-Nags_Head%2C_North_Carolina_beach_houses.jpg",
+    alt: "Nags Head North Carolina beach houses for Outer Banks home insurance review",
+    caption: "Nags Head beach homes",
+    credit: "lns1122, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Nags_Head,_North_Carolina_beach_houses.jpg",
+  },
+  duck: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Duck%2C_North_Carolina_%2814282586360%29.jpg/1920px-Duck%2C_North_Carolina_%2814282586360%29.jpg",
+    alt: "Duck North Carolina Outer Banks homes and local setting for coastal insurance",
+    caption: "Duck, North Carolina",
+    credit: "Ken Lund, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Duck,_North_Carolina_(14282586360).jpg",
+  },
+  corolla: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Currituck_lighthouse.jpg/1920px-Currituck_lighthouse.jpg",
+    alt: "Currituck Beach Lighthouse near Corolla North Carolina for OBX property insurance",
+    caption: "Currituck Beach Lighthouse near Corolla",
+    credit: "Warfieldian, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Currituck_lighthouse.jpg",
+  },
+  kittyHawk: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/7/74/Beach_at_Kitty_Hawk%2C_North_Carolina.jpg",
+    alt: "Kitty Hawk North Carolina beach for Outer Banks homeowners insurance",
+    caption: "Kitty Hawk beach",
+    credit: "RJVIII, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Beach_at_Kitty_Hawk,_North_Carolina.jpg",
+  },
+  killDevilHills: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Panorama_of_Kill_Devil_Hills%2C_Beach_%28day%29.jpg/1920px-Panorama_of_Kill_Devil_Hills%2C_Beach_%28day%29.jpg",
+    alt: "Kill Devil Hills North Carolina beach for OBX home insurance and flood review",
+    caption: "Kill Devil Hills beach",
+    credit: "Tetra09, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Panorama_of_Kill_Devil_Hills,_Beach_(day).jpg",
+  },
+  manteo: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Waterfront%2C_Manteo%2C_Roanoke_Island%2C_North_Carolina_%2814273919409%29.jpg/1920px-Waterfront%2C_Manteo%2C_Roanoke_Island%2C_North_Carolina_%2814273919409%29.jpg",
+    alt: "Manteo Roanoke Island waterfront for Outer Banks North Carolina property insurance",
+    caption: "Manteo waterfront on Roanoke Island",
+    credit: "Ken Lund, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Waterfront,_Manteo,_Roanoke_Island,_North_Carolina_(14273919409).jpg",
+  },
+  hatteras: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Hatteras%2C_Outer_Banks%2C_North_Carolina_%2814453741494%29.jpg/1920px-Hatteras%2C_Outer_Banks%2C_North_Carolina_%2814453741494%29.jpg",
+    alt: "Hatteras Outer Banks North Carolina homes for coastal wind and flood insurance",
+    caption: "Hatteras, Outer Banks",
+    credit: "Ken Lund, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Hatteras,_Outer_Banks,_North_Carolina_(14453741494).jpg",
+  },
+  carova: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Wild_Horses_Outer_Banks_North_Carolina_01.jpg/1920px-Wild_Horses_Outer_Banks_North_Carolina_01.jpg",
+    alt: "Carova North Carolina wild horses and 4x4 beach area for Outer Banks insurance",
+    caption: "Northern Outer Banks near Carova",
+    credit: "Kabongolei, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Wild_Horses_Outer_Banks_North_Carolina_01.jpg",
+  },
+  southernShores: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Welcome_to_Southern_Shores%2C_North_Carolina_%2814467784552%29.jpg/1920px-Welcome_to_Southern_Shores%2C_North_Carolina_%2814467784552%29.jpg",
+    alt: "Southern Shores North Carolina Outer Banks community for home insurance review",
+    caption: "Southern Shores, North Carolina",
+    credit: "Ken Lund, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Welcome_to_Southern_Shores,_North_Carolina_(14467784552).jpg",
+  },
+  wanchese: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/WancheseHarborEntrance.JPG/1920px-WancheseHarborEntrance.JPG",
+    alt: "Wanchese North Carolina harbor and Roanoke Island property insurance context",
+    caption: "Wanchese harbor entrance",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:WancheseHarborEntrance.JPG",
+  },
+  rodanthe: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Chicamacomico_Life-Saving_Station%2C_Rodanthe%2C_North_Carolina_%2814474723003%29.jpg/1920px-Chicamacomico_Life-Saving_Station%2C_Rodanthe%2C_North_Carolina_%2814474723003%29.jpg",
+    alt: "Rodanthe North Carolina Hatteras Island local landmark for coastal home insurance",
+    caption: "Rodanthe on Hatteras Island",
+    credit: "Ken Lund, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Chicamacomico_Life-Saving_Station,_Rodanthe,_North_Carolina_(14474723003).jpg",
+  },
+  waves: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Waves%2C_North_Carolina%2C_Outer_Banks%2C_Highway_12_%2814268110787%29.jpg/1920px-Waves%2C_North_Carolina%2C_Outer_Banks%2C_Highway_12_%2814268110787%29.jpg",
+    alt: "Waves North Carolina Outer Banks Highway 12 area for Hatteras Island insurance",
+    caption: "Waves, North Carolina",
+    credit: "Ken Lund, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Waves,_North_Carolina,_Outer_Banks,_Highway_12_(14268110787).jpg",
+  },
+  salvo: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Salvo%2C_Outer_Banks%2C_North_Carolina_%2814454910445%29.jpg/1920px-Salvo%2C_Outer_Banks%2C_North_Carolina_%2814454910445%29.jpg",
+    alt: "Salvo North Carolina Outer Banks village for Hatteras Island home insurance",
+    caption: "Salvo, Outer Banks",
+    credit: "Ken Lund, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Salvo,_Outer_Banks,_North_Carolina_(14454910445).jpg",
+  },
+  avon: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Avon%2C_North_Carolina%2C_Outer_Banks_%2814431796146%29.jpg/1920px-Avon%2C_North_Carolina%2C_Outer_Banks_%2814431796146%29.jpg",
+    alt: "Avon North Carolina Outer Banks community for Hatteras Island property insurance",
+    caption: "Avon, North Carolina",
+    credit: "Ken Lund, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Avon,_North_Carolina,_Outer_Banks_(14431796146).jpg",
+  },
+  buxton: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Cape_Hatteras_Lighthouse%2C_North_Carolina%2C_USA.jpg/1920px-Cape_Hatteras_Lighthouse%2C_North_Carolina%2C_USA.jpg",
+    alt: "Cape Hatteras Lighthouse near Buxton North Carolina for OBX wind and flood insurance",
+    caption: "Cape Hatteras Lighthouse near Buxton",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Cape_Hatteras_Lighthouse,_North_Carolina,_USA.jpg",
+  },
+  frisco: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Frisco%2C_Outer_Banks%2C_North_Carolina_%2814453786114%29.jpg/1920px-Frisco%2C_Outer_Banks%2C_North_Carolina_%2814453786114%29.jpg",
+    alt: "Frisco North Carolina Outer Banks village for coastal homeowners insurance",
+    caption: "Frisco, Outer Banks",
+    credit: "Ken Lund, Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Frisco,_Outer_Banks,_North_Carolina_(14453786114).jpg",
+  },
+  ocracoke: {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Ocracoke_Light_and_Guard_Station%2C_Ocracoke_NC%2C_USA.jpg/1920px-Ocracoke_Light_and_Guard_Station%2C_Ocracoke_NC%2C_USA.jpg",
+    alt: "Ocracoke North Carolina lighthouse and village for island home insurance",
+    caption: "Ocracoke Lighthouse",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Ocracoke_Light_and_Guard_Station,_Ocracoke_NC,_USA.jpg",
+  },
+};
+
+export const homepageImages = [
+  localImages.nagsHead,
+  localImages.corolla,
+  localImages.manteo,
+  localImages.ocracoke,
+];
+
+const coreSeoPages = [
   {
     slug: "outer-banks-property-insurance",
     title: "Outer Banks Property Insurance | OBXNCInsurance.com",
@@ -18,14 +154,14 @@ export const seoPages = [
           "Outer Banks homes can involve coastal wind exposure, flood zone questions, elevated construction, second home use, and short term rental activity. Those details can affect which carriers are willing to review the property and what information they need before a quote is prepared.",
       },
       {
-        heading: "What the intake organizes",
+        heading: "What the coverage check organizes",
         body:
           "The site collects the basics a local insurance team usually needs first: address, occupancy, rental use, dwelling coverage estimate, wind deductible preference, roof age, year built, flood zone, and notes about the home.",
       },
       {
         heading: "How quotes happen",
         body:
-          "OBXNCInsurance.com is the consumer intake layer. Quotes, advice, binding, and service are handled by licensed agency partners who can access carrier rates and explain available choices.",
+          "OBXNCInsurance.com gives consumers a smarter first step. Quotes, advice, binding, and service are handled by licensed agency partners who can access carrier rates and explain available choices.",
       },
     ],
     checklist: [
@@ -39,7 +175,7 @@ export const seoPages = [
       {
         question: "Can I compare real property insurance options?",
         answer:
-          "Yes. The intake prepares your property details for a licensed agency partner to review carrier-backed options when available.",
+          "Yes. Your coverage details help a licensed agency partner review carrier-backed options when available.",
       },
       {
         question: "Does this replace an insurance agent?",
@@ -58,7 +194,7 @@ export const seoPages = [
     intro:
       "Homeowners insurance in the Outer Banks is not a generic search. The address, distance from water, roof age, home use, wind exposure, and flood questions all matter when a licensed agency partner reviews the property.",
     support:
-      "Use this page to start an OBX homeowners insurance review for a primary home, second home, beach cottage, or rental property that needs a more complete coastal intake.",
+      "Use this page to start an OBX homeowners insurance review for a primary home, second home, beach cottage, or rental property that needs a more complete coastal review.",
     intent: "For homeowners who want structure, liability, wind, and flood questions organized before agent review.",
     sections: [
       {
@@ -74,11 +210,11 @@ export const seoPages = [
       {
         heading: "Good for new purchases and renewals",
         body:
-          "Whether you are buying a property, reviewing a renewal, or checking coverage for a beach house, the intake helps send cleaner details to a local insurance team.",
+          "Whether you are buying a property, reviewing a renewal, or checking coverage for a beach house, the coverage check helps send cleaner details to a local insurance team.",
       },
     ],
     checklist: [
-      "Primary home or second home intake",
+      "Primary home or second home review",
       "Dwelling and personal property review",
       "Liability questions",
       "Wind deductible preference",
@@ -118,7 +254,7 @@ export const seoPages = [
       {
         heading: "A better first step than calling cold",
         body:
-          "Instead of repeating the same details over and over, you can start with one organized intake that prepares the property for local agency review.",
+          "Instead of repeating the same details over and over, you can start with one organized coverage check that prepares the property for local agency review.",
       },
       {
         heading: "Designed for consumers",
@@ -167,7 +303,7 @@ export const seoPages = [
       {
         heading: "Why the deductible matters",
         body:
-          "Wind deductibles can work differently from other property deductibles. The intake lets you share a starting preference, then the local agency can explain what is available for the property.",
+          "Wind deductibles can work differently from other property deductibles. The coverage check lets you share a starting preference, then the local agency can explain what is available for the property.",
       },
       {
         heading: "Built for OBX weather realities",
@@ -221,7 +357,7 @@ export const seoPages = [
       {
         heading: "Useful for buyers and current owners",
         body:
-          "If you are buying, refinancing, renewing, or simply checking your risk, the intake helps a local agency partner see what questions need attention.",
+          "If you are buying, refinancing, renewing, or simply checking your risk, the coverage check helps a local agency partner see what questions need attention.",
       },
     ],
     checklist: [
@@ -240,7 +376,7 @@ export const seoPages = [
       {
         question: "Can flood coverage be reviewed with homeowners coverage?",
         answer:
-          "Yes. The same intake can prepare both conversations so the local agency partner sees the full property picture.",
+          "Yes. The same coverage check can prepare both conversations so the local agency partner sees the full property picture.",
       },
     ],
   },
@@ -260,7 +396,7 @@ export const seoPages = [
       {
         heading: "Rental use should be clear from the start",
         body:
-          "Carriers often need to know whether the home is owner-used, occasionally rented, rented weekly, or rented seasonally. The intake puts that detail up front.",
+          "Carriers often need to know whether the home is owner-used, occasionally rented, rented weekly, or rented seasonally. Your coverage details put that detail up front.",
       },
       {
         heading: "Coverage may need more than the structure",
@@ -309,7 +445,7 @@ export const seoPages = [
       {
         heading: "Built around Nags Head property questions",
         body:
-          "The intake asks about address, occupancy, rental use, roof age, wind exposure, flood zone, and coverage amount so the local agency partner can begin with better context.",
+          "Your coverage check asks about address, occupancy, rental use, roof age, wind exposure, flood zone, and coverage amount so the local agency partner can begin with better context.",
       },
       {
         heading: "Useful for buyers and current owners",
@@ -317,7 +453,7 @@ export const seoPages = [
           "If you are closing on a home, comparing a renewal, or checking a rental property, starting early can make the agency review smoother.",
       },
       {
-        heading: "Local review after the online intake",
+        heading: "Local review after the online coverage check",
         body:
           "The online process does not replace licensed insurance advice. It prepares your Nags Head property for a local agency partner to review.",
       },
@@ -338,7 +474,7 @@ export const seoPages = [
       {
         question: "Is this for rentals too?",
         answer:
-          "Yes. Weekly and seasonal rental details can be included in the intake.",
+          "Yes. Weekly and seasonal rental details can be included in the coverage check.",
       },
     ],
   },
@@ -358,7 +494,7 @@ export const seoPages = [
       {
         heading: "Start with the way the home is used",
         body:
-          "Primary homes, second homes, and vacation rentals may be reviewed differently. The intake makes property use clear before the agency shops options.",
+          "Primary homes, second homes, and vacation rentals may be reviewed differently. Your coverage details make property use clear before the agency shops options.",
       },
       {
         heading: "Coastal details matter",
@@ -368,7 +504,7 @@ export const seoPages = [
       {
         heading: "A local agency takes it from there",
         body:
-          "After the intake, a licensed agency partner can review eligibility, carrier options, and next steps.",
+          "After the coverage check, a licensed agency partner can review eligibility, carrier options, and next steps.",
       },
     ],
     checklist: [
@@ -382,7 +518,7 @@ export const seoPages = [
       {
         question: "Can I use this for a soundside home?",
         answer:
-          "Yes. The intake works for beach, oceanside, soundside, and village properties.",
+          "Yes. The coverage check works for beach, oceanside, soundside, and village properties.",
       },
       {
         question: "Will I get agent help?",
@@ -399,7 +535,7 @@ export const seoPages = [
     eyebrow: "Corolla home insurance",
     h1: "Corolla home insurance for coastal homes and rentals",
     intro:
-      "Corolla homes can include beach cottages, large rental homes, second homes, and coastal properties with wind and flood questions. OBXNCInsurance.com helps prepare a cleaner intake for licensed agency review.",
+      "Corolla homes can include beach cottages, large rental homes, second homes, and coastal properties with wind and flood questions. OBXNCInsurance.com helps prepare a clearer coverage request for licensed agency review.",
     support:
       "Start here for Corolla homeowners insurance, Corolla property insurance, OBX rental home insurance, wind and hail review, and flood insurance questions.",
     intent: "For Corolla property owners who need a local agency review.",
@@ -415,7 +551,7 @@ export const seoPages = [
           "Coastal exposure, roof age, elevation, and flood zone details can affect what the licensed agency partner needs to review.",
       },
       {
-        heading: "Simple intake before expert help",
+        heading: "Simple coverage check before expert help",
         body:
           "The website gathers the basics, then licensed professionals handle quote review, advice, and placement.",
       },
@@ -456,7 +592,7 @@ export const seoPages = [
       {
         heading: "Share the property basics once",
         body:
-          "The intake organizes address, use, coverage estimate, deductible preference, roof age, and coastal questions in one place.",
+          "Your coverage check organizes address, use, coverage estimate, deductible preference, roof age, and coastal questions in one place.",
       },
       {
         heading: "Good for renewals and purchases",
@@ -480,7 +616,7 @@ export const seoPages = [
       {
         question: "Can this help with a primary residence?",
         answer:
-          "Yes. The intake works for primary homes, second homes, and rental properties.",
+          "Yes. The coverage check works for primary homes, second homes, and rental properties.",
       },
       {
         question: "Do I need my current policy?",
@@ -508,9 +644,9 @@ export const seoPages = [
           "How the home is occupied can matter. Share whether it is a primary residence, second home, seasonal rental, or long term rental.",
       },
       {
-        heading: "Bring wind and flood into the same intake",
+        heading: "Bring wind and flood into the same review",
         body:
-          "The intake captures wind exposure and flood zone notes so the local agency partner can see the full property picture.",
+          "Your coverage check captures wind exposure and flood zone notes so the local agency partner can see the full property picture.",
       },
       {
         heading: "Built for follow-up",
@@ -534,7 +670,7 @@ export const seoPages = [
       {
         question: "Is this available for condos?",
         answer:
-          "You can start the intake, then the licensed agency partner can explain what details are needed for that property type.",
+          "You can start the coverage check, then the licensed agency partner can explain what details are needed for that property type.",
       },
     ],
   },
@@ -559,7 +695,7 @@ export const seoPages = [
       {
         heading: "Organize details before the quote conversation",
         body:
-          "The intake helps a licensed agency partner see what the home is, how it is used, and what coverages may need review.",
+          "The coverage check helps a licensed agency partner see what the home is, how it is used, and what coverages may need review.",
       },
       {
         heading: "Useful for family homes and rentals",
@@ -598,7 +734,7 @@ export const seoPages = [
       "Hatteras Island property insurance often deserves a careful coastal review. OBXNCInsurance.com helps owners share the address, property use, wind exposure, flood details, roof notes, and rental information in one place.",
     support:
       "Start here if you are searching for Hatteras homeowners insurance, Hatteras Island property insurance, wind and hail review, flood insurance, or rental home insurance.",
-    intent: "For Hatteras Island owners who want a focused local insurance intake.",
+    intent: "For Hatteras Island owners who want a focused local insurance review.",
     sections: [
       {
         heading: "Island location makes details important",
@@ -608,7 +744,7 @@ export const seoPages = [
       {
         heading: "Good for southern OBX communities",
         body:
-          "The same intake can help owners in Hatteras, Frisco, Buxton, Avon, Salvo, Waves, and Rodanthe begin a property insurance review.",
+          "The same coverage check can help owners in Hatteras, Frisco, Buxton, Avon, Salvo, Waves, and Rodanthe begin a property insurance review.",
       },
       {
         heading: "Quotes stay with licensed professionals",
@@ -637,6 +773,286 @@ export const seoPages = [
     ],
   },
 ];
+
+const townSeoProfiles = [
+  {
+    town: "Carova",
+    slug: "carova-home-insurance",
+    title: "Carova Home Insurance | OBXNCInsurance.com",
+    descriptor: "remote 4x4 beach homes and northern Currituck OBX properties",
+    county: "Currituck County",
+    nearby: "Corolla and the northern beaches",
+    search:
+      "Carova homeowners insurance, Carova flood insurance, Carova wind insurance, or insurance for a Carova vacation rental",
+    localNeeds:
+      "limited road access, coastal wind exposure, flood questions, rental use, and replacement cost for remote beach homes",
+  },
+  {
+    town: "Southern Shores",
+    slug: "southern-shores-home-insurance",
+    title: "Southern Shores Home Insurance | OBX Review",
+    descriptor: "wooded neighborhoods, soundside homes, canal homes, and beach access properties",
+    county: "Dare County",
+    nearby: "Duck, Kitty Hawk, and the northern beaches",
+    search:
+      "Southern Shores homeowners insurance, Southern Shores flood insurance, wind and hail coverage, or coastal property insurance",
+    localNeeds:
+      "tree exposure, soundside and oceanside locations, roof age, flood zones, and second home use",
+  },
+  {
+    town: "Wanchese",
+    slug: "wanchese-home-insurance",
+    title: "Wanchese Home Insurance | OBXNCInsurance.com",
+    descriptor: "Roanoke Island homes, working waterfront property, and year-round residences",
+    county: "Dare County",
+    nearby: "Manteo and Roanoke Island",
+    search:
+      "Wanchese homeowners insurance, Wanchese flood insurance, Roanoke Island property insurance, or local OBX insurance help",
+    localNeeds:
+      "soundside exposure, flood questions, primary home coverage, outbuildings, roof updates, and local property details",
+  },
+  {
+    town: "Rodanthe",
+    slug: "rodanthe-home-insurance",
+    title: "Rodanthe Home Insurance | Hatteras Island Review",
+    descriptor: "Hatteras Island beach homes, rental cottages, and soundside properties",
+    county: "Dare County",
+    nearby: "Waves, Salvo, and Pea Island",
+    search:
+      "Rodanthe homeowners insurance, Rodanthe flood insurance, Hatteras Island wind insurance, or Rodanthe vacation rental insurance",
+    localNeeds:
+      "oceanfront and soundside exposure, wind and hail review, flood zones, rental use, and elevated construction",
+  },
+  {
+    town: "Waves",
+    slug: "waves-nc-home-insurance",
+    title: "Waves NC Home Insurance | Hatteras Island Review",
+    descriptor: "Tri-Villages homes, rental cottages, and watersports-area properties",
+    county: "Dare County",
+    nearby: "Rodanthe and Salvo",
+    search:
+      "Waves NC homeowners insurance, Waves flood insurance, Hatteras Island wind coverage, or vacation rental insurance",
+    localNeeds:
+      "rental use, coastal wind exposure, flood zone review, roof age, and coverage for beach and soundside homes",
+  },
+  {
+    town: "Salvo",
+    slug: "salvo-home-insurance",
+    title: "Salvo Home Insurance | Hatteras Island Review",
+    descriptor: "quiet Hatteras Island homes, vacation rentals, and beach cottages",
+    county: "Dare County",
+    nearby: "Waves and Avon",
+    search:
+      "Salvo homeowners insurance, Salvo flood insurance, Salvo wind and hail coverage, or rental property insurance",
+    localNeeds:
+      "wind exposure, flood zones, rental occupancy, roof updates, and second home coverage questions",
+  },
+  {
+    town: "Avon",
+    article: "an",
+    slug: "avon-nc-home-insurance",
+    title: "Avon NC Home Insurance | Hatteras Island Review",
+    descriptor: "Hatteras Island homes, beach cottages, rental properties, and year-round residences",
+    county: "Dare County",
+    nearby: "Salvo, Buxton, and central Hatteras Island",
+    search:
+      "Avon NC homeowners insurance, Avon flood insurance, Avon wind insurance, or Hatteras Island rental insurance",
+    localNeeds:
+      "wind and hail, flood insurance, weekly rental use, roof age, liability, and lender timing",
+  },
+  {
+    town: "Buxton",
+    slug: "buxton-home-insurance",
+    title: "Buxton Home Insurance | Hatteras Island Review",
+    descriptor: "Cape Hatteras area homes, wooded properties, beach cottages, and rental homes",
+    county: "Dare County",
+    nearby: "Avon, Frisco, and Cape Hatteras",
+    search:
+      "Buxton homeowners insurance, Buxton flood insurance, Buxton wind insurance, or Cape Hatteras property insurance",
+    localNeeds:
+      "wind mitigation, flood zones, roof condition, primary or rental use, and coastal replacement cost questions",
+  },
+  {
+    town: "Frisco",
+    slug: "frisco-home-insurance",
+    title: "Frisco Home Insurance | Hatteras Island Review",
+    descriptor: "Hatteras Island village homes, soundside properties, and vacation cottages",
+    county: "Dare County",
+    nearby: "Buxton and Hatteras Village",
+    search:
+      "Frisco homeowners insurance, Frisco flood insurance, Frisco wind and hail insurance, or vacation rental coverage",
+    localNeeds:
+      "soundside exposure, wind and hail review, flood questions, rental use, and roof or construction details",
+  },
+  {
+    town: "Ocracoke",
+    article: "an",
+    slug: "ocracoke-home-insurance",
+    title: "Ocracoke Home Insurance | Coastal Property Review",
+    descriptor: "island homes, village cottages, rentals, and coastal property reached by ferry",
+    county: "Hyde County",
+    nearby: "Hatteras Island and Ocracoke Village",
+    regionalLine: "island homes across Ocracoke and the southern Outer Banks",
+    search:
+      "Ocracoke homeowners insurance, Ocracoke flood insurance, Ocracoke wind insurance, or island rental insurance",
+    localNeeds:
+      "remote island access, flood and wind review, rental use, roof age, elevation, and replacement cost questions",
+  },
+];
+
+const townSeoPages = townSeoProfiles.map((profile) => ({
+  slug: profile.slug,
+  title: profile.title,
+  description: `Start your ${profile.town} home insurance review for Outer Banks property, wind, flood, second homes, rentals, and licensed local agency help.`,
+  eyebrow: `${profile.town} home insurance`,
+  h1: `${profile.town} home insurance for Outer Banks property owners`,
+  intro: `${profile.town} property owners have insurance questions that are tied to real Outer Banks conditions. OBXNCInsurance.com helps you prepare a smarter review for ${profile.descriptor}, with the details a licensed local agency partner needs to understand the property.`,
+  support: `Start here if you are searching for ${profile.search}. This page focuses on ${profile.town}, ${profile.county}, while connecting your request to the same Outer Banks, North Carolina insurance expertise used for ${profile.regionalLine || `homes from ${profile.nearby} to Ocracoke`}.`,
+  intent: `For ${profile.town} owners who want local help with coastal insurance questions.`,
+  sections: [
+    {
+      heading: `${profile.town} homes need local coastal context`,
+      body: `A ${profile.town} home is not just another address. Local review can account for ${profile.localNeeds}, which can all shape the insurance conversation before options are reviewed.`,
+    },
+    {
+      heading: "Coverage questions to prepare",
+      body:
+        "A licensed local agency partner may review homeowners coverage, wind and hail, flood insurance, liability, rental use, roof age, elevation details, lender timing, and prior coverage notes.",
+    },
+    {
+      heading: "Built for Outer Banks property owners",
+      body:
+        "The goal is to help you start with clear information, avoid repeating the same property details, and move faster when a licensed agency partner reviews available carrier options.",
+    },
+  ],
+  checklist: [
+    `${profile.town} homeowners review`,
+    "Wind and hail questions",
+    "Flood insurance guidance",
+    "Second home or rental use",
+    "Licensed local agency follow-up",
+  ],
+  faqs: [
+    {
+      question: `Can I start my ${profile.town} insurance review online?`,
+      answer:
+        "Yes. Share the property address and the details you know, then a licensed local agency partner can review what else may be needed.",
+    },
+    {
+      question: "Can this help with wind, flood, and rental questions?",
+      answer:
+        "Yes. The coverage check is built for Outer Banks property questions, including wind and hail, flood, second homes, vacation rentals, and lender timing.",
+    },
+  ],
+}));
+
+const imageBySlug = {
+  "outer-banks-property-insurance": localImages.outerBanks,
+  "obx-homeowners-insurance": localImages.nagsHead,
+  "outer-banks-home-insurance": localImages.duck,
+  "obx-wind-hail-insurance": localImages.kittyHawk,
+  "outer-banks-flood-insurance": localImages.manteo,
+  "obx-vacation-rental-insurance": localImages.corolla,
+  "nags-head-home-insurance": localImages.nagsHead,
+  "duck-nc-home-insurance": localImages.duck,
+  "corolla-home-insurance": localImages.corolla,
+  "kitty-hawk-home-insurance": localImages.kittyHawk,
+  "kill-devil-hills-home-insurance": localImages.killDevilHills,
+  "manteo-home-insurance": localImages.manteo,
+  "hatteras-home-insurance": localImages.hatteras,
+  "carova-home-insurance": localImages.carova,
+  "southern-shores-home-insurance": localImages.southernShores,
+  "wanchese-home-insurance": localImages.wanchese,
+  "rodanthe-home-insurance": localImages.rodanthe,
+  "waves-nc-home-insurance": localImages.waves,
+  "salvo-home-insurance": localImages.salvo,
+  "avon-nc-home-insurance": localImages.avon,
+  "buxton-home-insurance": localImages.buxton,
+  "frisco-home-insurance": localImages.frisco,
+  "ocracoke-home-insurance": localImages.ocracoke,
+};
+
+const titleBySlug = {
+  "outer-banks-property-insurance":
+    "Outer Banks Property Insurance | OBX Home, Wind and Flood Coverage",
+  "obx-homeowners-insurance":
+    "OBX Homeowners Insurance | Outer Banks, NC Home Insurance Review",
+  "outer-banks-home-insurance":
+    "Outer Banks Home Insurance | OBX Homeowners, Wind and Flood Review",
+  "obx-wind-hail-insurance":
+    "OBX Wind and Hail Insurance | Outer Banks, NC Coastal Wind Review",
+  "outer-banks-flood-insurance":
+    "Outer Banks Flood Insurance | OBX, NC Flood Insurance Guidance",
+  "obx-vacation-rental-insurance":
+    "OBX Vacation Rental Insurance | Outer Banks, NC Vacation Rental Insurance | Property Review",
+};
+
+const descriptionBySlug = {
+  "outer-banks-property-insurance":
+    "Compare Outer Banks, NC property insurance for homeowners, wind and hail, flood, second homes, rentals, and licensed local agency review.",
+  "obx-homeowners-insurance":
+    "Start an OBX homeowners insurance review for Outer Banks, NC homes, beach cottages, wind, flood, second homes, rentals, and local agency help.",
+  "outer-banks-home-insurance":
+    "Find Outer Banks home insurance guidance for OBX, NC beach houses, soundside homes, wind, flood, rentals, and licensed agency review.",
+  "obx-wind-hail-insurance":
+    "Review OBX wind and hail insurance questions for Outer Banks, NC homes, roof age, deductibles, coastal exposure, and agency guidance.",
+  "outer-banks-flood-insurance":
+    "Get Outer Banks, NC flood insurance guidance for flood zones, elevation, lenders, NFIP, private flood options, and local agency review.",
+  "obx-vacation-rental-insurance":
+    "Review OBX vacation rental insurance for Outer Banks, NC weekly rentals, second homes, liability, wind, flood, and agency guidance.",
+};
+
+const titleCase = (value) =>
+  value.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1));
+
+const townNameFromPage = (page) =>
+  titleCase(page.eyebrow.replace(/\s+home insurance$/i, ""));
+
+const buildKeywords = (page) => {
+  const isTownPage = /home-insurance$/.test(page.slug) && !page.slug.startsWith("outer-banks");
+  if (isTownPage) {
+    const town = townNameFromPage(page);
+    return [
+      `${town} home insurance`,
+      `${town} homeowners insurance`,
+      `${town} flood insurance`,
+      `${town} wind and hail insurance`,
+      `${town} vacation rental insurance`,
+      "Outer Banks NC property insurance",
+      "outerbanks property insurance",
+    ];
+  }
+
+  const base = page.eyebrow;
+  return [
+    base,
+    `${base} Outer Banks NC`,
+    "Outer Banks property insurance",
+    "outerbanks property insurance",
+    "OBX homeowners insurance",
+    "Outer Banks wind and hail insurance",
+    "Outer Banks flood insurance",
+  ];
+};
+
+const enhanceSeoPage = (page) => {
+  const isTownPage = /home-insurance$/.test(page.slug) && !page.slug.startsWith("outer-banks");
+  const town = isTownPage ? townNameFromPage(page) : "";
+
+  return {
+    ...page,
+    title:
+      titleBySlug[page.slug] ||
+      `${town} Home Insurance | Outer Banks, NC Property Insurance | Local Review`,
+    description:
+      descriptionBySlug[page.slug] ||
+      `Compare ${town} home insurance in the Outer Banks, NC for homeowners, wind and hail, flood, second homes, vacation rentals, and local agency review.`,
+    image: imageBySlug[page.slug] || localImages.outerBanks,
+    keywords: buildKeywords(page),
+  };
+};
+
+export const seoPages = [...coreSeoPages, ...townSeoPages].map(enhanceSeoPage);
 
 export function getSeoPageByPath(pathname) {
   const slug = pathname.replace(/^\/+|\/+$/g, "");

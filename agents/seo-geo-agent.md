@@ -59,6 +59,15 @@ Use these naturally. Do not stuff them.
 - Kill Devil Hills homeowners insurance
 - Hatteras home insurance
 - Ocracoke flood insurance
+- Carova home insurance
+- Southern Shores homeowners insurance
+- Wanchese home insurance
+- Rodanthe home insurance
+- Waves NC home insurance
+- Salvo home insurance
+- Avon NC home insurance
+- Buxton home insurance
+- Frisco home insurance
 
 ## Page Types To Create
 
@@ -79,6 +88,15 @@ Priority 2:
 - Kill Devil Hills homeowners insurance
 - Hatteras home insurance
 - Ocracoke flood insurance
+- Carova home insurance
+- Southern Shores home insurance
+- Wanchese home insurance
+- Rodanthe home insurance
+- Waves NC home insurance
+- Salvo home insurance
+- Avon NC home insurance
+- Buxton home insurance
+- Frisco home insurance
 
 Priority 3:
 
@@ -93,15 +111,22 @@ Priority 3:
 Every page must include:
 
 - One H1 with the primary keyword.
-- A title tag under 60 characters when possible.
+- A keyword-complete title tag. Town and category pages can be longer when it helps match search intent.
 - A meta description around 150 to 160 characters.
 - A plain-language answer in the first 100 words.
 - Human examples tied to real OBX property situations, such as second homes, elevated homes, weekly rentals, wind deductibles, flood zones, and roof updates.
 - H2s that cover wind, flood, rental use, local review, and town context when relevant.
-- Descriptive image alt text.
+- A local image for the town or OBX area on each guide page.
+- Descriptive image alt text that names the town, Outer Banks, North Carolina, and the insurance context.
 - Internal links to the homepage, wind and hail page, flood page, rental page, and relevant town pages.
 - A compliance note that licensed agency partners provide insurance advice, quotes, binding, and servicing.
 - Copy that helps even before the visitor fills out a form.
+
+Title tag examples:
+
+- OBX Vacation Rental Insurance | Outer Banks, NC Vacation Rental Insurance | Property Review
+- Nags Head Home Insurance | Outer Banks, NC Property Insurance | Local Review
+- Outer Banks Flood Insurance | OBX, NC Flood Insurance Guidance
 
 ## GEO Answer Format
 
@@ -117,7 +142,7 @@ Use structured data when appropriate:
 
 - WebSite on the homepage.
 - Organization for OBXNCInsurance.com.
-- Service for insurance intake and shopping.
+- Service for insurance shopping and licensed agency review.
 - FAQPage for pages with real FAQs.
 - Article for educational guides.
 - BreadcrumbList for guide and town pages.

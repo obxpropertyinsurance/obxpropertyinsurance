@@ -1,6 +1,6 @@
 # OBXNCInsurance.com
 
-OBXNCInsurance.com helps Outer Banks property owners organize coastal home insurance details for licensed local agency review.
+OBXNCInsurance.com helps Outer Banks property owners prepare coastal home insurance details for licensed local agency review.
 
 Primary topics:
 - Outer Banks property insurance
@@ -18,7 +18,7 @@ Primary topics:
 - Hyde County flood insurance
 
 Service areas:
-Corolla, Duck, Southern Shores, Kitty Hawk, Kill Devil Hills, Nags Head, Manteo, Wanchese, Rodanthe, Waves, Salvo, Avon, Buxton, Frisco, Hatteras, and Ocracoke.
+Carova, Corolla, Duck, Southern Shores, Kitty Hawk, Kill Devil Hills, Nags Head, Manteo, Wanchese, Rodanthe, Waves, Salvo, Avon, Buxton, Frisco, Hatteras, and Ocracoke.
 
 Important compliance note:
-OBXNCInsurance.com is an insurance shopping and intake website. Insurance advice, quotes, binding, and servicing are provided by licensed agency partners.
+OBXNCInsurance.com helps property owners prepare a coverage request for licensed local agency review. Quotes, advice, binding, and service are provided by licensed agency partners.
