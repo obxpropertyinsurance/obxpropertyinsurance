@@ -388,7 +388,7 @@ function App() {
                   id="hero-property-address"
                   value={quoteForm.address}
                   onChange={updateQuoteField("address")}
-                  placeholder="Enter your OBX property address"
+                  placeholder="OBX property address"
                   autoComplete="street-address"
                 />
                 {quoteForm.address && <Check className="address-check-icon" size={18} aria-hidden="true" />}
@@ -739,7 +739,7 @@ function App() {
                 id="property-address"
                 value={quoteForm.address}
                 onChange={updateQuoteField("address")}
-                placeholder="Enter your Outer Banks property address"
+                placeholder="OBX property address"
                 autoComplete="street-address"
               />
             </div>
