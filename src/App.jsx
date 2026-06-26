@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
   Check,
@@ -19,6 +19,7 @@ import {
   X,
 } from "lucide-react";
 import homeImage from "./assets/obx-coastal-home.png";
+import { getSeoPageByPath, seoPages } from "./seoPages.js";
 
 const steps = [
   {
@@ -130,14 +131,6 @@ const insuranceNeeds = [
   },
 ];
 
-const heroChecks = [
-  { label: "Occupancy", value: "Second home" },
-  { label: "Rental use", value: "Weekly / seasonal" },
-  { label: "Wind exposure", value: "OBX coast" },
-  { label: "Flood zone", value: "Needs review" },
-  { label: "Local agency", value: "Ready" },
-];
-
 const serviceAreas = [
   "Corolla",
   "Duck",
@@ -163,8 +156,10 @@ function Logo() {
       <span className="logo-mark" aria-hidden="true">
         <Waves size={25} strokeWidth={2.3} />
       </span>
-      <span>OBXNCInsurance</span>
-      <strong>.com</strong>
+      <span className="logo-wordmark">
+        <span>OBXNCInsurance</span>
+        <strong>.com</strong>
+      </span>
     </a>
   );
 }
@@ -175,8 +170,45 @@ function App() {
   const [deductible, setDeductible] = useState(2500);
   const [selectedOption, setSelectedOption] = useState("Homeowners + wind review");
   const [openFaq, setOpenFaq] = useState(0);
-  const [address, setAddress] = useState("");
   const [quoteStarted, setQuoteStarted] = useState(false);
+  const [quoteForm, setQuoteForm] = useState({
+    address: "",
+    propertyUse: "Second home",
+    rentalUse: "Weekly / seasonal",
+    windExposure: "OBX coast",
+    floodZone: "Needs review",
+    fullName: "",
+    email: "",
+    phone: "",
+    yearBuilt: "",
+    roofAge: "",
+    notes: "",
+  });
+  const activeSeoPage = getSeoPageByPath(window.location.pathname);
+
+  useEffect(() => {
+    if (!activeSeoPage) {
+      document.title = "OBXNCInsurance.com | Outer Banks Property Insurance";
+      document
+        .querySelector('meta[name="description"]')
+        ?.setAttribute(
+          "content",
+          "Compare Outer Banks property insurance for homes, wind and hail, flood, second homes, and rentals with licensed local agency review.",
+        );
+      document
+        .querySelector('link[rel="canonical"]')
+        ?.setAttribute("href", "https://www.obxncinsurance.com/");
+      return;
+    }
+
+    document.title = activeSeoPage.title;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", activeSeoPage.description);
+    document
+      .querySelector('link[rel="canonical"]')
+      ?.setAttribute("href", `https://www.obxncinsurance.com/${activeSeoPage.slug}/`);
+  }, [activeSeoPage]);
 
   const localReadiness = useMemo(() => {
     const coverageScore = coverage >= 800000 ? 4 : coverage >= 600000 ? 3 : 2;
@@ -184,10 +216,57 @@ function App() {
     return Math.min(94, 72 + coverageScore * 4 + deductibleScore * 3);
   }, [coverage, deductible]);
 
+  const heroCheckRows = useMemo(
+    () => [
+      { label: "Occupancy", value: quoteForm.propertyUse },
+      { label: "Rental use", value: quoteForm.rentalUse },
+      { label: "Wind exposure", value: quoteForm.windExposure },
+      { label: "Flood zone", value: quoteForm.floodZone },
+      { label: "Local agency", value: "Ready" },
+    ],
+    [quoteForm.floodZone, quoteForm.propertyUse, quoteForm.rentalUse, quoteForm.windExposure],
+  );
+
+  const updateQuoteField = (field) => (event) => {
+    setQuoteForm((current) => ({
+      ...current,
+      [field]: event.target.value,
+    }));
+    setQuoteStarted(false);
+  };
+
+  const handleCoverageSelect = (title) => {
+    setSelectedOption(title);
+    setQuoteStarted(false);
+  };
+
   const startQuote = (event) => {
     event.preventDefault();
+    const leadPayload = {
+      ...quoteForm,
+      coverage,
+      deductible,
+      selectedCoverage: selectedOption,
+      submittedAt: new Date().toISOString(),
+    };
+    window.localStorage.setItem("obxncinsurance:lastLead", JSON.stringify(leadPayload));
     setQuoteStarted(true);
   };
+
+  const focusQuoteForm = () => {
+    document.getElementById("quote")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.setTimeout(() => document.getElementById("property-address")?.focus(), 450);
+  };
+
+  if (activeSeoPage) {
+    return (
+      <SeoLandingPage
+        page={activeSeoPage}
+        mobileNavOpen={mobileNavOpen}
+        setMobileNavOpen={setMobileNavOpen}
+      />
+    );
+  }
 
   return (
     <div id="top" className="site-shell">
@@ -274,28 +353,69 @@ function App() {
 
           <div className="hero-visual" aria-label="OBX property insurance check preview">
             <img src={homeImage} alt="Outer Banks beach house elevated on pilings near dunes" />
-            <div className="hero-quote-panel">
+            <form className="hero-quote-panel" onSubmit={startQuote}>
               <div className="panel-step">
                 <span>1.</span>
                 <strong>Where is the property?</strong>
               </div>
-              <div className="address-field">
+              <label className="address-field" htmlFor="hero-property-address">
                 <MapPin size={18} aria-hidden="true" />
-                <span>2417 S Virginia Dare Trl, Nags Head, NC 27959</span>
-                <Check size={18} aria-hidden="true" />
-              </div>
+                <input
+                  id="hero-property-address"
+                  value={quoteForm.address}
+                  onChange={updateQuoteField("address")}
+                  placeholder="Enter your OBX property address"
+                  autoComplete="street-address"
+                />
+                {quoteForm.address && <Check className="address-check-icon" size={18} aria-hidden="true" />}
+              </label>
 
               <div className="panel-step">
                 <span>2.</span>
                 <strong>Tell us about the home</strong>
               </div>
               <div className="coastal-check-list">
-                {heroChecks.map((item) => (
-                  <div className="coastal-check-row" key={item.label}>
-                    <span>{item.label}</span>
-                    <strong>{item.value}</strong>
-                  </div>
-                ))}
+                <label className="coastal-check-row">
+                  <span>Occupancy</span>
+                  <select value={quoteForm.propertyUse} onChange={updateQuoteField("propertyUse")}>
+                    <option>Primary home</option>
+                    <option>Second home</option>
+                    <option>Vacation rental</option>
+                    <option>Investment property</option>
+                  </select>
+                </label>
+                <label className="coastal-check-row">
+                  <span>Rental use</span>
+                  <select value={quoteForm.rentalUse} onChange={updateQuoteField("rentalUse")}>
+                    <option>Not rented</option>
+                    <option>Weekly / seasonal</option>
+                    <option>Long term rental</option>
+                    <option>Unsure</option>
+                  </select>
+                </label>
+                <label className="coastal-check-row">
+                  <span>Wind exposure</span>
+                  <select value={quoteForm.windExposure} onChange={updateQuoteField("windExposure")}>
+                    <option>OBX coast</option>
+                    <option>Soundside</option>
+                    <option>Oceanside</option>
+                    <option>Unsure</option>
+                  </select>
+                </label>
+                <label className="coastal-check-row">
+                  <span>Flood zone</span>
+                  <select value={quoteForm.floodZone} onChange={updateQuoteField("floodZone")}>
+                    <option>Needs review</option>
+                    <option>AE</option>
+                    <option>VE</option>
+                    <option>X</option>
+                    <option>Unsure</option>
+                  </select>
+                </label>
+                <div className="coastal-check-row">
+                  <span>Local agency</span>
+                  <strong>Ready</strong>
+                </div>
               </div>
 
               <div className="assistant-note">
@@ -312,19 +432,25 @@ function App() {
               </div>
               <div className="hero-rate-list">
                 {coverageOptions.map((option) => (
-                  <div className="hero-rate-row" key={option.title}>
+                  <button
+                    className={selectedOption === option.title ? "hero-rate-row selected" : "hero-rate-row"}
+                    key={option.title}
+                    type="button"
+                    aria-pressed={selectedOption === option.title}
+                    onClick={() => handleCoverageSelect(option.title)}
+                  >
                     <div>
                       <strong>{option.title}</strong>
                       <span>{option.text}</span>
                     </div>
-                    <button type="button">{option.status}</button>
-                  </div>
+                    <span>{option.status}</span>
+                  </button>
                 ))}
               </div>
-              <a className="view-options" href="#quote">
+              <button className="view-options" type="submit">
                 Start your OBX check <ArrowRight size={15} aria-hidden="true" />
-              </a>
-            </div>
+              </button>
+            </form>
           </div>
         </section>
 
@@ -390,7 +516,8 @@ function App() {
             selectedOption={selectedOption}
             onCoverageChange={setCoverage}
             onDeductibleChange={setDeductible}
-            onSelectOption={setSelectedOption}
+            onSelectOption={handleCoverageSelect}
+            onContinue={focusQuoteForm}
           />
         </section>
 
@@ -488,6 +615,25 @@ function App() {
           </ul>
         </section>
 
+        <section className="seo-links-section" aria-labelledby="seo-links-title">
+          <div>
+            <h2 id="seo-links-title">Popular OBX insurance searches</h2>
+            <p>
+              Explore dedicated pages for the local property insurance questions
+              Outer Banks owners search before they talk with a licensed agency.
+            </p>
+          </div>
+          <div className="seo-link-grid">
+            {seoPages.slice(0, 12).map((page) => (
+              <a href={`/${page.slug}/`} key={page.slug}>
+                <span>{page.eyebrow}</span>
+                <strong>{page.h1}</strong>
+                <em>Start this review</em>
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section id="local-agents" className="faq-section" aria-label="Frequently asked questions">
           <div className="faq-list">
             {faqs.map((faq, index) => {
@@ -511,7 +657,7 @@ function App() {
 
         <section id="quote" className="quote-cta-section" aria-labelledby="quote-title">
           <h2 id="quote-title">Check your OBX property</h2>
-          <form className="quote-form" onSubmit={startQuote}>
+          <form className="quote-form quote-intake-form" onSubmit={startQuote}>
             <label className="sr-only" htmlFor="property-address">
               Enter your Outer Banks property address
             </label>
@@ -519,14 +665,96 @@ function App() {
               <MapPin size={23} aria-hidden="true" />
               <input
                 id="property-address"
-                value={address}
-                onChange={(event) => {
-                  setAddress(event.target.value);
-                  setQuoteStarted(false);
-                }}
+                value={quoteForm.address}
+                onChange={updateQuoteField("address")}
                 placeholder="Enter your Outer Banks property address"
                 autoComplete="street-address"
               />
+            </div>
+            <div className="quote-field-grid">
+              <label>
+                Full name
+                <input
+                  value={quoteForm.fullName}
+                  onChange={updateQuoteField("fullName")}
+                  placeholder="Your name"
+                  autoComplete="name"
+                />
+              </label>
+              <label>
+                Email
+                <input
+                  type="email"
+                  value={quoteForm.email}
+                  onChange={updateQuoteField("email")}
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                />
+              </label>
+              <label>
+                Phone
+                <input
+                  type="tel"
+                  value={quoteForm.phone}
+                  onChange={updateQuoteField("phone")}
+                  placeholder="(252) 555-0199"
+                  autoComplete="tel"
+                />
+              </label>
+              <label>
+                Property use
+                <select value={quoteForm.propertyUse} onChange={updateQuoteField("propertyUse")}>
+                  <option>Primary home</option>
+                  <option>Second home</option>
+                  <option>Vacation rental</option>
+                  <option>Investment property</option>
+                </select>
+              </label>
+              <label>
+                Rental use
+                <select value={quoteForm.rentalUse} onChange={updateQuoteField("rentalUse")}>
+                  <option>Not rented</option>
+                  <option>Weekly / seasonal</option>
+                  <option>Long term rental</option>
+                  <option>Unsure</option>
+                </select>
+              </label>
+              <label>
+                Flood zone
+                <select value={quoteForm.floodZone} onChange={updateQuoteField("floodZone")}>
+                  <option>Needs review</option>
+                  <option>AE</option>
+                  <option>VE</option>
+                  <option>X</option>
+                  <option>Unsure</option>
+                </select>
+              </label>
+              <label>
+                Year built
+                <input
+                  value={quoteForm.yearBuilt}
+                  onChange={updateQuoteField("yearBuilt")}
+                  placeholder="2006"
+                  inputMode="numeric"
+                />
+              </label>
+              <label>
+                Roof age
+                <input
+                  value={quoteForm.roofAge}
+                  onChange={updateQuoteField("roofAge")}
+                  placeholder="About 8 years"
+                />
+              </label>
+              <label className="quote-notes">
+                Anything we should know?
+                <textarea
+                  value={quoteForm.notes}
+                  onChange={updateQuoteField("notes")}
+                  placeholder="Closing date, current carrier, wind mitigation, elevation certificate, or rental details"
+                  rows="4"
+                />
+              </label>
             </div>
             <button className="primary-button" type="submit">
               Start my OBX check
@@ -536,9 +764,18 @@ function App() {
           <p className={quoteStarted ? "secure-note success" : "secure-note"}>
             <Lock size={18} aria-hidden="true" />
             {quoteStarted
-              ? `Your OBX property check is ready${address ? ` for ${address}` : ""}.`
+              ? `Your OBX property check is ready${quoteForm.address ? ` for ${quoteForm.address}` : ""}.`
               : "Your information is encrypted and shared only for insurance review."}
           </p>
+          {quoteStarted && (
+            <div className="quote-summary" aria-live="polite">
+              {heroCheckRows.map((item) => (
+                <span key={item.label}>
+                  <strong>{item.label}:</strong> {item.value}
+                </span>
+              ))}
+            </div>
+          )}
         </section>
       </main>
 
@@ -571,6 +808,7 @@ function CoverageConsole({
   onCoverageChange,
   onDeductibleChange,
   onSelectOption,
+  onContinue,
 }) {
   return (
     <aside className="quote-console" aria-label="Interactive OBX coverage check">
@@ -646,10 +884,162 @@ function CoverageConsole({
 
       <div className="console-footer">
         <span>Ready for a licensed OBX insurance review.</span>
-        <button type="button">Save & continue</button>
+        <button type="button" onClick={onContinue}>Save & continue</button>
       </div>
       <p>No policy is quoted or placed until a licensed agency partner reviews eligibility.</p>
     </aside>
+  );
+}
+
+function SiteHeader({ mobileNavOpen, setMobileNavOpen }) {
+  return (
+    <>
+      <header className="site-header">
+        <Logo />
+
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          <a href="/#coverage">Home coverage</a>
+          <a href="/#wind-flood">Wind & flood</a>
+          <a href="/#how-it-works">How it works</a>
+          <a href="/#service-area">OBX towns</a>
+          <a href="/outer-banks-property-insurance/">Insurance guides</a>
+        </nav>
+
+        <a className="header-cta" href="/#quote">
+          Check my OBX property
+        </a>
+
+        <button
+          className="icon-button mobile-menu-button"
+          aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileNavOpen}
+          onClick={() => setMobileNavOpen((value) => !value)}
+        >
+          {mobileNavOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </header>
+
+      {mobileNavOpen && (
+        <nav className="mobile-nav" aria-label="Mobile navigation">
+          <a href="/#coverage" onClick={() => setMobileNavOpen(false)}>
+            Home coverage
+          </a>
+          <a href="/#wind-flood" onClick={() => setMobileNavOpen(false)}>
+            Wind & flood
+          </a>
+          <a href="/#how-it-works" onClick={() => setMobileNavOpen(false)}>
+            How it works
+          </a>
+          <a href="/#service-area" onClick={() => setMobileNavOpen(false)}>
+            OBX towns
+          </a>
+          <a href="/outer-banks-property-insurance/" onClick={() => setMobileNavOpen(false)}>
+            Insurance guides
+          </a>
+          <a className="mobile-nav-cta" href="/#quote" onClick={() => setMobileNavOpen(false)}>
+            Check my OBX property
+          </a>
+        </nav>
+      )}
+    </>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="site-footer">
+      <Logo />
+      <nav aria-label="Footer navigation">
+        <a href="/#coverage">Home coverage</a>
+        <a href="/#wind-flood">Wind & flood</a>
+        <a href="/#service-area">OBX towns</a>
+        <a href="/outer-banks-property-insurance/">Property insurance</a>
+        <a href="/outer-banks-flood-insurance/">Flood insurance</a>
+        <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
+      </nav>
+      <p>
+        OBXNCInsurance.com is an insurance shopping and intake website.
+        Insurance advice, quotes, binding, and servicing are provided by licensed
+        agency partners. Availability varies by carrier, location, underwriting,
+        and state rules.
+      </p>
+    </footer>
+  );
+}
+
+function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
+  return (
+    <div id="top" className="site-shell">
+      <SiteHeader mobileNavOpen={mobileNavOpen} setMobileNavOpen={setMobileNavOpen} />
+      <main className="seo-page">
+        <section className="seo-hero" aria-labelledby="seo-title">
+          <div>
+            <span className="seo-eyebrow">{page.eyebrow}</span>
+            <h1 id="seo-title">{page.h1}</h1>
+            <p>{page.intro}</p>
+            <p>{page.support}</p>
+            <div className="hero-actions">
+              <a className="primary-button" href="/#quote">
+                Start my OBX check
+                <ArrowRight size={19} aria-hidden="true" />
+              </a>
+              <a className="text-button" href="/outer-banks-property-insurance/">
+                View property insurance guide
+                <ArrowRight size={18} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+          <aside className="seo-summary-card" aria-label="Page summary">
+            <strong>{page.intent}</strong>
+            <ul>
+              {page.checklist.map((item) => (
+                <li key={item}>
+                  <CheckCircle2 size={18} aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </section>
+
+        <section className="seo-content-grid" aria-label={`${page.eyebrow} guide`}>
+          {page.sections.map((section) => (
+            <article key={section.heading}>
+              <h2>{section.heading}</h2>
+              <p>{section.body}</p>
+            </article>
+          ))}
+        </section>
+
+        <section className="seo-faq-section" aria-labelledby="seo-faq-title">
+          <h2 id="seo-faq-title">Questions about {page.eyebrow}</h2>
+          <div>
+            {page.faqs.map((faq) => (
+              <article key={faq.question}>
+                <h3>{faq.question}</h3>
+                <p>{faq.answer}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="seo-related-section" aria-labelledby="related-title">
+          <h2 id="related-title">Related OBX insurance pages</h2>
+          <div className="seo-related-links">
+            {seoPages
+              .filter((related) => related.slug !== page.slug)
+              .slice(0, 6)
+              .map((related) => (
+                <a href={`/${related.slug}/`} key={related.slug}>
+                  {related.eyebrow}
+                  <ArrowRight size={16} aria-hidden="true" />
+                </a>
+              ))}
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
+    </div>
   );
 }
 
