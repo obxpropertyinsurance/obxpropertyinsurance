@@ -640,12 +640,12 @@ function App() {
 
         <section className="local-image-section" aria-labelledby="local-image-title">
           <div className="local-image-copy">
-            <h2 id="local-image-title">Local insurance context from Corolla to Ocracoke</h2>
+            <h2 id="local-image-title">Outer Banks insurance guidance from Corolla to Ocracoke</h2>
             <p>
-              OBX property coverage depends on the real place around the home:
-              dunes, soundside water, rental use, roof age, flood zone, and how
-              exposed the property is to coastal weather. These pages are built
-              around the towns residents, buyers, and rental owners actually search.
+              Every OBX home sits in a slightly different coastal setting. Dunes,
+              soundside water, rental use, roof age, flood zone, and wind exposure
+              can all matter. Start with your town or property address and we will
+              help prepare the details for a licensed local insurance expert.
             </p>
           </div>
           <div className="local-image-grid">
@@ -654,9 +654,6 @@ function App() {
                 <img src={image.url} alt={image.alt} loading="lazy" />
                 <figcaption>
                   <strong>{image.caption}</strong>
-                  <a href={image.creditUrl} target="_blank" rel="noreferrer">
-                    Image source: {image.credit}
-                  </a>
                 </figcaption>
               </figure>
             ))}
@@ -1066,9 +1063,6 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
               <img src={page.image.url} alt={page.image.alt} loading="eager" />
               <figcaption>
                 <strong>{page.image.caption}</strong>
-                <a href={page.image.creditUrl} target="_blank" rel="noreferrer">
-                  Image source: {page.image.credit}
-                </a>
               </figcaption>
             </figure>
             <aside className="seo-summary-card" aria-label="Page summary">
@@ -1095,11 +1089,11 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
         </section>
 
         <section className="seo-topic-section" aria-labelledby="seo-topic-title">
-          <h2 id="seo-topic-title">Local insurance searches this guide supports</h2>
+          <h2 id="seo-topic-title">Insurance help for this area</h2>
           <p>
-            {page.keywords.join(", ")}. The goal is to give Outer Banks, North
-            Carolina property owners a clearer starting point before a licensed
-            agency partner reviews available options.
+            People often look for {page.keywords.join(", ")}. This page helps
+            Outer Banks, North Carolina property owners start with clear details
+            before a licensed agency partner reviews available options.
           </p>
         </section>
 

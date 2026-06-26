@@ -115,7 +115,7 @@ const renderStaticBody = (page) => `
           <p>${escapeHtml(page.support)}</p>
           <figure>
             <img src="${escapeHtml(page.image.url)}" alt="${escapeHtml(page.image.alt)}" />
-            <figcaption>${escapeHtml(page.image.caption)}. Image source: ${escapeHtml(page.image.credit)}.</figcaption>
+            <figcaption>${escapeHtml(page.image.caption)}</figcaption>
           </figure>
           <a href="/#quote">Start my OBX check</a>
         </section>
@@ -133,8 +133,8 @@ const renderStaticBody = (page) => `
           )
           .join("")}
         <section>
-          <h2>Local insurance searches this guide supports</h2>
-          <p>${escapeHtml(page.keywords.join(", "))}. The goal is to give Outer Banks, North Carolina property owners a clearer starting point before a licensed agency partner reviews available options.</p>
+          <h2>Insurance help for this area</h2>
+          <p>People often look for ${escapeHtml(page.keywords.join(", "))}. This page helps Outer Banks, North Carolina property owners start with clear details before a licensed agency partner reviews available options.</p>
         </section>
         <section>
           <h2>Questions about ${escapeHtml(page.eyebrow)}</h2>

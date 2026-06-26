@@ -1,4 +1,4 @@
-export const localImages = {
+const localImagesBase = {
   outerBanks: {
     url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Outer_Banks_-_Beach.jpg/1920px-Outer_Banks_-_Beach.jpg",
     alt: "Outer Banks North Carolina beach and dunes for coastal property insurance",
@@ -71,7 +71,7 @@ export const localImages = {
   },
   wanchese: {
     url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/WancheseHarborEntrance.JPG/1920px-WancheseHarborEntrance.JPG",
-    alt: "Wanchese North Carolina harbor and Roanoke Island property insurance context",
+    alt: "Wanchese North Carolina harbor and Roanoke Island property insurance review",
     caption: "Wanchese harbor entrance",
     credit: "Wikimedia Commons",
     creditUrl: "https://commons.wikimedia.org/wiki/File:WancheseHarborEntrance.JPG",
@@ -126,6 +126,16 @@ export const localImages = {
     creditUrl: "https://commons.wikimedia.org/wiki/File:Ocracoke_Light_and_Guard_Station,_Ocracoke_NC,_USA.jpg",
   },
 };
+
+export const localImages = Object.fromEntries(
+  Object.entries(localImagesBase).map(([key, image]) => [
+    key,
+    {
+      ...image,
+      alt: `${image.alt}. Image source: ${image.credit}.`,
+    },
+  ]),
+);
 
 export const homepageImages = [
   localImages.nagsHead,
@@ -365,7 +375,7 @@ const coreSeoPages = [
       "Elevation certificate status",
       "Lender requirement questions",
       "NFIP or private flood review",
-      "Coastal property context",
+      "Coastal property details",
     ],
     faqs: [
       {
@@ -445,7 +455,7 @@ const coreSeoPages = [
       {
         heading: "Built around Nags Head property questions",
         body:
-          "Your coverage check asks about address, occupancy, rental use, roof age, wind exposure, flood zone, and coverage amount so the local agency partner can begin with better context.",
+          "Your coverage check asks about address, occupancy, rental use, roof age, wind exposure, flood zone, and coverage amount so the local agency partner can begin with better details.",
       },
       {
         heading: "Useful for buyers and current owners",
@@ -911,7 +921,7 @@ const townSeoPages = townSeoProfiles.map((profile) => ({
   intent: `For ${profile.town} owners who want local help with coastal insurance questions.`,
   sections: [
     {
-      heading: `${profile.town} homes need local coastal context`,
+      heading: `${profile.town} homes need local coastal guidance`,
       body: `A ${profile.town} home is not just another address. Local review can account for ${profile.localNeeds}, which can all shape the insurance conversation before options are reviewed.`,
     },
     {
