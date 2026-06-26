@@ -28,7 +28,7 @@ Framework preset: Vite
 Build command: npm run build
 Build output directory: dist
 Production branch: main
-Custom domain: obxncinsurance.com
+Custom domain: www.obxncinsurance.com
 ```
 
 This repository also includes a GitHub Pages workflow in `.github/workflows/deploy.yml`.
@@ -36,7 +36,7 @@ This repository also includes a GitHub Pages workflow in `.github/workflows/depl
 The custom domain is:
 
 ```text
-obxncinsurance.com
+www.obxncinsurance.com
 ```
 
 The `public/CNAME` file ensures GitHub Pages publishes the custom domain if that fallback is used.
