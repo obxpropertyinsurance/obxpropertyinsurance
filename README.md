@@ -55,7 +55,7 @@ By default, leads are sent to:
 obxpropertyinsurance@proton.me
 ```
 
-For the fastest no-secret setup, the function falls back to FormSubmit. The first live test can trigger a FormSubmit activation email to the Proton inbox. Click that activation link so future form submissions can be delivered.
+For the fastest no-secret setup, the function validates the lead and tells the browser to use the FormSubmit fallback. The first live test can trigger a FormSubmit activation email to the Proton inbox. Click that activation link so future form submissions can be delivered.
 
 For the recommended production setup, add a Resend API key to Cloudflare Pages and verify a sending address such as `leads@obxncinsurance.com`.
 

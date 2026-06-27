@@ -246,6 +246,52 @@ const getObxGuideReply = (message) => {
   };
 };
 
+const buildLeadFormData = (leadPayload) => {
+  const formData = new FormData();
+  formData.set("_subject", `New OBX insurance lead: ${leadPayload.address || leadPayload.fullName}`);
+  formData.set("_template", "table");
+  formData.set("_captcha", "false");
+  formData.set("_replyto", leadPayload.email);
+  formData.set("name", leadPayload.fullName);
+  formData.set("email", leadPayload.email);
+  formData.set("phone", leadPayload.phone);
+  formData.set("property_address", leadPayload.address);
+  formData.set("property_use", leadPayload.propertyUse);
+  formData.set("rental_use", leadPayload.rentalUse);
+  formData.set("wind_exposure", leadPayload.windExposure);
+  formData.set("flood_zone", leadPayload.floodZone);
+  formData.set("year_built", leadPayload.yearBuilt);
+  formData.set("roof_age", leadPayload.roofAge);
+  formData.set("selected_review", leadPayload.selectedCoverage);
+  formData.set("dwelling_coverage", leadPayload.coverage);
+  formData.set("wind_deductible", leadPayload.deductible);
+  formData.set("notes", leadPayload.notes);
+  formData.set("source", `https://www.obxncinsurance.com${leadPayload.sourcePath}`);
+  formData.set("submitted_at", leadPayload.submittedAt);
+  return formData;
+};
+
+const sendLeadWithFormSubmit = async (leadPayload, toEmail = leadRecipientEmail) => {
+  const response = await fetch(`https://formsubmit.co/ajax/${toEmail}`, {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+    },
+    body: buildLeadFormData(leadPayload),
+  });
+  const result = await response.json().catch(() => ({}));
+  const message = String(result.message || "");
+
+  if (response.ok && (result.success === "true" || /activation/i.test(message))) {
+    return {
+      ok: true,
+      delivery: /activation/i.test(message) ? "formsubmit-activation" : "formsubmit",
+    };
+  }
+
+  throw new Error(message || "Your request could not be emailed right now.");
+};
+
 function Logo() {
   return (
     <a className="logo" href="#top" aria-label="OBXNCInsurance.com home">
@@ -371,7 +417,16 @@ function App() {
       });
       const result = await response.json().catch(() => ({}));
 
-      if (!response.ok || !result.ok) {
+      if ((!response.ok || !result.ok) && result.fallback === "formsubmit-browser") {
+        const fallback = await sendLeadWithFormSubmit(
+          leadPayload,
+          result.formSubmitEmail || leadRecipientEmail,
+        );
+        result.ok = fallback.ok;
+        result.delivery = fallback.delivery;
+      }
+
+      if (!result.ok) {
         throw new Error(result.message || "Your request could not be sent.");
       }
 

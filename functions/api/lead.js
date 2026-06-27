@@ -131,44 +131,6 @@ const sendWithResend = async ({ env, lead, request, toEmail }) => {
   }
 };
 
-const sendWithFormSubmit = async ({ lead, request, toEmail }) => {
-  const formData = new FormData();
-  formData.set("_subject", `New OBX insurance lead: ${lead.address || lead.fullName}`);
-  formData.set("_template", "table");
-  formData.set("_captcha", "false");
-  formData.set("_replyto", lead.email);
-  formData.set("name", lead.fullName);
-  formData.set("email", lead.email);
-  formData.set("phone", lead.phone);
-  formData.set("property_address", lead.address);
-  formData.set("property_use", lead.propertyUse);
-  formData.set("rental_use", lead.rentalUse);
-  formData.set("wind_exposure", lead.windExposure);
-  formData.set("flood_zone", lead.floodZone);
-  formData.set("year_built", lead.yearBuilt);
-  formData.set("roof_age", lead.roofAge);
-  formData.set("selected_review", lead.selectedCoverage);
-  formData.set("dwelling_coverage", lead.coverage);
-  formData.set("wind_deductible", lead.deductible);
-  formData.set("notes", lead.notes);
-  formData.set("source", `https://www.obxncinsurance.com${lead.sourcePath}`);
-  formData.set("submitted_at", lead.submittedAt);
-  formData.set("visitor_ip", request.headers.get("cf-connecting-ip") || "");
-
-  const response = await fetch(`https://formsubmit.co/ajax/${toEmail}`, {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-    },
-    body: formData,
-  });
-
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`FormSubmit delivery failed: ${body.slice(0, 240)}`);
-  }
-};
-
 export async function onRequestPost({ request, env }) {
   let payload;
   try {
@@ -202,8 +164,15 @@ export async function onRequestPost({ request, env }) {
       return json({ ok: true, delivery: "resend" });
     }
 
-    await sendWithFormSubmit({ lead, request, toEmail });
-    return json({ ok: true, delivery: "formsubmit" });
+    return json(
+      {
+        ok: false,
+        fallback: "formsubmit-browser",
+        formSubmitEmail: toEmail,
+        message: "Email delivery needs browser fallback or a configured mail provider.",
+      },
+      424,
+    );
   } catch (error) {
     console.error(error);
     return json(
