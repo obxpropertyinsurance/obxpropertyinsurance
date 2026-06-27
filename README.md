@@ -2,7 +2,7 @@
 
 Consumer-facing website for OBXNCInsurance.com, an Outer Banks property insurance shopping and coverage-check site.
 
-The site helps property owners prepare coastal home details for licensed local agency review across homeowners, wind and hail, flood, second home, condo, landlord, and vacation rental insurance needs.
+The site helps property owners prepare coastal home details for local Outer Banks, NC licensed agent review across homeowners, wind and hail, flood, second home, condo, landlord, and vacation rental insurance needs.
 
 ## Development
 

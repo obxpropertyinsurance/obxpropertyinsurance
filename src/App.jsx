@@ -38,12 +38,12 @@ const steps = [
   {
     icon: SearchCheck,
     label: "Get matched to options",
-    text: "Your details are organized for a local licensed agency to shop carriers.",
+    text: "Your details are organized for a local Outer Banks, NC licensed agent to review.",
   },
   {
     icon: ShieldCheck,
     label: "Choose with local help",
-    text: "A licensed OBX insurance expert reviews your choices before you buy.",
+    text: "A local Outer Banks, NC licensed agent reviews your choices before you buy.",
   },
 ];
 
@@ -71,7 +71,7 @@ const workflow = [
   {
     icon: UserCheck,
     label: "Local agent review",
-    text: "A licensed partner shops and explains the actual insurance options.",
+    text: "Our local Outer Banks, NC licensed agent reviews and explains the actual insurance options.",
   },
 ];
 
@@ -79,7 +79,7 @@ const faqs = [
   {
     question: "Do I get real quotes?",
     answer:
-      "Yes. OBXNCInsurance.com organizes your property details, then a licensed local agency partner reviews eligibility and shops carrier-backed options for you.",
+      "Yes. OBXNCInsurance.com organizes your property details, then our local Outer Banks, NC licensed agent reviews eligibility and shops carrier-backed options when available.",
   },
   {
     question: "Why do you ask about wind, flood, and rental use?",
@@ -89,7 +89,7 @@ const faqs = [
   {
     question: "Who helps me choose a policy?",
     answer:
-      "Insurance advice, quotes, binding, and servicing are handled by licensed agency partners. The guided coverage check helps make the conversation faster and more complete.",
+      "Insurance advice, quotes, binding, and servicing are handled by our local Outer Banks, NC licensed agent. Your details are used only for your OBX insurance request. No spam.",
   },
 ];
 
@@ -183,7 +183,7 @@ const initialChatMessages = [
   {
     role: "assistant",
     text:
-      "Hi, I can help you prepare an Outer Banks property insurance request. Share the basics in the form, and a licensed local agency partner can review homeowners, wind, flood, and rental-use options.",
+      "Hi, I can help you prepare an Outer Banks property insurance request. Share the basics in the form, and our local Outer Banks, NC licensed agent can review homeowners, wind, flood, and rental-use options. No spam, just follow-up about your property request.",
   },
 ];
 
@@ -200,7 +200,7 @@ const getObxGuideReply = (message) => {
   if (text.includes("start") || text.includes("submit") || text.includes("form")) {
     return {
       text:
-        "Absolutely. I will take you to the secure OBX property check. The most helpful details are the property address, how the home is used, rental use, roof age, flood zone, and your contact information.",
+        "Absolutely. I will take you to the secure OBX property check. The most helpful details are the property address, how the home is used, rental use, roof age, flood zone, and your contact information. No spam. Your information is used only for the OBX insurance request.",
       shouldFocusForm: true,
     };
   }
@@ -215,21 +215,21 @@ const getObxGuideReply = (message) => {
   if (text.includes("flood") || text.includes("wind") || text.includes("hail")) {
     return {
       text:
-        "Outer Banks homes often need separate attention for wind and flood. Homeowners coverage may not include flood from rising water or storm surge. A licensed agency partner can review wind deductibles, named storm questions, flood zone details, and NFIP or private flood options when available.",
+        "Outer Banks homes often need separate attention for wind and flood. Homeowners coverage may not include flood from rising water or storm surge. Our local Outer Banks, NC licensed agent can review wind deductibles, named storm questions, flood zone details, and NFIP or private flood options when available.",
     };
   }
 
   if (text.includes("rental") || text.includes("vacation") || text.includes("airbnb")) {
     return {
       text:
-        "Vacation rental use matters in the OBX. Weekly guests, furnished contents, liability, loss of rent, pools, elevators, property managers, and seasonal occupancy can all change what a licensed agency partner needs to review.",
+        "Vacation rental use matters in the OBX. Weekly guests, furnished contents, liability, loss of rent, pools, elevators, property managers, and seasonal occupancy can all change what our local Outer Banks, NC licensed agent needs to review.",
     };
   }
 
   if (text.includes("broker") || text.includes("quote") || text.includes("carrier")) {
     return {
       text:
-        "The website prepares your request for licensed agency review. A licensed Outer Banks insurance expert handles carrier availability, quotes, advice, binding, and policy servicing after your details are submitted.",
+        "The website prepares your request for our local Outer Banks, NC licensed agent. That licensed agent handles carrier availability, quotes, advice, binding, and policy servicing after your details are submitted. No spam or unrelated marketing.",
     };
   }
 
@@ -242,7 +242,7 @@ const getObxGuideReply = (message) => {
 
   return {
     text:
-      "That is a good question for an OBX property review. The safest next step is to submit the property details so a licensed local agency partner can look at the address, home use, wind exposure, flood zone, and rental details together.",
+      "That is a good question for an OBX property review. The safest next step is to submit the property details so our local Outer Banks, NC licensed agent can review the address, home use, wind exposure, flood zone, and rental details together.",
   };
 };
 
@@ -338,7 +338,7 @@ function App() {
         .querySelector('meta[name="description"]')
         ?.setAttribute(
           "content",
-          "Compare Outer Banks, NC property insurance for homes, wind and hail, flood, second homes, vacation rentals, and licensed local agency review.",
+          "Compare Outer Banks, NC property insurance for homes, wind and hail, flood, second homes, vacation rentals, and local Outer Banks, NC licensed agent review.",
         );
       document
         .querySelector('link[rel="canonical"]')
@@ -434,7 +434,7 @@ function App() {
       setQuoteStarted(true);
       setLeadStatus({
         state: "success",
-        message: "Your request has been submitted for local agency review.",
+        message: "Your request has been submitted for local Outer Banks, NC licensed agent review.",
       });
       setConfirmationLead({
         address: quoteForm.address,
@@ -542,12 +542,12 @@ function App() {
             <div className="broker-note">
               <ShieldCheck size={34} aria-hidden="true" />
               <div>
-                <strong>Reviewed by licensed local agency partners</strong>
+                <strong>Reviewed by our local Outer Banks, NC licensed agent</strong>
                 <span>Built for OBX homes, second homes, and vacation rentals.</span>
               </div>
             </div>
             <p className="legal-line">
-              Quotes, advice, and policy placement are provided by licensed agency partners.
+              Quotes, advice, and policy placement are provided by our local Outer Banks, NC licensed agent. No spam.
             </p>
           </div>
 
@@ -671,7 +671,7 @@ function App() {
             <p>
               Outer Banks insurance can involve homeowners coverage, wind and hail,
               flood, and rental-use questions. We help collect the right details
-              before a licensed local agency shops your options.
+              before our local Outer Banks, NC licensed agent shops your options.
             </p>
 
             <div className="workflow-chain">
@@ -692,10 +692,10 @@ function App() {
             <div className="accountability-note">
               <ShieldCheck size={34} aria-hidden="true" />
               <div>
-                <strong>A licensed agency partner reviews your options.</strong>
+                <strong>A local Outer Banks, NC licensed agent reviews your options.</strong>
                 <span>
-                  We make the first step smarter. Licensed professionals handle quotes,
-                  advice, binding, and policy servicing.
+                  They will work to find you the best possible quote options available
+                  for your property and guide you through your policy needs.
                 </span>
               </div>
             </div>
@@ -769,7 +769,7 @@ function App() {
             <p>
               Outer Banks property insurance often involves homeowners coverage,
               wind and hail, flood, and rental-use questions. OBXNCInsurance.com
-              helps organize those details for review by a licensed local agency partner.
+              helps organize those details for review by a local Outer Banks, NC licensed agent.
             </p>
           </div>
           <div className="need-grid">
@@ -795,7 +795,7 @@ function App() {
             <p>
               From Carova and Corolla down through Hatteras Island and Ocracoke,
               coastal insurance can change block by block. We help you prepare
-              the details a licensed local agency partner needs for homeowners,
+              the details a local Outer Banks, NC licensed agent needs for homeowners,
               wind and hail, flood, vacation rental, second home, condo, landlord,
               and liability conversations.
             </p>
@@ -821,7 +821,7 @@ function App() {
               Every OBX home sits in a slightly different coastal setting. Dunes,
               soundside water, rental use, roof age, flood zone, and wind exposure
               can all matter. Start with your town or property address and we will
-              help prepare the details for a licensed local insurance expert.
+              help prepare the details for a local Outer Banks, NC licensed agent.
             </p>
           </div>
           <div className="local-image-grid">
@@ -865,7 +865,7 @@ function App() {
             <h2 id="seo-links-title">Popular OBX insurance searches</h2>
             <p>
               Explore dedicated pages for the local property insurance questions
-              Outer Banks owners search before they talk with a licensed agency.
+              Outer Banks owners search before they talk with a licensed Outer Banks, NC agent.
             </p>
           </div>
           <div className="seo-link-grid">
@@ -904,7 +904,7 @@ function App() {
           <h2 id="quote-title">Check your OBX property</h2>
           <p className="quote-cta-intro">
             Send your property details to OBXNCInsurance.com. We will prepare the
-            request for review by a licensed Outer Banks insurance expert.
+            request for review by a local Outer Banks, NC licensed agent.
           </p>
           <form className="quote-form quote-review-form" onSubmit={startQuote}>
             <label className="honeypot-field" aria-hidden="true">
@@ -1033,7 +1033,7 @@ function App() {
             <Lock size={18} aria-hidden="true" />
             {quoteStarted
               ? `Your OBX property check was submitted${quoteForm.address ? ` for ${quoteForm.address}` : ""}.`
-              : "Your information is encrypted and shared only for insurance review."}
+              : "No spam. Your information is shared only for your OBX insurance review."}
           </p>
           {quoteStarted && (
             <div className="quote-summary" aria-live="polite">
@@ -1072,9 +1072,9 @@ function App() {
         </nav>
         <p>
           OBXNCInsurance.com helps Outer Banks property owners prepare a coverage
-          request for licensed local agency review. Quotes, advice, binding, and
-          service are provided by licensed agency partners. Options vary by
-          property and carrier.
+          request for local Outer Banks, NC licensed agent review. Quotes, advice, binding, and
+          service are provided by our local Outer Banks, NC licensed agent.
+          No spam or unrelated marketing. Options vary by property and carrier.
         </p>
       </footer>
     </div>
@@ -1096,7 +1096,7 @@ function CoverageConsole({
       <div className="console-topline">
         <div>
           <strong>Your OBX coverage check</strong>
-          <span>Adjust the basics before local agency review.</span>
+          <span>Adjust the basics before local Outer Banks, NC licensed agent review.</span>
         </div>
         <span className="secure-session">
           <Lock size={14} aria-hidden="true" />
@@ -1167,7 +1167,7 @@ function CoverageConsole({
         <span>Ready for a licensed OBX insurance review.</span>
         <button type="button" onClick={onContinue}>Save & continue</button>
       </div>
-      <p>No policy is quoted or placed until a licensed agency partner reviews eligibility.</p>
+      <p>No policy is quoted or placed until our local Outer Banks, NC licensed agent reviews eligibility.</p>
     </aside>
   );
 }
@@ -1191,14 +1191,14 @@ function LeadConfirmationModal({ lead, onClose, onStartAnother }) {
         <p>
           Thanks{lead.name ? `, ${lead.name}` : ""}. We received the details
           {lead.address ? ` for ${lead.address}` : ""} and will prepare them for
-          review by a licensed Outer Banks insurance expert.
+          review by a local Outer Banks, NC licensed agent.
         </p>
         <div className="confirmation-next">
           <strong>What happens next</strong>
           <ul>
-            <li>Your request is sent to the OBXNCInsurance.com lead inbox.</li>
-            <li>A licensed agency partner can review the property details.</li>
-            <li>They may follow up for items like an elevation certificate, closing date, or current policy.</li>
+            <li>Your request is sent to OBXNCInsurance.com.</li>
+            <li>A local Outer Banks, NC licensed agent can review the property details.</li>
+            <li>No spam. Follow-up is only about your OBX insurance request, such as an elevation certificate, closing date, or current policy.</li>
           </ul>
         </div>
         <div className="confirmation-actions">
@@ -1259,7 +1259,7 @@ function ObxGuideChat({ onStartCheck }) {
             </span>
             <div>
               <strong>OBX coverage guide</strong>
-              <small>Helpful prep before licensed agency review</small>
+              <small>Helpful prep before local Outer Banks, NC licensed agent review</small>
             </div>
             <button type="button" onClick={() => setIsOpen(false)} aria-label="Close chat">
               <X size={18} aria-hidden="true" />
@@ -1297,7 +1297,7 @@ function ObxGuideChat({ onStartCheck }) {
             </button>
           </form>
           <p className="chat-disclaimer">
-            This guide helps organize your request. Quotes, advice, binding, and servicing come from licensed agency partners.
+            Your details go only to OBXNCInsurance.com and our local Outer Banks, NC licensed agent. No spam. Quotes, advice, binding, and servicing come from that licensed agent.
           </p>
         </section>
       )}
@@ -1384,9 +1384,9 @@ function SiteFooter() {
       </nav>
       <p>
         OBXNCInsurance.com helps Outer Banks property owners prepare a coverage
-        request for licensed local agency review. Quotes, advice, binding, and
-        service are provided by licensed agency partners. Options vary by
-        property and carrier.
+        request for local Outer Banks, NC licensed agent review. Quotes, advice, binding, and
+        service are provided by our local Outer Banks, NC licensed agent.
+        No spam or unrelated marketing. Options vary by property and carrier.
       </p>
     </footer>
   );
@@ -1453,7 +1453,7 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
           <p>
             People often look for {page.keywords.join(", ")}. This page helps
             Outer Banks, North Carolina property owners start with clear details
-            before a licensed agency partner reviews available options.
+            before our local Outer Banks, NC licensed agent reviews available options.
           </p>
         </section>
 

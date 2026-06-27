@@ -79,7 +79,7 @@ const formatTextEmail = (lead, request) => {
     .map(([label, value]) => `${label}: ${value}`)
     .join("\n");
 
-  return `New OBXNCInsurance.com lead\n\n${rows}\n\nReply directly to this email to contact the visitor. Quotes, advice, binding, and servicing should be handled by a licensed agency partner.`;
+  return `New OBXNCInsurance.com lead\n\n${rows}\n\nReply directly to this email to contact the visitor. Quotes, advice, binding, and servicing should be handled by a local Outer Banks, NC licensed agent. Do not add the visitor to spam or unrelated marketing.`;
 };
 
 const formatHtmlEmail = (lead, request) => {
@@ -101,7 +101,7 @@ const formatHtmlEmail = (lead, request) => {
     <h1 style="font-size:22px;margin:0 0 12px;">New OBXNCInsurance.com lead</h1>
     <p style="margin:0 0 18px;color:#5c6980;">A visitor submitted an Outer Banks property insurance check.</p>
     <table style="border-collapse:collapse;width:100%;max-width:720px;border:1px solid #dde8f1;">${rows}</table>
-    <p style="margin-top:18px;color:#5c6980;font-size:13px;">Reply directly to this email to contact the visitor. Quotes, advice, binding, and servicing should be handled by a licensed agency partner.</p>
+    <p style="margin-top:18px;color:#5c6980;font-size:13px;">Reply directly to this email to contact the visitor. Quotes, advice, binding, and servicing should be handled by a local Outer Banks, NC licensed agent. Do not add the visitor to spam or unrelated marketing.</p>
   </body>
 </html>`;
 };

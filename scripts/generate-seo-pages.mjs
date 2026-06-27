@@ -35,7 +35,7 @@ const updateMeta = (html, page) => {
         "@type": "Service",
         "@id": `${canonical}#service`,
         name: page.eyebrow,
-        serviceType: "Property insurance shopping and licensed agency review",
+        serviceType: "Property insurance shopping and local Outer Banks, NC licensed agent review",
         areaServed: "Outer Banks, North Carolina",
         description: page.description,
         image: page.image.url,
@@ -134,7 +134,7 @@ const renderStaticBody = (page) => `
           .join("")}
         <section>
           <h2>Insurance help for this area</h2>
-          <p>People often look for ${escapeHtml(page.keywords.join(", "))}. This page helps Outer Banks, North Carolina property owners start with clear details before a licensed agency partner reviews available options.</p>
+          <p>People often look for ${escapeHtml(page.keywords.join(", "))}. This page helps Outer Banks, North Carolina property owners start with clear details before a local Outer Banks, NC licensed agent reviews available options.</p>
         </section>
         <section>
           <h2>Questions about ${escapeHtml(page.eyebrow)}</h2>
