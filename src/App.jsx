@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
+  Bot,
   Check,
   CheckCircle2,
   ChevronDown,
@@ -9,7 +10,9 @@ import {
   Lock,
   MapPin,
   Menu,
+  MessageCircle,
   SearchCheck,
+  Send,
   ShieldCheck,
   SlidersHorizontal,
   Umbrella,
@@ -174,6 +177,75 @@ const serviceAreas = [
   { name: "Ocracoke", slug: "ocracoke-home-insurance" },
 ];
 
+const leadRecipientEmail = "obxpropertyinsurance@proton.me";
+
+const initialChatMessages = [
+  {
+    role: "assistant",
+    text:
+      "Hi, I can help you prepare an Outer Banks property insurance request. Share the basics in the form, and a licensed local agency partner can review homeowners, wind, flood, and rental-use options.",
+  },
+];
+
+const chatQuickActions = [
+  "Start my property check",
+  "What details do I need?",
+  "Wind and flood questions",
+  "Vacation rental help",
+];
+
+const getObxGuideReply = (message) => {
+  const text = message.toLowerCase();
+
+  if (text.includes("start") || text.includes("submit") || text.includes("form")) {
+    return {
+      text:
+        "Absolutely. I will take you to the secure OBX property check. The most helpful details are the property address, how the home is used, rental use, roof age, flood zone, and your contact information.",
+      shouldFocusForm: true,
+    };
+  }
+
+  if (text.includes("detail") || text.includes("need") || text.includes("prepare")) {
+    return {
+      text:
+        "A strong OBX insurance request usually includes the exact address, occupancy, weekly or seasonal rental use, year built, roof age, wind exposure, flood zone, elevation certificate status, current carrier, and closing or renewal timing.",
+    };
+  }
+
+  if (text.includes("flood") || text.includes("wind") || text.includes("hail")) {
+    return {
+      text:
+        "Outer Banks homes often need separate attention for wind and flood. Homeowners coverage may not include flood from rising water or storm surge. A licensed agency partner can review wind deductibles, named storm questions, flood zone details, and NFIP or private flood options when available.",
+    };
+  }
+
+  if (text.includes("rental") || text.includes("vacation") || text.includes("airbnb")) {
+    return {
+      text:
+        "Vacation rental use matters in the OBX. Weekly guests, furnished contents, liability, loss of rent, pools, elevators, property managers, and seasonal occupancy can all change what a licensed agency partner needs to review.",
+    };
+  }
+
+  if (text.includes("broker") || text.includes("quote") || text.includes("carrier")) {
+    return {
+      text:
+        "The website prepares your request for licensed agency review. A licensed Outer Banks insurance expert handles carrier availability, quotes, advice, binding, and policy servicing after your details are submitted.",
+    };
+  }
+
+  if (text.includes("town") || text.includes("nags") || text.includes("corolla") || text.includes("duck") || text.includes("hatteras")) {
+    return {
+      text:
+        "Location matters across the Outer Banks. Corolla, Duck, Southern Shores, Kitty Hawk, Kill Devil Hills, Nags Head, Manteo, Hatteras Island, and Ocracoke can all raise different questions around wind exposure, flood zone, rental use, and access.",
+    };
+  }
+
+  return {
+    text:
+      "That is a good question for an OBX property review. The safest next step is to submit the property details so a licensed local agency partner can look at the address, home use, wind exposure, flood zone, and rental details together.",
+  };
+};
+
 function Logo() {
   return (
     <a className="logo" href="#top" aria-label="OBXNCInsurance.com home">
@@ -195,6 +267,8 @@ function App() {
   const [selectedOption, setSelectedOption] = useState("Homeowners + wind review");
   const [openFaq, setOpenFaq] = useState(0);
   const [quoteStarted, setQuoteStarted] = useState(false);
+  const [leadStatus, setLeadStatus] = useState({ state: "idle", message: "" });
+  const [confirmationLead, setConfirmationLead] = useState(null);
   const [quoteForm, setQuoteForm] = useState({
     address: "",
     propertyUse: "Second home",
@@ -207,6 +281,7 @@ function App() {
     yearBuilt: "",
     roofAge: "",
     notes: "",
+    companyWebsite: "",
   });
   const activeSeoPage = getSeoPageByPath(window.location.pathname);
 
@@ -264,17 +339,63 @@ function App() {
     setQuoteStarted(false);
   };
 
-  const startQuote = (event) => {
+  const continueToQuoteForm = (event) => {
     event.preventDefault();
+    focusQuoteForm();
+  };
+
+  const startQuote = async (event) => {
+    event.preventDefault();
+    if (!event.currentTarget.reportValidity()) {
+      return;
+    }
+
     const leadPayload = {
       ...quoteForm,
       coverage,
       deductible,
       selectedCoverage: selectedOption,
+      sourcePath: window.location.pathname,
       submittedAt: new Date().toISOString(),
     };
-    window.localStorage.setItem("obxncinsurance:lastLead", JSON.stringify(leadPayload));
-    setQuoteStarted(true);
+
+    setLeadStatus({ state: "submitting", message: "Sending your OBX property check..." });
+
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(leadPayload),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message || "Your request could not be sent.");
+      }
+
+      window.localStorage.setItem("obxncinsurance:lastLead", JSON.stringify(leadPayload));
+      setQuoteStarted(true);
+      setLeadStatus({
+        state: "success",
+        message: "Your request has been submitted for local agency review.",
+      });
+      setConfirmationLead({
+        address: quoteForm.address,
+        name: quoteForm.fullName,
+        delivery: result.delivery || "email",
+      });
+    } catch (error) {
+      setQuoteStarted(false);
+      setLeadStatus({
+        state: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Your request could not be sent. Please try again or email us directly.",
+      });
+    }
   };
 
   const focusQuoteForm = () => {
@@ -377,7 +498,7 @@ function App() {
 
           <div className="hero-visual" aria-label="OBX property insurance check preview">
             <img src={homeImage} alt="Outer Banks beach house elevated on pilings near dunes" />
-            <form className="hero-quote-panel" onSubmit={startQuote}>
+            <form className="hero-quote-panel" onSubmit={continueToQuoteForm}>
               <div className="panel-step">
                 <span>1.</span>
                 <strong>Where is the property?</strong>
@@ -464,7 +585,7 @@ function App() {
                 ))}
               </div>
               <button className="view-options" type="submit">
-                Start your OBX check <ArrowRight size={15} aria-hidden="true" />
+                Continue to secure form <ArrowRight size={15} aria-hidden="true" />
               </button>
             </form>
           </div>
@@ -726,7 +847,20 @@ function App() {
 
         <section id="quote" className="quote-cta-section" aria-labelledby="quote-title">
           <h2 id="quote-title">Check your OBX property</h2>
+          <p className="quote-cta-intro">
+            Send your property details to OBXNCInsurance.com. We will prepare the
+            request for review by a licensed Outer Banks insurance expert.
+          </p>
           <form className="quote-form quote-review-form" onSubmit={startQuote}>
+            <label className="honeypot-field" aria-hidden="true">
+              Company website
+              <input
+                name="companyWebsite"
+                tabIndex={-1}
+                autoComplete="off"
+                onChange={updateQuoteField("companyWebsite")}
+              />
+            </label>
             <label className="sr-only" htmlFor="property-address">
               Enter your Outer Banks property address
             </label>
@@ -738,6 +872,7 @@ function App() {
                 onChange={updateQuoteField("address")}
                 placeholder="OBX property address"
                 autoComplete="street-address"
+                required
               />
             </div>
             <div className="quote-field-grid">
@@ -748,6 +883,7 @@ function App() {
                   onChange={updateQuoteField("fullName")}
                   placeholder="Your name"
                   autoComplete="name"
+                  required
                 />
               </label>
               <label>
@@ -758,6 +894,7 @@ function App() {
                   onChange={updateQuoteField("email")}
                   placeholder="you@example.com"
                   autoComplete="email"
+                  required
                 />
               </label>
               <label>
@@ -768,6 +905,7 @@ function App() {
                   onChange={updateQuoteField("phone")}
                   placeholder="(252) 555-0199"
                   autoComplete="tel"
+                  required
                 />
               </label>
               <label>
@@ -825,15 +963,21 @@ function App() {
                 />
               </label>
             </div>
-            <button className="primary-button" type="submit">
-              Start my OBX check
+            {leadStatus.state === "error" && (
+              <p className="form-error" role="alert">
+                {leadStatus.message} You can also email{" "}
+                <a href={`mailto:${leadRecipientEmail}`}>{leadRecipientEmail}</a>.
+              </p>
+            )}
+            <button className="primary-button" type="submit" disabled={leadStatus.state === "submitting"}>
+              {leadStatus.state === "submitting" ? "Sending your OBX check..." : "Send my OBX check"}
               <ArrowRight size={20} aria-hidden="true" />
             </button>
           </form>
           <p className={quoteStarted ? "secure-note success" : "secure-note"}>
             <Lock size={18} aria-hidden="true" />
             {quoteStarted
-              ? `Your OBX property check is ready${quoteForm.address ? ` for ${quoteForm.address}` : ""}.`
+              ? `Your OBX property check was submitted${quoteForm.address ? ` for ${quoteForm.address}` : ""}.`
               : "Your information is encrypted and shared only for insurance review."}
           </p>
           {quoteStarted && (
@@ -847,6 +991,19 @@ function App() {
           )}
         </section>
       </main>
+
+      <ObxGuideChat onStartCheck={focusQuoteForm} />
+
+      {confirmationLead && (
+        <LeadConfirmationModal
+          lead={confirmationLead}
+          onClose={() => setConfirmationLead(null)}
+          onStartAnother={() => {
+            setConfirmationLead(null);
+            focusQuoteForm();
+          }}
+        />
+      )}
 
       <footer className="site-footer">
         <Logo />
@@ -960,6 +1117,150 @@ function CoverageConsole({
   );
 }
 
+function LeadConfirmationModal({ lead, onClose, onStartAnother }) {
+  return (
+    <div className="confirmation-overlay" role="presentation">
+      <section
+        className="confirmation-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="confirmation-title"
+      >
+        <button className="modal-close" type="button" onClick={onClose} aria-label="Close confirmation">
+          <X size={20} aria-hidden="true" />
+        </button>
+        <span className="confirmation-icon">
+          <CheckCircle2 size={32} aria-hidden="true" />
+        </span>
+        <h2 id="confirmation-title">Your OBX property check is on its way</h2>
+        <p>
+          Thanks{lead.name ? `, ${lead.name}` : ""}. We received the details
+          {lead.address ? ` for ${lead.address}` : ""} and will prepare them for
+          review by a licensed Outer Banks insurance expert.
+        </p>
+        <div className="confirmation-next">
+          <strong>What happens next</strong>
+          <ul>
+            <li>Your request is sent to the OBXNCInsurance.com lead inbox.</li>
+            <li>A licensed agency partner can review the property details.</li>
+            <li>They may follow up for items like an elevation certificate, closing date, or current policy.</li>
+          </ul>
+        </div>
+        <div className="confirmation-actions">
+          <button className="primary-button" type="button" onClick={onClose}>
+            Done
+          </button>
+          <button className="secondary-button" type="button" onClick={onStartAnother}>
+            Add another property
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ObxGuideChat({ onStartCheck }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [draft, setDraft] = useState("");
+  const [messages, setMessages] = useState(initialChatMessages);
+  const messageListRef = useRef(null);
+
+  useEffect(() => {
+    messageListRef.current?.scrollTo({
+      top: messageListRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages, isOpen]);
+
+  const addMessage = (message) => {
+    const trimmed = message.trim();
+    if (!trimmed) return;
+
+    const reply = getObxGuideReply(trimmed);
+    setMessages((current) => [
+      ...current,
+      { role: "user", text: trimmed },
+      { role: "assistant", text: reply.text },
+    ]);
+    setDraft("");
+
+    if (reply.shouldFocusForm) {
+      window.setTimeout(onStartCheck, 280);
+    }
+  };
+
+  const submitChat = (event) => {
+    event.preventDefault();
+    addMessage(draft);
+  };
+
+  return (
+    <div className={isOpen ? "obx-chat open" : "obx-chat"}>
+      {isOpen && (
+        <section className="chat-panel" aria-label="OBX insurance guide chat">
+          <div className="chat-header">
+            <span>
+              <Bot size={20} aria-hidden="true" />
+            </span>
+            <div>
+              <strong>OBX coverage guide</strong>
+              <small>Helpful prep before licensed agency review</small>
+            </div>
+            <button type="button" onClick={() => setIsOpen(false)} aria-label="Close chat">
+              <X size={18} aria-hidden="true" />
+            </button>
+          </div>
+
+          <div className="chat-messages" ref={messageListRef} aria-live="polite">
+            {messages.map((message, index) => (
+              <p className={`chat-message ${message.role}`} key={`${message.role}-${index}`}>
+                {message.text}
+              </p>
+            ))}
+          </div>
+
+          <div className="chat-quick-actions" aria-label="Suggested chat questions">
+            {chatQuickActions.map((action) => (
+              <button type="button" key={action} onClick={() => addMessage(action)}>
+                {action}
+              </button>
+            ))}
+          </div>
+
+          <form className="chat-form" onSubmit={submitChat}>
+            <label className="sr-only" htmlFor="obx-chat-input">
+              Ask the OBX coverage guide
+            </label>
+            <input
+              id="obx-chat-input"
+              value={draft}
+              onChange={(event) => setDraft(event.target.value)}
+              placeholder="Ask about wind, flood, rentals..."
+            />
+            <button type="submit" aria-label="Send chat message">
+              <Send size={18} aria-hidden="true" />
+            </button>
+          </form>
+          <p className="chat-disclaimer">
+            This guide helps organize your request. Quotes, advice, binding, and servicing come from licensed agency partners.
+          </p>
+        </section>
+      )}
+
+      <button
+        className="chat-launcher"
+        type="button"
+        onClick={() => setIsOpen((value) => !value)}
+        aria-expanded={isOpen}
+        aria-label={isOpen ? "Close OBX coverage guide" : "Open OBX coverage guide"}
+      >
+        {isOpen ? <X size={22} aria-hidden="true" /> : <MessageCircle size={24} aria-hidden="true" />}
+        <span>{isOpen ? "Close" : "Need help?"}</span>
+      </button>
+    </div>
+  );
+}
+
 function SiteHeader({ mobileNavOpen, setMobileNavOpen }) {
   return (
     <>
@@ -1037,6 +1338,10 @@ function SiteFooter() {
 }
 
 function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
+  const goToQuoteForm = () => {
+    window.location.href = "/#quote";
+  };
+
   return (
     <div id="top" className="site-shell">
       <SiteHeader mobileNavOpen={mobileNavOpen} setMobileNavOpen={setMobileNavOpen} />
@@ -1125,6 +1430,7 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
         </section>
       </main>
       <SiteFooter />
+      <ObxGuideChat onStartCheck={goToQuoteForm} />
     </div>
   );
 }

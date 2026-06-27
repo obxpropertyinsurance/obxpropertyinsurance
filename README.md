@@ -31,7 +31,7 @@ Production branch: main
 Custom domain: www.obxncinsurance.com
 ```
 
-This repository also includes a GitHub Pages workflow in `.github/workflows/deploy.yml`.
+This repository includes a GitHub Actions build check in `.github/workflows/deploy.yml`.
 
 The custom domain is:
 
@@ -39,4 +39,35 @@ The custom domain is:
 www.obxncinsurance.com
 ```
 
-The `public/CNAME` file ensures GitHub Pages publishes the custom domain if that fallback is used.
+The `public/CNAME` file documents the custom domain for static hosting compatibility.
+
+## Lead Form Delivery
+
+The consumer quote form posts to the Cloudflare Pages Function at:
+
+```text
+/api/lead
+```
+
+By default, leads are sent to:
+
+```text
+obxpropertyinsurance@proton.me
+```
+
+For the fastest no-secret setup, the function falls back to FormSubmit. The first live test can trigger a FormSubmit activation email to the Proton inbox. Click that activation link so future form submissions can be delivered.
+
+For the recommended production setup, add a Resend API key to Cloudflare Pages and verify a sending address such as `leads@obxncinsurance.com`.
+
+```bash
+npx wrangler pages secret put RESEND_API_KEY --project-name obxncinsurance
+npx wrangler pages secret put LEAD_TO_EMAIL --project-name obxncinsurance
+npx wrangler pages secret put LEAD_FROM_EMAIL --project-name obxncinsurance
+```
+
+Suggested values:
+
+```text
+LEAD_TO_EMAIL=obxpropertyinsurance@proton.me
+LEAD_FROM_EMAIL=OBXNCInsurance.com <leads@obxncinsurance.com>
+```
