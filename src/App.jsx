@@ -1,16 +1,24 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
+  BadgeCheck,
+  BellRing,
   Bot,
+  BookOpenCheck,
   Check,
   CheckCircle2,
   ChevronDown,
   ClipboardCheck,
+  Clock3,
+  FileCheck2,
   Home,
+  Layers3,
+  ListChecks,
   Lock,
   MapPin,
   Menu,
   MessageCircle,
+  PhoneCall,
   SearchCheck,
   Send,
   ShieldCheck,
@@ -131,6 +139,79 @@ const insuranceNeeds = [
     icon: Umbrella,
     title: "OBX vacation rental insurance",
     text: "For weekly rentals, second homes, and properties with seasonal guests or rental income.",
+  },
+];
+
+const trustSignals = [
+  {
+    icon: BadgeCheck,
+    title: "Free OBX property check",
+    text: "Start with clear guidance before you choose a policy path.",
+  },
+  {
+    icon: PhoneCall,
+    title: "Quick local expert call",
+    text: "Your details help keep the first agent conversation focused.",
+  },
+  {
+    icon: Layers3,
+    title: "Home + wind + flood",
+    text: "The coastal questions are reviewed together, not in isolation.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "No spam. No pressure.",
+    text: "Your information is used only for your OBX insurance request.",
+  },
+];
+
+const coverageLayers = [
+  {
+    icon: Home,
+    title: "Homeowners / hazard",
+    text: "Structure, belongings, liability, occupancy, roof age, updates, and replacement-cost questions.",
+  },
+  {
+    icon: Wind,
+    title: "Wind and hail",
+    text: "Coastal exposure, roof details, openings, named storm questions, and deductible comfort.",
+  },
+  {
+    icon: Waves,
+    title: "Flood",
+    text: "Flood zone, elevation certificate status, lender timing, NFIP, and private flood paths when available.",
+  },
+];
+
+const prepChecklist = [
+  "Property address",
+  "Primary, second home, or rental use",
+  "Roof age and major updates",
+  "Flood zone or elevation certificate",
+  "Current carrier and renewal date",
+  "Closing date or coverage-needed date",
+];
+
+const alertCards = [
+  {
+    icon: Clock3,
+    title: "Buying soon",
+    text: "Start before the closing date gets tight. Wind and flood details can take extra follow-up.",
+  },
+  {
+    icon: FileCheck2,
+    title: "Renewal coming up",
+    text: "Share your current carrier, expiration date, roof age, and deductible comfort for a cleaner review.",
+  },
+  {
+    icon: Waves,
+    title: "Flood zone unsure",
+    text: "Tell us what you know. A local expert can help identify what documents may matter next.",
+  },
+  {
+    icon: Umbrella,
+    title: "Vacation rental",
+    text: "Weekly guests, pools, elevators, rental income, and liability questions deserve early attention.",
   },
 ];
 
@@ -377,7 +458,7 @@ function App() {
         .querySelector('meta[name="description"]')
         ?.setAttribute(
           "content",
-          "Compare Outer Banks, NC property insurance for homes, wind and hail, flood, second homes, vacation rentals, and local Outer Banks, NC licensed agent review.",
+          "Start a free OBX property insurance check for Outer Banks homes, wind and hail, flood, second homes, rentals, and local licensed agent review.",
         );
       document
         .querySelector('link[rel="canonical"]')
@@ -591,9 +672,10 @@ function App() {
           <div className="hero-copy">
             <h1 id="hero-title">Find Outer Banks property insurance for your coastal home</h1>
             <p>
-              Tell us about your Outer Banks property, and we'll prepare the details
-              a licensed Outer Banks insurance expert needs to review homeowners,
-              wind, flood, and rental coverage options.
+              Start with a free, trusted OBX property check. Tell us about your
+              Outer Banks property, and we'll prepare the details a licensed
+              Outer Banks insurance expert needs to review homeowners, wind,
+              flood, and rental coverage options.
             </p>
 
             <div className="hero-actions">
@@ -711,6 +793,112 @@ function App() {
                 Continue to secure form <ArrowRight size={15} aria-hidden="true" />
               </button>
             </form>
+          </div>
+        </section>
+
+        <section className="trust-signal-strip" aria-label="OBXNCInsurance.com trust promises">
+          {trustSignals.map((signal) => {
+            const Icon = signal.icon;
+            return (
+              <article key={signal.title}>
+                <Icon size={22} aria-hidden="true" />
+                <div>
+                  <strong>{signal.title}</strong>
+                  <span>{signal.text}</span>
+                </div>
+              </article>
+            );
+          })}
+        </section>
+
+        <section className="intelligence-section" aria-labelledby="intelligence-title">
+          <div className="intelligence-copy">
+            <span>Free Outer Banks insurance intelligence</span>
+            <h2 id="intelligence-title">
+              OBX home insurance is confusing. We make the first step clear and free.
+            </h2>
+            <p>
+              Older local agencies can point to decades of history. OBXNCInsurance.com
+              is built to be the free, trusted starting point homeowners use before
+              the first call, with plain-language guidance around the coastal details
+              that actually shape the review.
+            </p>
+            <div className="quick-call-promise">
+              <PhoneCall size={32} aria-hidden="true" />
+              <div>
+                <strong>Prepared for a quick, focused agent call</strong>
+                <span>
+                  Your address, timing, wind, flood, roof, and rental details help
+                  a local Outer Banks, NC licensed agent get to the right questions faster.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="coverage-map-panel" aria-label="Three layers of OBX insurance review">
+            <div className="coverage-map-topline">
+              <Layers3 size={24} aria-hidden="true" />
+              <strong>The OBX 3-layer coverage map</strong>
+            </div>
+            <div className="coverage-layer-list">
+              {coverageLayers.map((layer, index) => {
+                const Icon = layer.icon;
+                return (
+                  <article key={layer.title}>
+                    <span className="layer-number">{index + 1}</span>
+                    <Icon size={26} aria-hidden="true" />
+                    <div>
+                      <h3>{layer.title}</h3>
+                      <p>{layer.text}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="homeowner-toolkit-section" aria-labelledby="toolkit-title">
+          <div className="toolkit-card">
+            <div>
+              <ListChecks size={31} aria-hidden="true" />
+              <h2 id="toolkit-title">Free OBX insurance prep checklist</h2>
+              <p>
+                The best first call is not a sales pitch. It is a clear review of
+                the property facts a local insurance expert needs to understand.
+              </p>
+            </div>
+            <ul>
+              {prepChecklist.map((item) => (
+                <li key={item}>
+                  <CheckCircle2 size={18} aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a className="primary-button" href="#quote">
+              Start with this checklist
+              <ArrowRight size={19} aria-hidden="true" />
+            </a>
+          </div>
+
+          <div className="trust-ledger">
+            <article>
+              <BookOpenCheck size={30} aria-hidden="true" />
+              <h3>Helpful even before the form</h3>
+              <p>
+                Town pages, wind notes, flood notes, and rental guidance are written
+                to help homeowners understand what matters before they submit anything.
+              </p>
+            </article>
+            <article>
+              <BellRing size={30} aria-hidden="true" />
+              <h3>Built around urgent OBX moments</h3>
+              <p>
+                Buying, renewing, replacing coverage, or reviewing a rental home each
+                creates a different first-call priority.
+              </p>
+            </article>
           </div>
         </section>
 
@@ -850,6 +1038,30 @@ function App() {
                   </span>
                   <h3>{need.title}</h3>
                   <p>{need.text}</p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="alert-center-section" aria-labelledby="alert-center-title">
+          <div className="alert-center-copy">
+            <span>OBX homeowner alert center</span>
+            <h2 id="alert-center-title">Clear next steps for the moments that make insurance urgent</h2>
+            <p>
+              Outer Banks owners often need help when timing is tight. These quick
+              paths help homeowners, buyers, and rental owners understand what a
+              local expert may need first.
+            </p>
+          </div>
+          <div className="alert-card-grid">
+            {alertCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <article key={card.title}>
+                  <Icon size={27} aria-hidden="true" />
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
                 </article>
               );
             })}
