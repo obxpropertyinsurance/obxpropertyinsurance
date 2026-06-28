@@ -14,6 +14,8 @@ const escapeHtml = (value) =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
 
+const quoteHrefForPage = (page) => `/?review=${encodeURIComponent(page.slug)}#quote`;
+
 const updateMeta = (html, page) => {
   const canonical = `${siteUrl}/${page.slug}/`;
   const schema = {
@@ -117,7 +119,7 @@ const renderStaticBody = (page) => `
             <img src="${escapeHtml(page.image.url)}" alt="${escapeHtml(page.image.alt)}" />
             <figcaption>${escapeHtml(page.image.caption)}</figcaption>
           </figure>
-          <a href="/#quote">Start my OBX check</a>
+          <a href="${quoteHrefForPage(page)}">Start my OBX check</a>
         </section>
         <section>
           <h2>${escapeHtml(page.intent)}</h2>
@@ -132,6 +134,16 @@ const renderStaticBody = (page) => `
         </section>`,
           )
           .join("")}
+        ${
+          page.localInsights.length
+            ? `<section>
+          <h2>What matters for ${escapeHtml(page.eyebrow)}</h2>
+          <p>A local Outer Banks review starts with the practical details that can change follow-up, timing, and available paths for this property.</p>
+          <ul>${page.localInsights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+          <a href="${quoteHrefForPage(page)}">Start this review</a>
+        </section>`
+            : ""
+        }
         <section>
           <h2>Insurance help for this area</h2>
           <p>People often look for ${escapeHtml(page.keywords.join(", "))}. This page helps Outer Banks, North Carolina property owners start with clear details before a local Outer Banks, NC licensed agent reviews available options.</p>

@@ -29,6 +29,13 @@ const normalizeLead = (payload) => ({
   fullName: clean(payload.fullName),
   email: clean(payload.email).toLowerCase(),
   phone: clean(payload.phone),
+  searchIntent: clean(payload.searchIntent),
+  landingPageTitle: clean(payload.landingPageTitle),
+  leadGoal: clean(payload.leadGoal),
+  coverageNeededBy: clean(payload.coverageNeededBy),
+  currentCarrier: clean(payload.currentCarrier),
+  policyExpiration: clean(payload.policyExpiration),
+  elevationCertificate: clean(payload.elevationCertificate),
   propertyUse: clean(payload.propertyUse),
   rentalUse: clean(payload.rentalUse),
   windExposure: clean(payload.windExposure),
@@ -58,6 +65,13 @@ const leadRows = (lead, request) => [
   ["Email", lead.email],
   ["Phone", lead.phone],
   ["Property address", lead.address],
+  ["Search intent", lead.searchIntent],
+  ["Landing page title", lead.landingPageTitle],
+  ["Insurance timing", lead.leadGoal],
+  ["Coverage needed by", lead.coverageNeededBy],
+  ["Current carrier", lead.currentCarrier],
+  ["Current policy expiration", lead.policyExpiration],
+  ["Elevation certificate", lead.elevationCertificate],
   ["Property use", lead.propertyUse],
   ["Rental use", lead.rentalUse],
   ["Wind exposure", lead.windExposure],
@@ -108,7 +122,10 @@ const formatHtmlEmail = (lead, request) => {
 
 const sendWithResend = async ({ env, lead, request, toEmail }) => {
   const fromEmail = env.LEAD_FROM_EMAIL || DEFAULT_FROM_EMAIL;
-  const subject = `New OBX insurance lead: ${lead.address || lead.fullName}`;
+  const subjectContext = lead.searchIntent || "OBX property review";
+  const subject = `New OBX insurance lead: ${subjectContext}${
+    lead.address ? ` - ${lead.address}` : ""
+  }`;
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {

@@ -22,7 +22,7 @@ import {
   X,
 } from "lucide-react";
 import homeImage from "./assets/obx-coastal-home.png";
-import { getSeoPageByPath, homepageImages, seoPages } from "./seoPages.js";
+import { getSeoPageByPath, getSeoPageBySlug, homepageImages, seoPages } from "./seoPages.js";
 
 const steps = [
   {
@@ -179,6 +179,27 @@ const serviceAreas = [
 
 const leadRecipientEmail = "obxpropertyinsurance@proton.me";
 
+const getQuoteReviewHref = (page) =>
+  page ? `/?review=${encodeURIComponent(page.slug)}#quote` : "/#quote";
+
+const getReviewOptionForPage = (page) => {
+  const slug = page?.slug || "";
+  if (slug.includes("flood")) return "Flood guidance";
+  if (slug.includes("rental")) return "Rental-use clarity";
+  return "Homeowners + wind review";
+};
+
+const getLeadGoalForPage = (page) => {
+  const slug = page?.slug || "";
+  if (slug.includes("vacation-rental")) return "Current policy review";
+  return "Buying / closing soon";
+};
+
+const getReviewPageFromSearch = () => {
+  const reviewSlug = new URLSearchParams(window.location.search).get("review");
+  return reviewSlug ? getSeoPageBySlug(reviewSlug) : null;
+};
+
 const initialChatMessages = [
   {
     role: "assistant",
@@ -248,7 +269,12 @@ const getObxGuideReply = (message) => {
 
 const buildLeadFormData = (leadPayload) => {
   const formData = new FormData();
-  formData.set("_subject", `New OBX insurance lead: ${leadPayload.address || leadPayload.fullName}`);
+  formData.set(
+    "_subject",
+    `New OBX insurance lead: ${leadPayload.searchIntent || "OBX property review"}${
+      leadPayload.address ? ` - ${leadPayload.address}` : ""
+    }`,
+  );
   formData.set("_template", "table");
   formData.set("_captcha", "false");
   formData.set("_replyto", leadPayload.email);
@@ -256,6 +282,13 @@ const buildLeadFormData = (leadPayload) => {
   formData.set("email", leadPayload.email);
   formData.set("phone", leadPayload.phone);
   formData.set("property_address", leadPayload.address);
+  formData.set("search_intent", leadPayload.searchIntent);
+  formData.set("landing_page", leadPayload.landingPageTitle);
+  formData.set("lead_goal", leadPayload.leadGoal);
+  formData.set("coverage_needed_by", leadPayload.coverageNeededBy);
+  formData.set("current_carrier", leadPayload.currentCarrier);
+  formData.set("current_policy_expiration", leadPayload.policyExpiration);
+  formData.set("elevation_certificate", leadPayload.elevationCertificate);
   formData.set("property_use", leadPayload.propertyUse);
   formData.set("rental_use", leadPayload.rentalUse);
   formData.set("wind_exposure", leadPayload.windExposure);
@@ -324,12 +357,18 @@ function App() {
     fullName: "",
     email: "",
     phone: "",
+    leadGoal: "Buying / closing soon",
+    coverageNeededBy: "",
+    currentCarrier: "",
+    policyExpiration: "",
+    elevationCertificate: "Unsure",
     yearBuilt: "",
     roofAge: "",
     notes: "",
     companyWebsite: "",
   });
   const activeSeoPage = getSeoPageByPath(window.location.pathname);
+  const reviewSeoPage = useMemo(getReviewPageFromSearch, []);
 
   useEffect(() => {
     if (!activeSeoPage) {
@@ -355,6 +394,16 @@ function App() {
       ?.setAttribute("href", `https://www.obxncinsurance.com/${activeSeoPage.slug}/`);
   }, [activeSeoPage]);
 
+  useEffect(() => {
+    if (!reviewSeoPage) return;
+
+    setSelectedOption(getReviewOptionForPage(reviewSeoPage));
+    setQuoteForm((current) => ({
+      ...current,
+      leadGoal: getLeadGoalForPage(reviewSeoPage),
+    }));
+  }, [reviewSeoPage]);
+
   const localReadiness = useMemo(() => {
     const coverageScore = coverage >= 800000 ? 4 : coverage >= 600000 ? 3 : 2;
     const deductibleScore = deductible >= 2500 ? 2 : 1;
@@ -367,9 +416,16 @@ function App() {
       { label: "Rental use", value: quoteForm.rentalUse },
       { label: "Wind exposure", value: quoteForm.windExposure },
       { label: "Flood zone", value: quoteForm.floodZone },
+      { label: "Timing", value: quoteForm.leadGoal },
       { label: "Local agency", value: "Ready" },
     ],
-    [quoteForm.floodZone, quoteForm.propertyUse, quoteForm.rentalUse, quoteForm.windExposure],
+    [
+      quoteForm.floodZone,
+      quoteForm.leadGoal,
+      quoteForm.propertyUse,
+      quoteForm.rentalUse,
+      quoteForm.windExposure,
+    ],
   );
 
   const updateQuoteField = (field) => (event) => {
@@ -396,12 +452,17 @@ function App() {
       return;
     }
 
+    const sourcePath = reviewSeoPage
+      ? `/${reviewSeoPage.slug}/`
+      : `${window.location.pathname}${window.location.search}`;
     const leadPayload = {
       ...quoteForm,
       coverage,
       deductible,
       selectedCoverage: selectedOption,
-      sourcePath: window.location.pathname,
+      sourcePath,
+      searchIntent: reviewSeoPage?.eyebrow || selectedOption,
+      landingPageTitle: reviewSeoPage?.title || document.title,
       submittedAt: new Date().toISOString(),
     };
 
@@ -457,6 +518,13 @@ function App() {
     document.getElementById("quote")?.scrollIntoView({ behavior: "smooth", block: "start" });
     window.setTimeout(() => document.getElementById("property-address")?.focus(), 450);
   };
+
+  const quoteTitle = reviewSeoPage
+    ? `Start your ${reviewSeoPage.eyebrow} review`
+    : "Check your OBX property";
+  const quoteIntro = reviewSeoPage
+    ? `You came from our ${reviewSeoPage.eyebrow} guide. Send the property details below and we will preserve that context for local Outer Banks, NC licensed agent review.`
+    : "Send your property details to OBXNCInsurance.com. We will prepare the request for review by a local Outer Banks, NC licensed agent.";
 
   if (activeSeoPage) {
     return (
@@ -901,11 +969,17 @@ function App() {
         </section>
 
         <section id="quote" className="quote-cta-section" aria-labelledby="quote-title">
-          <h2 id="quote-title">Check your OBX property</h2>
-          <p className="quote-cta-intro">
-            Send your property details to OBXNCInsurance.com. We will prepare the
-            request for review by a local Outer Banks, NC licensed agent.
-          </p>
+          <h2 id="quote-title">{quoteTitle}</h2>
+          <p className="quote-cta-intro">{quoteIntro}</p>
+          {reviewSeoPage && (
+            <div className="quote-intent-banner">
+              <SearchCheck size={20} aria-hidden="true" />
+              <span>
+                Search intent saved:
+                <strong> {reviewSeoPage.eyebrow}</strong>
+              </span>
+            </div>
+          )}
           <form className="quote-form quote-review-form" onSubmit={startQuote}>
             <label className="honeypot-field" aria-hidden="true">
               Company website
@@ -931,6 +1005,32 @@ function App() {
               />
             </div>
             <div className="quote-field-grid">
+              <label>
+                Review type
+                <select value={selectedOption} onChange={(event) => setSelectedOption(event.target.value)}>
+                  {coverageOptions.map((option) => (
+                    <option key={option.title}>{option.title}</option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Insurance timing
+                <select value={quoteForm.leadGoal} onChange={updateQuoteField("leadGoal")}>
+                  <option>Buying / closing soon</option>
+                  <option>Renewal review</option>
+                  <option>Current policy review</option>
+                  <option>New policy for owned property</option>
+                  <option>Other / unsure</option>
+                </select>
+              </label>
+              <label>
+                Coverage needed by
+                <input
+                  type="date"
+                  value={quoteForm.coverageNeededBy}
+                  onChange={updateQuoteField("coverageNeededBy")}
+                />
+              </label>
               <label>
                 Full name
                 <input
@@ -989,6 +1089,35 @@ function App() {
                   <option>VE</option>
                   <option>X</option>
                   <option>Unsure</option>
+                </select>
+              </label>
+              <label>
+                Current carrier
+                <input
+                  value={quoteForm.currentCarrier}
+                  onChange={updateQuoteField("currentCarrier")}
+                  placeholder="Carrier or none"
+                  autoComplete="organization"
+                />
+              </label>
+              <label>
+                Current policy expiration
+                <input
+                  type="date"
+                  value={quoteForm.policyExpiration}
+                  onChange={updateQuoteField("policyExpiration")}
+                />
+              </label>
+              <label>
+                Elevation certificate
+                <select
+                  value={quoteForm.elevationCertificate}
+                  onChange={updateQuoteField("elevationCertificate")}
+                >
+                  <option>Unsure</option>
+                  <option>Yes, available</option>
+                  <option>No</option>
+                  <option>Requested / in progress</option>
                 </select>
               </label>
               <label>
@@ -1316,7 +1445,7 @@ function ObxGuideChat({ onStartCheck }) {
   );
 }
 
-function SiteHeader({ mobileNavOpen, setMobileNavOpen }) {
+function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) {
   return (
     <>
       <header className="site-header">
@@ -1330,7 +1459,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen }) {
           <a href="/outer-banks-property-insurance/">Insurance guides</a>
         </nav>
 
-        <a className="header-cta" href="/#quote">
+        <a className="header-cta" href={quoteHref}>
           Check my OBX property
         </a>
 
@@ -1361,7 +1490,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen }) {
           <a href="/outer-banks-property-insurance/" onClick={() => setMobileNavOpen(false)}>
             Insurance guides
           </a>
-          <a className="mobile-nav-cta" href="/#quote" onClick={() => setMobileNavOpen(false)}>
+          <a className="mobile-nav-cta" href={quoteHref} onClick={() => setMobileNavOpen(false)}>
             Check my OBX property
           </a>
         </nav>
@@ -1393,13 +1522,18 @@ function SiteFooter() {
 }
 
 function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
+  const quoteHref = getQuoteReviewHref(page);
   const goToQuoteForm = () => {
-    window.location.href = "/#quote";
+    window.location.href = quoteHref;
   };
 
   return (
     <div id="top" className="site-shell">
-      <SiteHeader mobileNavOpen={mobileNavOpen} setMobileNavOpen={setMobileNavOpen} />
+      <SiteHeader
+        mobileNavOpen={mobileNavOpen}
+        setMobileNavOpen={setMobileNavOpen}
+        quoteHref={quoteHref}
+      />
       <main className="seo-page">
         <section className="seo-hero" aria-labelledby="seo-title">
           <div>
@@ -1408,7 +1542,7 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
             <p>{page.intro}</p>
             <p>{page.support}</p>
             <div className="hero-actions">
-              <a className="primary-button" href="/#quote">
+              <a className="primary-button" href={quoteHref}>
                 Start my OBX check
                 <ArrowRight size={19} aria-hidden="true" />
               </a>
@@ -1447,6 +1581,31 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
             </article>
           ))}
         </section>
+
+        {page.localInsights.length > 0 && (
+          <section className="seo-local-details-section" aria-labelledby="seo-local-details-title">
+            <div>
+              <span className="seo-eyebrow">OBX agent notes</span>
+              <h2 id="seo-local-details-title">What matters for {page.eyebrow}</h2>
+              <p>
+                A local Outer Banks review starts with the practical details that
+                can change follow-up, timing, and available paths for this property.
+              </p>
+              <a className="primary-button" href={quoteHref}>
+                Start this review
+                <ArrowRight size={19} aria-hidden="true" />
+              </a>
+            </div>
+            <div className="seo-local-detail-list">
+              {page.localInsights.map((insight) => (
+                <article key={insight}>
+                  <CheckCircle2 size={22} aria-hidden="true" />
+                  <p>{insight}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="seo-topic-section" aria-labelledby="seo-topic-title">
           <h2 id="seo-topic-title">Insurance help for this area</h2>

@@ -935,6 +935,11 @@ const townSeoPages = townSeoProfiles.map((profile) => ({
         "The goal is to help you start with clear information, avoid repeating the same property details, and move faster when a local Outer Banks, NC licensed agent reviews available carrier options.",
     },
   ],
+  localInsights: [
+    `${profile.town} review should start with the address, occupancy, rental use, roof age, wind exposure, and flood zone together.`,
+    `Local questions often include ${profile.localNeeds}.`,
+    "Closing date, renewal date, current carrier, and elevation certificate status help the local agent prioritize the next step.",
+  ],
   checklist: [
     `${profile.town} homeowners review`,
     "Wind and hail questions",
@@ -1012,6 +1017,74 @@ const descriptionBySlug = {
     "Review OBX vacation rental insurance for Outer Banks, NC weekly rentals, second homes, liability, wind, flood, and licensed agent guidance.",
 };
 
+const localInsightBySlug = {
+  "outer-banks-property-insurance": [
+    "Confirm the exact town and whether the home is oceanfront, soundside, canalfront, or inland because wind and flood questions can change quickly across the barrier islands.",
+    "Separate homeowners, wind and hail, flood, liability, and rental-use details before an agent shops the account.",
+    "Have roof age, year built, replacement cost, current carrier, closing date, and elevation certificate status ready when possible.",
+  ],
+  "obx-homeowners-insurance": [
+    "Clarify whether the property is a primary home, second home, weekly rental, or investment property before coverage is reviewed.",
+    "Roof age, opening protection, updates, prior coverage, and coastal construction details can affect which options are worth pursuing first.",
+    "Flood coverage and wind deductibles should be discussed alongside homeowners coverage, not after the quote conversation starts.",
+  ],
+  "outer-banks-home-insurance": [
+    "OBX home insurance should start with the address, property use, replacement cost, wind exposure, and flood zone together.",
+    "Second homes and rental homes often need a different review than year-round occupied homes.",
+    "A local agent can move faster when renewal date, closing date, current carrier, and elevation details are included up front.",
+  ],
+  "obx-wind-hail-insurance": [
+    "Wind and hail review usually starts with roof age, roof shape, openings, construction type, and distance from ocean or sound exposure.",
+    "Deductibles may be quoted differently than an all-other-perils deductible, so the preferred deductible should be discussed early.",
+    "Older roofs, recent updates, and prior claims history can shape which wind paths are realistic for the property.",
+  ],
+  "outer-banks-flood-insurance": [
+    "Flood review depends on flood zone, elevation certificate status, foundation type, lender timing, and whether the home is elevated.",
+    "NFIP and private flood options may ask different questions, so clear property details help avoid delays.",
+    "For buyers, flood review should start before closing pressure builds because elevation documents can take time to locate.",
+  ],
+  "obx-vacation-rental-insurance": [
+    "Weekly rental use should be stated clearly because guest occupancy, furnished contents, liability, and loss-of-rent questions matter.",
+    "Pools, hot tubs, elevators, decks, rental income, property managers, and advertised amenities may all change the insurance review.",
+    "The agent needs to know if the home is owner-used part time, rented seasonally, rented weekly, or managed by a rental company.",
+  ],
+  "nags-head-home-insurance": [
+    "Nags Head homes may involve oceanfront, west-side, soundside, or rental exposure, so address-level review matters.",
+    "Weekly rentals should be flagged early because liability, furnished contents, rental income, pools, and guest use may need attention.",
+    "Wind, flood, roof age, elevation, and closing or renewal timing should be reviewed together before options are compared.",
+  ],
+  "duck-nc-home-insurance": [
+    "Duck properties can range from village homes to oceanfront and soundside rentals, so location and occupancy need to be clear.",
+    "Rental use, roof age, elevated construction, and flood zone details can affect what a local agent asks for first.",
+    "Current carrier, renewal date, and whether an elevation certificate is available help speed up the review.",
+  ],
+  "corolla-home-insurance": [
+    "Corolla and northern beach homes often need clear notes on rental use, distance from water, replacement cost, and wind exposure.",
+    "Large vacation homes may need extra liability review for pools, elevators, decks, guest counts, and rental income.",
+    "If the property is in a remote or 4x4 access area, access and replacement-cost details should be raised early.",
+  ],
+  "kitty-hawk-home-insurance": [
+    "Kitty Hawk properties can include beach cottages, west-side homes, soundside exposure, and year-round residences, so exact location and use matter.",
+    "Roof age, wind exposure, flood zone, current carrier, and whether the home is rented should be gathered before quote review.",
+    "Buyers should share closing timing early because lender questions around wind and flood can become urgent quickly.",
+  ],
+  "kill-devil-hills-home-insurance": [
+    "Kill Devil Hills homes often vary by block, with different questions for oceanfront, central, soundside, primary, and rental properties.",
+    "Weekly rental use, roof age, elevation details, flood zone, and wind deductible comfort should be discussed together.",
+    "Renewal date, current carrier, and current policy expiration help a local agent decide how quickly to review alternatives.",
+  ],
+  "manteo-home-insurance": [
+    "Manteo and Roanoke Island homes can raise soundside, flood, primary residence, outbuilding, and waterfront questions.",
+    "Flood zone, foundation type, roof age, prior coverage, and whether the property is owner-occupied should be clear before review.",
+    "Elevation certificate status and lender timing can matter even when the home is not directly oceanfront.",
+  ],
+  "hatteras-home-insurance": [
+    "Hatteras Island review should start with flood zone, elevation, wind exposure, roof age, and whether the home is oceanfront or soundside.",
+    "Rental homes and second homes may need different servicing questions than year-round residences.",
+    "Access, lender timing, current policy status, and elevation documents can determine how quickly the agent can move.",
+  ],
+};
+
 const titleCase = (value) =>
   value.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1));
 
@@ -1059,6 +1132,7 @@ const enhanceSeoPage = (page) => {
       `Compare ${town} home insurance in the Outer Banks, NC for homeowners, wind and hail, flood, second homes, vacation rentals, and local Outer Banks, NC licensed agent review.`,
     image: imageBySlug[page.slug] || localImages.outerBanks,
     keywords: buildKeywords(page),
+    localInsights: localInsightBySlug[page.slug] || page.localInsights || [],
   };
 };
 
@@ -1066,5 +1140,9 @@ export const seoPages = [...coreSeoPages, ...townSeoPages].map(enhanceSeoPage);
 
 export function getSeoPageByPath(pathname) {
   const slug = pathname.replace(/^\/+|\/+$/g, "");
+  return getSeoPageBySlug(slug);
+}
+
+export function getSeoPageBySlug(slug) {
   return seoPages.find((page) => page.slug === slug) || null;
 }

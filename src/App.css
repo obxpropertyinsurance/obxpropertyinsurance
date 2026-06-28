@@ -1436,6 +1436,62 @@ select {
   line-height: 1.55;
 }
 
+.seo-local-details-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1fr);
+  gap: 34px;
+  align-items: start;
+  width: min(100% - 56px, 1120px);
+  margin: 0 auto;
+  padding: 0 0 58px;
+}
+
+.seo-local-details-section h2 {
+  max-width: 560px;
+  margin: 14px 0 0;
+  color: var(--ink);
+  font-size: clamp(30px, 3.2vw, 44px);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.seo-local-details-section p {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.58;
+}
+
+.seo-local-details-section .primary-button {
+  width: fit-content;
+  margin-top: 24px;
+}
+
+.seo-local-detail-list {
+  display: grid;
+  gap: 12px;
+}
+
+.seo-local-detail-list article {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 10px 26px rgba(22, 36, 54, 0.06);
+}
+
+.seo-local-detail-list svg {
+  color: var(--teal);
+}
+
+.seo-local-detail-list p {
+  margin: 0;
+}
+
 .seo-topic-section,
 .seo-faq-section,
 .seo-related-section {
@@ -1549,6 +1605,32 @@ select {
   font-size: 17px;
   line-height: 1.5;
   text-align: center;
+}
+
+.quote-intent-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: fit-content;
+  max-width: min(100% - 36px, 720px);
+  min-height: 42px;
+  margin: 18px auto 0;
+  padding: 8px 13px;
+  border: 1px solid rgba(0, 127, 131, 0.22);
+  border-radius: 8px;
+  background: #edf8f9;
+  color: var(--teal-dark);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.quote-intent-banner svg {
+  flex: 0 0 auto;
+}
+
+.quote-intent-banner strong {
+  color: var(--ink);
 }
 
 .quote-form {
@@ -2241,6 +2323,7 @@ select {
   .local-image-grid,
   .seo-links-section,
   .seo-hero,
+  .seo-local-details-section,
   .seo-content-grid,
   .seo-faq-section > div,
   .site-footer {
@@ -2271,6 +2354,7 @@ select {
 
   .seo-hero,
   .seo-content-grid,
+  .seo-local-details-section,
   .seo-topic-section,
   .seo-faq-section,
   .seo-related-section {
@@ -2483,6 +2567,10 @@ select {
     width: 100%;
     min-height: 58px;
     margin-top: 2px;
+  }
+
+  .seo-local-details-section .primary-button {
+    width: 100%;
   }
 
   .secure-note {
