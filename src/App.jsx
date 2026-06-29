@@ -152,13 +152,13 @@ const insuranceNeeds = [
 const trustSignals = [
   {
     icon: BadgeCheck,
-    title: "Free OBX property check",
-    text: "Start with clear guidance before you choose a policy path.",
+    title: "Free coverage brief",
+    text: "Organize the details a licensed Outer Banks agent will ask for first.",
   },
   {
     icon: PhoneCall,
-    title: "Request a quick expert call",
-    text: "Send the basics first so the call can start with your property facts.",
+    title: "Quick OBX expert review",
+    text: "Send the basics first so your review starts with the right property facts.",
   },
   {
     icon: Layers3,
@@ -167,8 +167,72 @@ const trustSignals = [
   },
   {
     icon: ShieldCheck,
-    title: "No spam. No pressure.",
-    text: "Your information is used only for your OBX insurance request.",
+    title: "No Spam Guarantee",
+    text: "We do not sell leads or send your details to an agent network.",
+  },
+];
+
+const obxRateChangeRows = [
+  {
+    territory: "Territory 110",
+    area: "Beach areas in Currituck, Dare, and Hyde counties",
+    requested: 45.1,
+    approved2025: 5.1,
+    approved2026: 4.8,
+  },
+  {
+    territory: "Territory 130",
+    area: "Coastal areas in Currituck, Dare, Hyde, and Pamlico counties",
+    requested: 33.9,
+    approved2025: 2.8,
+    approved2026: 2.8,
+  },
+];
+
+const rateChartMax = 50;
+
+const rateSourceLinks = [
+  {
+    name: "NC DOI homeowners settlement",
+    url: "https://www.ncdoi.gov/news/press-releases/2025/01/17/commissioner-causey-negotiates-settlement-rate-bureaus-homeowners-insurance-request",
+    text: "January 2025 settlement for North Carolina homeowners insurance base-rate changes.",
+  },
+  {
+    name: "NC DOI settlement table",
+    url: "https://www.ncdoi.gov/2024-proposed-homeowners-insurance-increase-settlement-table/open",
+    text: "Territory-level requested and approved homeowners rate changes.",
+  },
+  {
+    name: "NC DOI dwelling settlement",
+    url: "https://www.ncdoi.gov/news/press-releases/2026/04/22/commissioner-causey-negotiates-dwelling-rate-settlement-insurance-companies",
+    text: "Dwelling-policy context for rentals and non-owner-occupied homes.",
+  },
+];
+
+const informationHubCards = [
+  {
+    icon: Home,
+    title: "Understand the property",
+    text:
+      "Address, distance to water, roof age, construction, occupancy, rental use, flood zone, and elevation documents can all change the conversation.",
+  },
+  {
+    icon: Clock3,
+    title: "Plan renewals early",
+    text:
+      "A renewal review should start before the last-minute notice, especially if roof age, rental income, or carrier appetite has changed.",
+  },
+  {
+    icon: Layers3,
+    title: "Grow into multiple properties",
+    text:
+      "Second homes, rental homes, primary homes, autos, umbrella, and other lines need a clean inventory so gaps and duplicate assumptions are easier to spot.",
+  },
+  {
+    icon: BookOpenCheck,
+    title: "They Ask, You Answer",
+    text:
+      "We publish the answers homeowners ask for first, then help them start a licensed review with us when they are ready.",
   },
 ];
 
@@ -189,28 +253,28 @@ const callbackWindows = [
 
 const expertStandardCards = [
   {
-    icon: PhoneCall,
-    title: "Fast call, already briefed",
+    icon: ClipboardCheck,
+    title: "Address-specific prep",
     text:
-      "The form saves the search intent, timing, address, and contact preference so a local expert can begin with the right context.",
+      "We organize property use, timing, roof, wind, flood zone, and document details our licensed review needs first.",
   },
   {
     icon: BookOpenCheck,
-    title: "Official-source informed",
+    title: "Official resources included",
     text:
-      "Guides point homeowners back to official NC DOI, FEMA, and NCJUA/NCIUA resources for background while licensed agents handle advice.",
+      "Homeowners can verify flood, wind, and North Carolina insurance background with DOI, FEMA, and NCJUA/NCIUA links.",
   },
   {
     icon: UserCheck,
-    title: "Licensed-agent boundary",
+    title: "Licensed local review",
     text:
-      "OBXNCInsurance.com prepares the request. Quotes, binding, recommendations, and servicing stay with a licensed North Carolina agent.",
+      "OBXNCInsurance.com prepares the brief. Quotes, binding, recommendations, and servicing stay with a licensed North Carolina agent.",
   },
   {
     icon: ShieldCheck,
-    title: "Free and pressure-free",
+    title: "No Spam Guarantee",
     text:
-      "No spam or unrelated marketing. The information is used for the OBX insurance review the homeowner asked for.",
+      "Your information is used only for this OBX property insurance request. We do not sell your details to an agent network.",
   },
 ];
 
@@ -255,7 +319,7 @@ const alertCards = [
   {
     icon: Waves,
     title: "Flood zone unsure",
-    text: "Tell us what you know. A local expert can help identify what documents may matter next.",
+    text: "Tell us what you know. Our licensed review can help identify what documents may matter next.",
   },
   {
     icon: Umbrella,
@@ -336,12 +400,12 @@ const initialChatMessages = [
   {
     role: "assistant",
     text:
-      "Hi, I can help you prepare an Outer Banks property insurance request. Share the basics in the form, and our local Outer Banks, NC licensed agent can review homeowners, wind, flood, and rental-use options. No spam, just follow-up about your property request.",
+      "Hi, I can help you prepare an Outer Banks property insurance brief. Share the basics in the form, and our local Outer Banks, NC licensed agent can review homeowners, wind, flood, and rental-use options. No spam, just follow-up about your property request.",
   },
 ];
 
 const chatQuickActions = [
-  "Start my property check",
+  "Start my coverage brief",
   "What details do I need?",
   "Wind and flood questions",
   "Vacation rental help",
@@ -353,7 +417,7 @@ const getObxGuideReply = (message) => {
   if (text.includes("start") || text.includes("submit") || text.includes("form")) {
     return {
       text:
-        "Absolutely. I will take you to the secure OBX property check. The most helpful details are the property address, how the home is used, rental use, roof age, flood zone, and your contact information. No spam. Your information is used only for the OBX insurance request.",
+        "Absolutely. I will take you to the secure OBX coverage brief. The most helpful details are the property address, how the home is used, rental use, roof age, flood zone, and your contact information. No spam. Your information is used only for the OBX insurance request.",
       shouldFocusForm: true,
     };
   }
@@ -514,7 +578,7 @@ function App() {
         .querySelector('meta[name="description"]')
         ?.setAttribute(
           "content",
-          "Start a free OBX property insurance check for Outer Banks homes, wind and hail, flood, second homes, rentals, and local licensed agent review.",
+          "Create a free Outer Banks property insurance brief for homeowners, wind and hail, flood, second homes, rentals, and local licensed agent review. No spam.",
         );
       document
         .querySelector('link[rel="canonical"]')
@@ -660,7 +724,7 @@ function App() {
       submittedAt: new Date().toISOString(),
     };
 
-    setLeadStatus({ state: "submitting", message: "Sending your OBX property check..." });
+    setLeadStatus({ state: "submitting", message: "Sending your OBX coverage brief..." });
 
     try {
       const response = await fetch("/api/lead", {
@@ -715,11 +779,11 @@ function App() {
   };
 
   const quoteTitle = reviewSeoPage
-    ? `Start your ${reviewSeoPage.eyebrow} review`
-    : "Check your OBX property";
+    ? `Create your ${reviewSeoPage.eyebrow} brief`
+    : "Create your Outer Banks property insurance brief";
   const quoteIntro = reviewSeoPage
     ? `You came from our ${reviewSeoPage.eyebrow} guide. Send the property details below and we will preserve that context for local Outer Banks, NC licensed agent review.`
-    : "Send your property details to OBXNCInsurance.com. We will prepare the request for review by a local Outer Banks, NC licensed agent.";
+    : "Send the essentials first. We will prepare a no-spam coverage brief for review by a local Outer Banks, NC licensed agent.";
 
   if (activeSeoPage) {
     return (
@@ -741,11 +805,11 @@ function App() {
           <a href="#wind-flood">Wind & flood</a>
           <a href="#how-it-works">How it works</a>
           <a href="#service-area">OBX towns</a>
-          <a href="#local-agents">Local agents</a>
+          <a href="#local-agents">Licensed review</a>
         </nav>
 
         <a className="header-cta" href="#quote">
-          Check my OBX property
+          Get my OBX brief
         </a>
 
         <button
@@ -773,10 +837,10 @@ function App() {
             OBX towns
           </a>
           <a href="#local-agents" onClick={() => setMobileNavOpen(false)}>
-            Local agents
+            Licensed review
           </a>
           <a className="mobile-nav-cta" href="#quote" onClick={() => setMobileNavOpen(false)}>
-            Check my OBX property
+            Get my OBX brief
           </a>
         </nav>
       )}
@@ -784,21 +848,25 @@ function App() {
       <main>
         <section className="hero-section" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <h1 id="hero-title">Find Outer Banks property insurance for your coastal home</h1>
+            <h1 id="hero-title">
+              <span>Outer Banks property </span>
+              <span>insurance guidance </span>
+              <span>for OBX homeowners</span>
+            </h1>
             <p>
-              Start with a free, trusted OBX property check. Tell us about your
-              Outer Banks property, and we'll prepare the details a licensed
-              Outer Banks insurance expert needs to review homeowners, wind,
-              flood, and rental coverage options.
+              Get clear, no-spam help for your Outer Banks home, second home, or
+              vacation rental. We help you understand the property details that
+              shape homeowners, wind, flood, rental use, roof age, renewals, and
+              your quote review with our licensed North Carolina insurance team.
             </p>
 
             <div className="hero-actions">
               <a className="primary-button" href="#quote">
-                Check my OBX property
+                Create my free coverage brief
                 <ArrowRight size={19} aria-hidden="true" />
               </a>
               <a className="text-button" href="#how-it-works">
-                See how it works
+                See what is included
                 <ArrowRight size={18} aria-hidden="true" />
               </a>
             </div>
@@ -806,16 +874,16 @@ function App() {
             <div className="broker-note">
               <ShieldCheck size={34} aria-hidden="true" />
               <div>
-                <strong>Reviewed by our local Outer Banks, NC licensed agent</strong>
-                <span>Built for OBX homes, second homes, and vacation rentals.</span>
+                <strong>No Spam Guarantee</strong>
+                <span>Your property details stay with OBXNCInsurance.com and our licensed agent reviewing your request. We do not sell leads or share your information with a marketing list.</span>
               </div>
             </div>
             <p className="legal-line">
-              Quotes, advice, and policy placement are provided by our local Outer Banks, NC licensed agent. No spam.
+              Quotes, advice, binding, and policy service are handled by a licensed North Carolina insurance agent.
             </p>
           </div>
 
-          <div className="hero-visual" aria-label="OBX property insurance check preview">
+          <div className="hero-visual" aria-label="OBX property insurance brief preview">
             <img src={homeImage} alt="Outer Banks beach house elevated on pilings near dunes" />
             <form className="hero-quote-panel" onSubmit={continueToQuoteForm}>
               <div className="panel-step">
@@ -877,14 +945,14 @@ function App() {
                   </select>
                 </label>
                 <div className="coastal-check-row">
-                  <span>Local agency</span>
+                  <span>Licensed review</span>
                   <strong>Ready</strong>
                 </div>
               </div>
 
               <div className="panel-step">
                 <span>3.</span>
-                <strong>Prepare your coverage search</strong>
+                <strong>Build the coverage brief</strong>
               </div>
               <div className="hero-rate-list">
                 {coverageOptions.map((option) => (
@@ -904,7 +972,7 @@ function App() {
                 ))}
               </div>
               <button className="view-options" type="submit">
-                Continue to secure form <ArrowRight size={15} aria-hidden="true" />
+                Create my coverage brief <ArrowRight size={15} aria-hidden="true" />
               </button>
             </form>
           </div>
@@ -927,14 +995,15 @@ function App() {
 
         <section className="expert-standard-section" aria-labelledby="expert-standard-title">
           <div className="expert-standard-copy">
-            <span>How we compete with 50-year agencies</span>
+            <span>What your free brief clarifies</span>
             <h2 id="expert-standard-title">
-              Be the free OBX insurance source homeowners trust before the call
+              Prepare the coastal insurance questions before you request a quote
             </h2>
             <p>
-              Long-time agencies lead with history. OBXNCInsurance.com leads with
-              clarity: free property prep, official-resource context, no pressure,
-              and a fast handoff to licensed Outer Banks insurance expertise.
+              Outer Banks homeowners insurance can involve wind, flood, rental
+              use, roof age, elevation certificates, and closing or renewal
+              timing. We turn those details into a cleaner request for a licensed
+              review with OBXNCInsurance.com.
             </p>
           </div>
           <div className="expert-standard-grid">
@@ -972,6 +1041,158 @@ function App() {
           </aside>
         </section>
 
+        <section className="rate-intelligence-section" aria-labelledby="rate-intelligence-title">
+          <div className="rate-intelligence-layout">
+            <div className="rate-intelligence-copy">
+              <span>They Ask, You Answer</span>
+              <h2 id="rate-intelligence-title">
+                Outer Banks property insurance rates are moving. Your details matter.
+              </h2>
+              <p>
+                Public North Carolina rate filings show why the first step should
+                be education, not pressure. Base rates are only part of a premium,
+                but the trend is clear: coastal property owners need clean facts
+                before renewal, buying, adding rental use, or shopping multiple
+                properties and lines. By the time you are ready for a quote, you
+                should already know what matters and feel comfortable starting here.
+              </p>
+              <div className="motto-panel">
+                <ShieldCheck size={30} aria-hidden="true" />
+                <div>
+                  <strong>Transparent, educated, informed, and kind</strong>
+                  <span>
+                    We give away useful answers first so homeowners can understand
+                    the property, the renewal, and the questions our licensed
+                    review needs to solve.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="rate-chart-card" aria-label="Outer Banks homeowners insurance base-rate change chart">
+              <div className="rate-chart-header">
+                <div>
+                  <strong>NC homeowners base-rate changes</strong>
+                  <span>OBX-related territories from NC DOI settlement data</span>
+                </div>
+                <small>Requested vs. approved</small>
+              </div>
+
+              <div className="rate-chart" role="img" aria-label="The Rate Bureau requested 45.1 percent for beach areas in Territory 110, with approved increases of 5.1 percent in 2025 and 4.8 percent in 2026. It requested 33.9 percent for Territory 130 coastal areas, with approved increases of 2.8 percent in both 2025 and 2026.">
+                {obxRateChangeRows.map((row) => (
+                  <article className="rate-chart-row" key={row.territory}>
+                    <div className="rate-row-label">
+                      <strong>{row.territory}</strong>
+                      <span>{row.area}</span>
+                    </div>
+                    <div className="rate-bars">
+                      <div className="rate-bar-line">
+                        <span>NCRB request</span>
+                        <div className="rate-bar-track">
+                          <i
+                            className="rate-bar requested"
+                            style={{ "--rate-width": `${(row.requested / rateChartMax) * 100}%` }}
+                          />
+                          <strong>{row.requested}%</strong>
+                        </div>
+                      </div>
+                      <div className="rate-bar-line">
+                        <span>Approved 2025</span>
+                        <div className="rate-bar-track">
+                          <i
+                            className="rate-bar approved"
+                            style={{ "--rate-width": `${(row.approved2025 / rateChartMax) * 100}%` }}
+                          />
+                          <strong>{row.approved2025}%</strong>
+                        </div>
+                      </div>
+                      <div className="rate-bar-line">
+                        <span>Approved 2026</span>
+                        <div className="rate-bar-track">
+                          <i
+                            className="rate-bar followup"
+                            style={{ "--rate-width": `${(row.approved2026 / rateChartMax) * 100}%` }}
+                          />
+                          <strong>{row.approved2026}%</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              <table className="rate-data-table">
+                <caption>Outer Banks-related homeowners insurance base-rate data</caption>
+                <thead>
+                  <tr>
+                    <th>Area</th>
+                    <th>NCRB request</th>
+                    <th>Approved 2025</th>
+                    <th>Approved 2026</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {obxRateChangeRows.map((row) => (
+                    <tr key={row.territory}>
+                      <td>{row.territory}</td>
+                      <td>{row.requested}%</td>
+                      <td>{row.approved2025}%</td>
+                      <td>{row.approved2026}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <p className="rate-chart-note">
+                These are homeowners base-rate changes, not quotes. A real premium
+                can change because of coverage limits, wind and hail treatment,
+                flood insurance, deductibles, roof age, rental use, carrier filings,
+                underwriting, fees, and property-specific details.
+              </p>
+            </div>
+          </div>
+
+          <div className="rate-education-grid">
+            {informationHubCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <article key={card.title}>
+                  <Icon size={27} aria-hidden="true" />
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </article>
+              );
+            })}
+          </div>
+
+          <aside className="dwelling-context-panel">
+            <FileCheck2 size={29} aria-hidden="true" />
+            <div>
+              <strong>Rental and non-owner-occupied homes need extra context.</strong>
+              <p>
+                NC DOI also reported a dwelling-policy settlement after insurers
+                requested a statewide average 68.3% increase over two years. The
+                settlement approved 5% on October 1, 2026 and another 5% on
+                October 1, 2027. Vacation rental and investment properties should
+                be reviewed with the right form, occupancy, rental, and wind/flood
+                assumptions.
+              </p>
+            </div>
+          </aside>
+
+          <div className="rate-source-links" aria-label="Rate change sources">
+            {rateSourceLinks.map((source) => (
+              <a href={source.url} key={source.name} target="_blank" rel="noreferrer">
+                <span>
+                  <strong>{source.name}</strong>
+                  <small>{source.text}</small>
+                </span>
+                <ExternalLink size={16} aria-hidden="true" />
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section className="intelligence-section" aria-labelledby="intelligence-title">
           <div className="intelligence-copy">
             <span>Free Outer Banks insurance intelligence</span>
@@ -980,17 +1201,17 @@ function App() {
             </h2>
             <p>
               Older local agencies can point to decades of history. OBXNCInsurance.com
-              is built to be the free, trusted starting point homeowners use before
-              the first call, with plain-language guidance around the coastal details
-              that actually shape the review.
+              is built to be the free place homeowners use to
+              understand the coastal details that actually shape a quote review.
             </p>
             <div className="quick-call-promise">
               <PhoneCall size={32} aria-hidden="true" />
               <div>
-                <strong>Prepared for a quick, focused agent call</strong>
+                <strong>Prepared for a quick, focused OBX quote review</strong>
                 <span>
                   Your address, timing, wind, flood, roof, and rental details help
-                  a local Outer Banks, NC licensed agent get to the right questions faster.
+                  our licensed North Carolina insurance team get to the right
+                  questions faster.
                 </span>
               </div>
             </div>
@@ -1025,8 +1246,8 @@ function App() {
               <ListChecks size={31} aria-hidden="true" />
               <h2 id="toolkit-title">Free OBX insurance prep checklist</h2>
               <p>
-                The best first call is not a sales pitch. It is a clear review of
-                the property facts a local insurance expert needs to understand.
+                The best quote review starts with clean property facts. We help
+                you gather them before you submit your request.
               </p>
             </div>
             <ul>
@@ -1057,7 +1278,7 @@ function App() {
               <h3>Built around urgent OBX moments</h3>
               <p>
                 Buying, renewing, replacing coverage, or reviewing a rental home each
-                creates a different first-call priority.
+                creates a different review priority.
               </p>
             </article>
           </div>
@@ -1084,7 +1305,7 @@ function App() {
 
         <section id="wind-flood" className="workflow-section" aria-labelledby="workflow-title">
           <div className="workflow-copy">
-            <h2 id="workflow-title">Your coastal home details, ready for a local expert</h2>
+            <h2 id="workflow-title">Your coastal home details, ready for our licensed review</h2>
             <p>
               Outer Banks insurance can involve homeowners coverage, wind and hail,
               flood, and rental-use questions. We help collect the right details
@@ -1135,7 +1356,7 @@ function App() {
             <h2 id="trust-title">One place to start your OBX insurance search</h2>
             <p>
               Whether your property is a primary home, second home, or weekly rental,
-              we help organize the details local agents and carriers need to find
+              we help organize the details our team and carriers need to find
               fitting options.
             </p>
           </div>
@@ -1212,7 +1433,7 @@ function App() {
             <p>
               Outer Banks owners often need help when timing is tight. These quick
               paths help homeowners, buyers, and rental owners understand what a
-              local expert may need first.
+              licensed review may need first.
             </p>
           </div>
           <div className="alert-card-grid">
@@ -1368,7 +1589,7 @@ function App() {
             </label>
 
             <div className="quote-progress" aria-label="Lead form progress">
-              <span className={quoteStep === 1 ? "active" : "complete"}>1. Quick call basics</span>
+              <span className={quoteStep === 1 ? "active" : "complete"}>1. Brief basics</span>
               <span className={quoteStep === 2 ? "active" : ""}>2. Optional OBX details</span>
             </div>
 
@@ -1376,10 +1597,11 @@ function App() {
               <div className="quote-step-panel">
                 <div className="quote-step-copy">
                   <span>Step 1 of 2</span>
-                  <h3>Request a quick call with an OBX insurance expert</h3>
+                  <h3>Create your free OBX coverage brief</h3>
                   <p>
-                    Send the essentials first. We will preserve your search intent,
-                    timing, and contact preference so the follow-up starts focused.
+                    Send the essentials first. We will preserve your property use,
+                    timing, search intent, and contact preference so the review
+                    starts with context.
                   </p>
                 </div>
                 <label className="sr-only" htmlFor="property-address">
@@ -1474,8 +1696,8 @@ function App() {
                   <span>Step 2 of 2</span>
                   <h3>Add OBX details if you have them</h3>
                   <p>
-                    These are optional, but they can make the first local expert
-                    call faster for wind, flood, roof, rental, and renewal questions.
+                    These are optional, but they can make the licensed review
+                    faster for wind, flood, roof, rental, and renewal questions.
                   </p>
                 </div>
                 <div className="quote-field-grid">
@@ -1567,7 +1789,7 @@ function App() {
                     <textarea
                       value={quoteForm.notes}
                       onChange={updateQuoteField("notes")}
-                      placeholder="Closing date, current carrier, wind mitigation, elevation certificate, rental details, or preferred call timing"
+                      placeholder="Closing date, current carrier, wind mitigation, elevation certificate, rental details, or preferred follow-up timing"
                       rows="4"
                     />
                   </label>
@@ -1588,10 +1810,10 @@ function App() {
               )}
               <button className="primary-button" type="submit" disabled={leadStatus.state === "submitting"}>
                 {leadStatus.state === "submitting"
-                  ? "Sending your OBX check..."
+                  ? "Sending your OBX brief..."
                   : quoteStep === 1
                     ? "Continue to optional details"
-                    : "Send my OBX check"}
+                    : "Send my coverage brief"}
                 <ArrowRight size={20} aria-hidden="true" />
               </button>
             </div>
@@ -1599,8 +1821,8 @@ function App() {
           <p className={quoteStarted ? "secure-note success" : "secure-note"}>
             <Lock size={18} aria-hidden="true" />
             {quoteStarted
-              ? `Your OBX property check was submitted${quoteForm.address ? ` for ${quoteForm.address}` : ""}.`
-              : "No spam. Your information is shared only for your OBX insurance review."}
+              ? `Your OBX coverage brief was submitted${quoteForm.address ? ` for ${quoteForm.address}` : ""}.`
+              : "No Spam Guarantee: your information is used only for this OBX property insurance request."}
           </p>
           {quoteStarted && (
             <div className="quote-summary" aria-live="polite">
@@ -1651,12 +1873,12 @@ function App() {
 
 function QuickCallBar({ href }) {
   return (
-    <aside className="quick-call-sticky" aria-label="Quick OBX expert call request">
-      <a href={href} aria-label="Request a quick OBX expert call">
+    <aside className="quick-call-sticky" aria-label="Quick OBX expert review request">
+      <a href={href} aria-label="Request a quick OBX expert review">
         <PhoneCall size={18} aria-hidden="true" />
         <span>
-          <strong>Quick OBX call</strong>
-          <small>Free property check. No spam.</small>
+          <strong>Quick OBX review</strong>
+          <small>Free coverage brief. No spam.</small>
         </span>
         <ArrowRight size={17} aria-hidden="true" />
       </a>
@@ -1770,7 +1992,7 @@ function LeadConfirmationModal({ lead, onClose, onStartAnother }) {
         <span className="confirmation-icon">
           <CheckCircle2 size={32} aria-hidden="true" />
         </span>
-        <h2 id="confirmation-title">Your OBX property check is on its way</h2>
+        <h2 id="confirmation-title">Your OBX coverage brief is on its way</h2>
         <p>
           Thanks{lead.name ? `, ${lead.name}` : ""}. We received the details
           {lead.address ? ` for ${lead.address}` : ""} and will prepare them for
@@ -1914,7 +2136,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
         </nav>
 
         <a className="header-cta" href={quoteHref}>
-          Check my OBX property
+          Get my OBX brief
         </a>
 
         <button
@@ -1945,7 +2167,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
             Insurance guides
           </a>
           <a className="mobile-nav-cta" href={quoteHref} onClick={() => setMobileNavOpen(false)}>
-            Check my OBX property
+            Get my OBX brief
           </a>
         </nav>
       )}

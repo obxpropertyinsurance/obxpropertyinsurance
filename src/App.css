@@ -213,17 +213,21 @@ img {
 }
 
 .hero-copy h1 {
-  max-width: 700px;
+  max-width: 760px;
   margin: 0;
   color: var(--ink);
-  font-size: clamp(48px, 4.35vw, 66px);
-  line-height: 1.06;
+  font-size: clamp(46px, 3.85vw, 58px);
+  line-height: 1.05;
   font-weight: 880;
   letter-spacing: 0;
 }
 
+.hero-copy h1 span {
+  display: block;
+}
+
 .hero-copy > p {
-  max-width: 610px;
+  max-width: 640px;
   margin: 30px 0 0;
   color: var(--muted);
   font-size: 22px;
@@ -250,7 +254,7 @@ img {
 
 .broker-note {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 18px;
   margin-top: 46px;
 }
@@ -274,6 +278,7 @@ img {
 .legal-line {
   color: var(--muted);
   font-size: 14px;
+  line-height: 1.45;
 }
 
 .legal-line {
@@ -451,6 +456,360 @@ img {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.35;
+}
+
+.rate-intelligence-section {
+  padding: 70px max(28px, calc((100vw - var(--max)) / 2));
+  border-bottom: 1px solid var(--line);
+  background: #f7fbfc;
+}
+
+.rate-intelligence-layout {
+  display: grid;
+  grid-template-columns: minmax(420px, 0.82fr) minmax(560px, 1fr);
+  gap: 34px;
+  align-items: start;
+}
+
+.rate-intelligence-copy > span {
+  display: block;
+  color: var(--teal-dark);
+  font-size: 13px;
+  font-weight: 860;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rate-intelligence-copy h2 {
+  max-width: 680px;
+  margin: 14px 0 0;
+  color: var(--ink);
+  font-size: clamp(34px, 4.1vw, 56px);
+  line-height: 1.08;
+  font-weight: 880;
+  letter-spacing: 0;
+}
+
+.rate-intelligence-copy p {
+  max-width: 680px;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.motto-panel {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 15px;
+  align-items: start;
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid rgba(0, 127, 131, 0.22);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.motto-panel svg,
+.dwelling-context-panel svg,
+.rate-education-grid svg {
+  color: var(--teal);
+}
+
+.motto-panel strong,
+.motto-panel span {
+  display: block;
+}
+
+.motto-panel strong {
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.motto-panel span {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.48;
+}
+
+.rate-chart-card {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.rate-chart-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 22px;
+}
+
+.rate-chart-header strong,
+.rate-chart-header span,
+.rate-chart-header small {
+  display: block;
+}
+
+.rate-chart-header strong {
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.rate-chart-header span,
+.rate-chart-header small {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.rate-chart-header small {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--teal-dark);
+  font-weight: 830;
+}
+
+.rate-chart {
+  display: grid;
+  gap: 22px;
+}
+
+.rate-chart-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.42fr) minmax(280px, 1fr);
+  gap: 18px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+
+.rate-row-label strong,
+.rate-row-label span {
+  display: block;
+}
+
+.rate-row-label strong {
+  color: var(--ink);
+  font-size: 17px;
+}
+
+.rate-row-label span {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.42;
+}
+
+.rate-bars {
+  display: grid;
+  gap: 10px;
+}
+
+.rate-bar-line {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.rate-bar-line > span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.rate-bar-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  min-height: 24px;
+}
+
+.rate-bar-track::before {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  right: 48px;
+  height: 10px;
+  border-radius: 99px;
+  background: #e7eef4;
+  content: "";
+}
+
+.rate-bar {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: var(--rate-width);
+  min-width: 8px;
+  height: 10px;
+  border-radius: 99px;
+}
+
+.rate-bar.requested {
+  background: var(--coral);
+}
+
+.rate-bar.approved {
+  background: var(--teal);
+}
+
+.rate-bar.followup {
+  background: var(--gold);
+}
+
+.rate-bar-track strong {
+  position: relative;
+  z-index: 1;
+  min-width: 42px;
+  color: var(--ink);
+  font-size: 13px;
+  text-align: right;
+}
+
+.rate-data-table {
+  width: 100%;
+  margin-top: 24px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.rate-data-table caption {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: left;
+}
+
+.rate-data-table th,
+.rate-data-table td {
+  padding: 10px 8px;
+  border-top: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.rate-data-table th {
+  color: var(--ink);
+  font-weight: 820;
+}
+
+.rate-data-table td {
+  color: var(--muted);
+}
+
+.rate-chart-note {
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.48;
+}
+
+.rate-education-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.rate-education-grid article {
+  min-height: 190px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.rate-education-grid h3 {
+  margin: 16px 0 0;
+  color: var(--ink);
+  font-size: 19px;
+  line-height: 1.22;
+  letter-spacing: 0;
+}
+
+.rate-education-grid p {
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.48;
+}
+
+.dwelling-context-panel {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 15px;
+  align-items: start;
+  margin-top: 18px;
+  padding: 22px 168px 22px 22px;
+  border: 1px solid rgba(215, 164, 10, 0.34);
+  border-radius: 8px;
+  background: #fff9e8;
+}
+
+.dwelling-context-panel strong {
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.dwelling-context-panel p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.rate-source-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.rate-source-links a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 88px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.rate-source-links strong,
+.rate-source-links small {
+  display: block;
+}
+
+.rate-source-links strong {
+  font-size: 14px;
+  line-height: 1.22;
+}
+
+.rate-source-links small {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.rate-source-links svg {
+  color: var(--teal);
 }
 
 .intelligence-section {
@@ -2725,6 +3084,14 @@ select {
     min-height: 640px;
   }
 
+  .rate-intelligence-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .rate-education-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .trust-signal-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: min(100% - 36px, 980px);
@@ -2831,7 +3198,7 @@ select {
   }
 
   .hero-copy h1 {
-    font-size: clamp(40px, 10.8vw, 62px);
+    font-size: clamp(38px, 9.4vw, 54px);
   }
 
   .hero-copy > p {
@@ -2877,6 +3244,22 @@ select {
     padding: 18px;
   }
 
+  .rate-chart-card {
+    padding: 18px;
+  }
+
+  .rate-chart-header {
+    display: grid;
+  }
+
+  .rate-chart-row {
+    grid-template-columns: 1fr;
+  }
+
+  .rate-source-links {
+    grid-template-columns: 1fr;
+  }
+
   .property-details {
     grid-template-columns: 1fr;
   }
@@ -2897,13 +3280,14 @@ select {
   .step-rail,
   .workflow-chain,
   .proof-list,
-  .trust-signal-strip,
-  .expert-standard-section,
-  .expert-standard-grid,
-  .official-resource-panel,
-  .official-resource-links,
-  .intelligence-section,
-  .homeowner-toolkit-section,
+	  .trust-signal-strip,
+	  .expert-standard-section,
+	  .expert-standard-grid,
+	  .official-resource-panel,
+	  .official-resource-links,
+	  .rate-source-links,
+	  .intelligence-section,
+	  .homeowner-toolkit-section,
   .alert-center-section,
   .quote-form,
   .local-image-section,
@@ -3117,7 +3501,8 @@ select {
   }
 
   .hero-copy h1 {
-    font-size: 39px;
+    font-size: 32px;
+    line-height: 1.08;
     overflow-wrap: break-word;
   }
 
@@ -3134,39 +3519,68 @@ select {
   .trust-signal-strip article,
   .toolkit-card,
   .coverage-map-panel,
-  .trust-ledger article,
-  .expert-standard-grid article,
-  .official-resource-panel,
-  .alert-card-grid article {
-    padding: 18px;
-    min-width: 0;
-  }
+	  .trust-ledger article,
+	  .expert-standard-grid article,
+	  .official-resource-panel,
+	  .rate-chart-card,
+	  .rate-education-grid article,
+	  .dwelling-context-panel,
+	  .alert-card-grid article {
+	    padding: 18px;
+	    min-width: 0;
+	  }
 
-  .intelligence-section,
-  .homeowner-toolkit-section,
-  .alert-center-section,
-  .expert-standard-section {
-    padding: 44px 18px;
-  }
+	  .rate-intelligence-section,
+	  .intelligence-section,
+	  .homeowner-toolkit-section,
+	  .alert-center-section,
+	  .expert-standard-section {
+	    padding: 44px 18px;
+	  }
 
-  .intelligence-copy h2,
-  .homeowner-toolkit-section h2,
-  .alert-center-copy h2,
-  .expert-standard-copy h2 {
-    font-size: 32px;
-  }
+	  .rate-intelligence-copy h2,
+	  .intelligence-copy h2,
+	  .homeowner-toolkit-section h2,
+	  .alert-center-copy h2,
+	  .expert-standard-copy h2 {
+	    font-size: 32px;
+	  }
 
-  .intelligence-copy p,
-  .homeowner-toolkit-section p,
-  .alert-center-copy p,
-  .expert-standard-copy p {
-    font-size: 16px;
-  }
+	  .rate-intelligence-copy p,
+	  .intelligence-copy p,
+	  .homeowner-toolkit-section p,
+	  .alert-center-copy p,
+	  .expert-standard-copy p {
+	    font-size: 16px;
+	  }
 
-  .quick-call-promise,
-  .coverage-layer-list article {
-    grid-template-columns: 1fr;
-  }
+	  .quick-call-promise,
+	  .motto-panel,
+	  .dwelling-context-panel,
+	  .coverage-layer-list article {
+	    grid-template-columns: 1fr;
+	  }
+
+	  .dwelling-context-panel {
+	    padding: 18px;
+	  }
+
+	  .rate-education-grid {
+	    grid-template-columns: 1fr;
+	  }
+
+	  .rate-bar-line {
+	    grid-template-columns: 96px 1fr;
+	  }
+
+	  .rate-data-table {
+	    font-size: 12px;
+	  }
+
+	  .rate-data-table th,
+	  .rate-data-table td {
+	    padding: 9px 5px;
+	  }
 
   .toolkit-card ul {
     grid-template-columns: 1fr;
@@ -3309,14 +3723,25 @@ select {
   }
 
   .chat-launcher {
-    min-width: 146px;
+    width: 54px;
+    min-width: 54px;
+    padding: 0;
     justify-self: end;
+  }
+
+  .chat-launcher span {
+    display: none;
+  }
+
+  .obx-chat {
+    display: none;
   }
 
   .quick-call-sticky {
     left: 14px;
     right: auto;
     bottom: calc(14px + env(safe-area-inset-bottom));
+    display: none;
   }
 
   .quick-call-sticky a {

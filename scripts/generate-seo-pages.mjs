@@ -183,13 +183,33 @@ const homepageStaticBody = `
       <main class="seo-static-fallback">
         <section>
           <p>Outer Banks property insurance</p>
-          <h1>Find Outer Banks property insurance for your coastal home</h1>
-          <p>Start a free OBX property insurance check for homeowners, wind and hail, flood, second homes, vacation rentals, condos, landlord properties, and local licensed agent review.</p>
-          <a href="/#quote">Request a quick OBX expert call</a>
+          <h1>Outer Banks property insurance guidance for OBX homeowners</h1>
+          <p>Create a free Outer Banks property insurance brief for homeowners, wind and hail, flood, second homes, vacation rentals, condos, landlord properties, and local licensed agent review. No spam.</p>
+          <a href="/#quote">Create my free coverage brief</a>
         </section>
         <section>
-          <h2>Free OBX insurance help before the first call</h2>
-          <p>OBXNCInsurance.com helps homeowners organize address, timing, roof age, wind, flood, rental use, current carrier, and elevation certificate details before licensed agent follow-up.</p>
+          <h2>Free OBX insurance guidance before you request a quote</h2>
+          <p>OBXNCInsurance.com helps homeowners organize address, timing, roof age, wind, flood, rental use, current carrier, and elevation certificate details before our licensed North Carolina insurance team reviews the request.</p>
+        </section>
+        <section>
+          <h2>Outer Banks property insurance rate context</h2>
+          <p>North Carolina Department of Insurance settlement data shows why coastal homeowners need accurate property details. Territory 110 beach areas in Currituck, Dare, and Hyde counties had a 45.1% Rate Bureau homeowners request, with 5.1% approved for 2025 and 4.8% approved for 2026. Territory 130 coastal areas in Currituck, Dare, Hyde, and Pamlico counties had a 33.9% request, with 2.8% approved for 2025 and 2.8% approved for 2026.</p>
+          <table>
+            <caption>OBX-related homeowners base-rate changes from NC DOI settlement materials</caption>
+            <thead>
+              <tr><th>Territory</th><th>NCRB request</th><th>Approved 2025</th><th>Approved 2026</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>110 beach areas in Currituck, Dare, and Hyde</td><td>45.1%</td><td>5.1%</td><td>4.8%</td></tr>
+              <tr><td>130 coastal areas in Currituck, Dare, Hyde, and Pamlico</td><td>33.9%</td><td>2.8%</td><td>2.8%</td></tr>
+            </tbody>
+          </table>
+          <p>These are base-rate changes, not quotes. A property premium can still be affected by coverage limits, wind and hail treatment, flood insurance, deductibles, roof age, rental use, carrier filings, underwriting, fees, and property-specific details.</p>
+          <ul>
+            <li><a href="https://www.ncdoi.gov/news/press-releases/2025/01/17/commissioner-causey-negotiates-settlement-rate-bureaus-homeowners-insurance-request">NC DOI homeowners settlement</a></li>
+            <li><a href="https://www.ncdoi.gov/2024-proposed-homeowners-insurance-increase-settlement-table/open">NC DOI homeowners settlement table</a></li>
+            <li><a href="https://www.ncdoi.gov/news/press-releases/2026/04/22/commissioner-causey-negotiates-dwelling-rate-settlement-insurance-companies">NC DOI dwelling settlement for rental and non-owner-occupied context</a></li>
+          </ul>
         </section>
         <section>
           <h2>Popular OBX insurance searches</h2>
