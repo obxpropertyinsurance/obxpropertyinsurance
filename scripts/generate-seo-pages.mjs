@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
-import { seoPages } from "../src/seoPages.js";
+import { officialSourceLinks, seoPages } from "../src/seoPages.js";
 
 const siteUrl = "https://www.obxncinsurance.com";
 const distDir = fileURLToPath(new URL("../dist/", import.meta.url));
@@ -32,6 +32,7 @@ const updateMeta = (html, page) => {
           "@id": `${siteUrl}/#website`,
         },
         about: page.eyebrow,
+        citation: page.sources?.map((source) => source.url) || [],
       },
       {
         "@type": "Service",
@@ -148,6 +149,20 @@ const renderStaticBody = (page) => `
           <h2>Insurance help for this area</h2>
           <p>People often look for ${escapeHtml(page.keywords.join(", "))}. This page helps Outer Banks, North Carolina property owners start with clear details before a local Outer Banks, NC licensed agent reviews available options.</p>
         </section>
+        ${
+          page.sources?.length
+            ? `<section>
+          <h2>Official resources to verify while you prepare</h2>
+          <p>These official resources support the educational side of this guide. Quotes, advice, binding, and service still come from a licensed North Carolina insurance agent.</p>
+          <ul>${page.sources
+            .map(
+              (source) =>
+                `<li><a href="${escapeHtml(source.url)}">${escapeHtml(source.name)}</a>: ${escapeHtml(source.text)}</li>`,
+            )
+            .join("")}</ul>
+        </section>`
+            : ""
+        }
         <section>
           <h2>Questions about ${escapeHtml(page.eyebrow)}</h2>
           ${page.faqs
@@ -163,6 +178,41 @@ const renderStaticBody = (page) => `
       </main>`;
 
 const template = await readFile(templatePath, "utf8");
+
+const homepageStaticBody = `
+      <main class="seo-static-fallback">
+        <section>
+          <p>Outer Banks property insurance</p>
+          <h1>Find Outer Banks property insurance for your coastal home</h1>
+          <p>Start a free OBX property insurance check for homeowners, wind and hail, flood, second homes, vacation rentals, condos, landlord properties, and local licensed agent review.</p>
+          <a href="/#quote">Request a quick OBX expert call</a>
+        </section>
+        <section>
+          <h2>Free OBX insurance help before the first call</h2>
+          <p>OBXNCInsurance.com helps homeowners organize address, timing, roof age, wind, flood, rental use, current carrier, and elevation certificate details before licensed agent follow-up.</p>
+        </section>
+        <section>
+          <h2>Popular OBX insurance searches</h2>
+          <ul>${seoPages
+            .slice(0, 16)
+            .map((page) => `<li><a href="/${escapeHtml(page.slug)}/">${escapeHtml(page.eyebrow)}</a></li>`)
+            .join("")}</ul>
+        </section>
+        <section>
+          <h2>Official resources homeowners can verify</h2>
+          <ul>${officialSourceLinks
+            .map(
+              (source) =>
+                `<li><a href="${escapeHtml(source.url)}">${escapeHtml(source.name)}</a>: ${escapeHtml(source.text)}</li>`,
+            )
+            .join("")}</ul>
+        </section>
+      </main>`;
+
+await writeFile(
+  templatePath,
+  template.replace('<div id="root"></div>', `<div id="root">${homepageStaticBody}</div>`),
+);
 
 await Promise.all(
   seoPages.map(async (page) => {

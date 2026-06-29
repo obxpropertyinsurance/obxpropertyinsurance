@@ -10,6 +10,7 @@ import {
   ChevronDown,
   ClipboardCheck,
   Clock3,
+  ExternalLink,
   FileCheck2,
   Home,
   Layers3,
@@ -29,8 +30,14 @@ import {
   Wind,
   X,
 } from "lucide-react";
-import homeImage from "./assets/obx-coastal-home.png";
-import { getSeoPageByPath, getSeoPageBySlug, homepageImages, seoPages } from "./seoPages.js";
+import homeImage from "./assets/obx-coastal-home-1280.jpg";
+import {
+  getSeoPageByPath,
+  getSeoPageBySlug,
+  homepageImages,
+  officialSourceLinks,
+  seoPages,
+} from "./seoPages.js";
 
 const steps = [
   {
@@ -150,8 +157,8 @@ const trustSignals = [
   },
   {
     icon: PhoneCall,
-    title: "Quick local expert call",
-    text: "Your details help keep the first agent conversation focused.",
+    title: "Request a quick expert call",
+    text: "Send the basics first so the call can start with your property facts.",
   },
   {
     icon: Layers3,
@@ -162,6 +169,48 @@ const trustSignals = [
     icon: ShieldCheck,
     title: "No spam. No pressure.",
     text: "Your information is used only for your OBX insurance request.",
+  },
+];
+
+const contactPreferences = [
+  "Phone call",
+  "Text first",
+  "Email first",
+  "No preference",
+];
+
+const callbackWindows = [
+  "As soon as available",
+  "Morning",
+  "Afternoon",
+  "Evening",
+  "After I send documents",
+];
+
+const expertStandardCards = [
+  {
+    icon: PhoneCall,
+    title: "Fast call, already briefed",
+    text:
+      "The form saves the search intent, timing, address, and contact preference so a local expert can begin with the right context.",
+  },
+  {
+    icon: BookOpenCheck,
+    title: "Official-source informed",
+    text:
+      "Guides point homeowners back to official NC DOI, FEMA, and NCJUA/NCIUA resources for background while licensed agents handle advice.",
+  },
+  {
+    icon: UserCheck,
+    title: "Licensed-agent boundary",
+    text:
+      "OBXNCInsurance.com prepares the request. Quotes, binding, recommendations, and servicing stay with a licensed North Carolina agent.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Free and pressure-free",
+    text:
+      "No spam or unrelated marketing. The information is used for the OBX insurance review the homeowner asked for.",
   },
 ];
 
@@ -281,6 +330,8 @@ const getReviewPageFromSearch = () => {
   return reviewSlug ? getSeoPageBySlug(reviewSlug) : null;
 };
 
+const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
+
 const initialChatMessages = [
   {
     role: "assistant",
@@ -362,6 +413,8 @@ const buildLeadFormData = (leadPayload) => {
   formData.set("name", leadPayload.fullName);
   formData.set("email", leadPayload.email);
   formData.set("phone", leadPayload.phone);
+  formData.set("preferred_contact", leadPayload.preferredContact);
+  formData.set("callback_window", leadPayload.callbackWindow);
   formData.set("property_address", leadPayload.address);
   formData.set("search_intent", leadPayload.searchIntent);
   formData.set("landing_page", leadPayload.landingPageTitle);
@@ -427,6 +480,7 @@ function App() {
   const [selectedOption, setSelectedOption] = useState("Homeowners + wind review");
   const [openFaq, setOpenFaq] = useState(0);
   const [quoteStarted, setQuoteStarted] = useState(false);
+  const [quoteStep, setQuoteStep] = useState(1);
   const [leadStatus, setLeadStatus] = useState({ state: "idle", message: "" });
   const [confirmationLead, setConfirmationLead] = useState(null);
   const [quoteForm, setQuoteForm] = useState({
@@ -438,6 +492,8 @@ function App() {
     fullName: "",
     email: "",
     phone: "",
+    preferredContact: "Phone call",
+    callbackWindow: "As soon as available",
     leadGoal: "Buying / closing soon",
     coverageNeededBy: "",
     currentCarrier: "",
@@ -509,6 +565,29 @@ function App() {
     ],
   );
 
+  const getStepOneMissing = () => {
+    const missing = [];
+    if (!quoteForm.address.trim()) missing.push("property address");
+    if (!quoteForm.fullName.trim()) missing.push("full name");
+    if (!isValidEmail(quoteForm.email)) missing.push("valid email");
+    if (!quoteForm.phone.trim()) missing.push("phone number");
+    return missing;
+  };
+
+  const focusFirstMissingStepOneField = () => {
+    const missingFieldId = !quoteForm.address.trim()
+      ? "property-address"
+      : !quoteForm.fullName.trim()
+        ? "lead-full-name"
+        : !isValidEmail(quoteForm.email)
+          ? "lead-email"
+          : !quoteForm.phone.trim()
+            ? "lead-phone"
+            : "property-address";
+
+    window.setTimeout(() => document.getElementById(missingFieldId)?.focus(), 80);
+  };
+
   const updateQuoteField = (field) => (event) => {
     setQuoteForm((current) => ({
       ...current,
@@ -527,8 +606,42 @@ function App() {
     focusQuoteForm();
   };
 
+  const continueToOptionalDetails = (event) => {
+    event.preventDefault();
+    if (!event.currentTarget.reportValidity()) {
+      return;
+    }
+
+    const missing = getStepOneMissing();
+    if (missing.length) {
+      setLeadStatus({
+        state: "error",
+        message: `Please add ${missing.join(", ")} before continuing.`,
+      });
+      setQuoteStep(1);
+      focusFirstMissingStepOneField();
+      return;
+    }
+
+    setLeadStatus({ state: "idle", message: "" });
+    setQuoteStep(2);
+    window.setTimeout(() => document.getElementById("year-built")?.focus(), 120);
+  };
+
   const startQuote = async (event) => {
     event.preventDefault();
+
+    const missing = getStepOneMissing();
+    if (missing.length) {
+      setLeadStatus({
+        state: "error",
+        message: `Please add ${missing.join(", ")} before sending your request.`,
+      });
+      setQuoteStep(1);
+      focusFirstMissingStepOneField();
+      return;
+    }
+
     if (!event.currentTarget.reportValidity()) {
       return;
     }
@@ -596,6 +709,7 @@ function App() {
   };
 
   const focusQuoteForm = () => {
+    setQuoteStep(1);
     document.getElementById("quote")?.scrollIntoView({ behavior: "smooth", block: "start" });
     window.setTimeout(() => document.getElementById("property-address")?.focus(), 450);
   };
@@ -809,6 +923,53 @@ function App() {
               </article>
             );
           })}
+        </section>
+
+        <section className="expert-standard-section" aria-labelledby="expert-standard-title">
+          <div className="expert-standard-copy">
+            <span>How we compete with 50-year agencies</span>
+            <h2 id="expert-standard-title">
+              Be the free OBX insurance source homeowners trust before the call
+            </h2>
+            <p>
+              Long-time agencies lead with history. OBXNCInsurance.com leads with
+              clarity: free property prep, official-resource context, no pressure,
+              and a fast handoff to licensed Outer Banks insurance expertise.
+            </p>
+          </div>
+          <div className="expert-standard-grid">
+            {expertStandardCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <article key={card.title}>
+                  <Icon size={27} aria-hidden="true" />
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </article>
+              );
+            })}
+          </div>
+          <aside className="official-resource-panel" aria-label="Official insurance resources">
+            <div>
+              <BookOpenCheck size={28} aria-hidden="true" />
+              <h3>Official resources homeowners can verify</h3>
+              <p>
+                These links support the educational guides. A licensed North Carolina
+                agent still handles advice, quotes, binding, and policy service.
+              </p>
+            </div>
+            <div className="official-resource-links">
+              {officialSourceLinks.map((source) => (
+                <a href={source.url} key={source.name} target="_blank" rel="noreferrer">
+                  <span>
+                    <strong>{source.name}</strong>
+                    <small>{source.text}</small>
+                  </span>
+                  <ExternalLink size={16} aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          </aside>
         </section>
 
         <section className="intelligence-section" aria-labelledby="intelligence-title">
@@ -1192,7 +1353,10 @@ function App() {
               </span>
             </div>
           )}
-          <form className="quote-form quote-review-form" onSubmit={startQuote}>
+          <form
+            className="quote-form quote-review-form"
+            onSubmit={quoteStep === 1 ? continueToOptionalDetails : startQuote}
+          >
             <label className="honeypot-field" aria-hidden="true">
               Company website
               <input
@@ -1202,173 +1366,235 @@ function App() {
                 onChange={updateQuoteField("companyWebsite")}
               />
             </label>
-            <label className="sr-only" htmlFor="property-address">
-              Enter your Outer Banks property address
-            </label>
-            <div className="quote-input-wrap">
-              <MapPin size={23} aria-hidden="true" />
-              <input
-                id="property-address"
-                value={quoteForm.address}
-                onChange={updateQuoteField("address")}
-                placeholder="OBX property address"
-                autoComplete="street-address"
-                required
-              />
+
+            <div className="quote-progress" aria-label="Lead form progress">
+              <span className={quoteStep === 1 ? "active" : "complete"}>1. Quick call basics</span>
+              <span className={quoteStep === 2 ? "active" : ""}>2. Optional OBX details</span>
             </div>
-            <div className="quote-field-grid">
-              <label>
-                Review type
-                <select value={selectedOption} onChange={(event) => setSelectedOption(event.target.value)}>
-                  {coverageOptions.map((option) => (
-                    <option key={option.title}>{option.title}</option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Insurance timing
-                <select value={quoteForm.leadGoal} onChange={updateQuoteField("leadGoal")}>
-                  <option>Buying / closing soon</option>
-                  <option>Renewal review</option>
-                  <option>Current policy review</option>
-                  <option>New policy for owned property</option>
-                  <option>Other / unsure</option>
-                </select>
-              </label>
-              <label>
-                Coverage needed by
-                <input
-                  type="date"
-                  value={quoteForm.coverageNeededBy}
-                  onChange={updateQuoteField("coverageNeededBy")}
-                />
-              </label>
-              <label>
-                Full name
-                <input
-                  value={quoteForm.fullName}
-                  onChange={updateQuoteField("fullName")}
-                  placeholder="Your name"
-                  autoComplete="name"
-                  required
-                />
-              </label>
-              <label>
-                Email
-                <input
-                  type="email"
-                  value={quoteForm.email}
-                  onChange={updateQuoteField("email")}
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                  required
-                />
-              </label>
-              <label>
-                Phone
-                <input
-                  type="tel"
-                  value={quoteForm.phone}
-                  onChange={updateQuoteField("phone")}
-                  placeholder="(252) 555-0199"
-                  autoComplete="tel"
-                  required
-                />
-              </label>
-              <label>
-                Property use
-                <select value={quoteForm.propertyUse} onChange={updateQuoteField("propertyUse")}>
-                  <option>Primary home</option>
-                  <option>Second home</option>
-                  <option>Vacation rental</option>
-                  <option>Investment property</option>
-                </select>
-              </label>
-              <label>
-                Rental use
-                <select value={quoteForm.rentalUse} onChange={updateQuoteField("rentalUse")}>
-                  <option>Not rented</option>
-                  <option>Weekly / seasonal</option>
-                  <option>Long term rental</option>
-                  <option>Unsure</option>
-                </select>
-              </label>
-              <label>
-                Flood zone
-                <select value={quoteForm.floodZone} onChange={updateQuoteField("floodZone")}>
-                  <option>Needs review</option>
-                  <option>AE</option>
-                  <option>VE</option>
-                  <option>X</option>
-                  <option>Unsure</option>
-                </select>
-              </label>
-              <label>
-                Current carrier
-                <input
-                  value={quoteForm.currentCarrier}
-                  onChange={updateQuoteField("currentCarrier")}
-                  placeholder="Carrier or none"
-                  autoComplete="organization"
-                />
-              </label>
-              <label>
-                Current policy expiration
-                <input
-                  type="date"
-                  value={quoteForm.policyExpiration}
-                  onChange={updateQuoteField("policyExpiration")}
-                />
-              </label>
-              <label>
-                Elevation certificate
-                <select
-                  value={quoteForm.elevationCertificate}
-                  onChange={updateQuoteField("elevationCertificate")}
-                >
-                  <option>Unsure</option>
-                  <option>Yes, available</option>
-                  <option>No</option>
-                  <option>Requested / in progress</option>
-                </select>
-              </label>
-              <label>
-                Year built
-                <input
-                  value={quoteForm.yearBuilt}
-                  onChange={updateQuoteField("yearBuilt")}
-                  placeholder="2006"
-                  inputMode="numeric"
-                />
-              </label>
-              <label>
-                Roof age
-                <input
-                  value={quoteForm.roofAge}
-                  onChange={updateQuoteField("roofAge")}
-                  placeholder="About 8 years"
-                />
-              </label>
-              <label className="quote-notes">
-                Anything we should know?
-                <textarea
-                  value={quoteForm.notes}
-                  onChange={updateQuoteField("notes")}
-                  placeholder="Closing date, current carrier, wind mitigation, elevation certificate, or rental details"
-                  rows="4"
-                />
-              </label>
-            </div>
+
+            {quoteStep === 1 ? (
+              <div className="quote-step-panel">
+                <div className="quote-step-copy">
+                  <span>Step 1 of 2</span>
+                  <h3>Request a quick call with an OBX insurance expert</h3>
+                  <p>
+                    Send the essentials first. We will preserve your search intent,
+                    timing, and contact preference so the follow-up starts focused.
+                  </p>
+                </div>
+                <label className="sr-only" htmlFor="property-address">
+                  Enter your Outer Banks property address
+                </label>
+                <div className="quote-input-wrap">
+                  <MapPin size={23} aria-hidden="true" />
+                  <input
+                    id="property-address"
+                    value={quoteForm.address}
+                    onChange={updateQuoteField("address")}
+                    placeholder="OBX property address"
+                    autoComplete="street-address"
+                    required
+                  />
+                </div>
+                <div className="quote-field-grid compact">
+                  <label>
+                    Insurance timing
+                    <select value={quoteForm.leadGoal} onChange={updateQuoteField("leadGoal")}>
+                      <option>Buying / closing soon</option>
+                      <option>Renewal review</option>
+                      <option>Current policy review</option>
+                      <option>New policy for owned property</option>
+                      <option>Other / unsure</option>
+                    </select>
+                  </label>
+                  <label>
+                    Coverage needed by
+                    <input
+                      type="date"
+                      value={quoteForm.coverageNeededBy}
+                      onChange={updateQuoteField("coverageNeededBy")}
+                    />
+                  </label>
+                  <label>
+                    Preferred follow-up
+                    <select value={quoteForm.preferredContact} onChange={updateQuoteField("preferredContact")}>
+                      {contactPreferences.map((preference) => (
+                        <option key={preference}>{preference}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Best time
+                    <select value={quoteForm.callbackWindow} onChange={updateQuoteField("callbackWindow")}>
+                      {callbackWindows.map((windowLabel) => (
+                        <option key={windowLabel}>{windowLabel}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Full name
+                    <input
+                      id="lead-full-name"
+                      value={quoteForm.fullName}
+                      onChange={updateQuoteField("fullName")}
+                      placeholder="Your name"
+                      autoComplete="name"
+                      required
+                    />
+                  </label>
+                  <label>
+                    Email
+                    <input
+                      id="lead-email"
+                      type="email"
+                      value={quoteForm.email}
+                      onChange={updateQuoteField("email")}
+                      placeholder="you@example.com"
+                      autoComplete="email"
+                      required
+                    />
+                  </label>
+                  <label>
+                    Phone
+                    <input
+                      id="lead-phone"
+                      type="tel"
+                      value={quoteForm.phone}
+                      onChange={updateQuoteField("phone")}
+                      placeholder="(252) 555-0199"
+                      autoComplete="tel"
+                      required
+                    />
+                  </label>
+                </div>
+              </div>
+            ) : (
+              <div className="quote-step-panel">
+                <div className="quote-step-copy">
+                  <span>Step 2 of 2</span>
+                  <h3>Add OBX details if you have them</h3>
+                  <p>
+                    These are optional, but they can make the first local expert
+                    call faster for wind, flood, roof, rental, and renewal questions.
+                  </p>
+                </div>
+                <div className="quote-field-grid">
+                  <label>
+                    Review type
+                    <select value={selectedOption} onChange={(event) => setSelectedOption(event.target.value)}>
+                      {coverageOptions.map((option) => (
+                        <option key={option.title}>{option.title}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Property use
+                    <select value={quoteForm.propertyUse} onChange={updateQuoteField("propertyUse")}>
+                      <option>Primary home</option>
+                      <option>Second home</option>
+                      <option>Vacation rental</option>
+                      <option>Investment property</option>
+                    </select>
+                  </label>
+                  <label>
+                    Rental use
+                    <select value={quoteForm.rentalUse} onChange={updateQuoteField("rentalUse")}>
+                      <option>Not rented</option>
+                      <option>Weekly / seasonal</option>
+                      <option>Long term rental</option>
+                      <option>Unsure</option>
+                    </select>
+                  </label>
+                  <label>
+                    Flood zone
+                    <select value={quoteForm.floodZone} onChange={updateQuoteField("floodZone")}>
+                      <option>Needs review</option>
+                      <option>AE</option>
+                      <option>VE</option>
+                      <option>X</option>
+                      <option>Unsure</option>
+                    </select>
+                  </label>
+                  <label>
+                    Current carrier
+                    <input
+                      value={quoteForm.currentCarrier}
+                      onChange={updateQuoteField("currentCarrier")}
+                      placeholder="Carrier or none"
+                      autoComplete="organization"
+                    />
+                  </label>
+                  <label>
+                    Current policy expiration
+                    <input
+                      type="date"
+                      value={quoteForm.policyExpiration}
+                      onChange={updateQuoteField("policyExpiration")}
+                    />
+                  </label>
+                  <label>
+                    Elevation certificate
+                    <select
+                      value={quoteForm.elevationCertificate}
+                      onChange={updateQuoteField("elevationCertificate")}
+                    >
+                      <option>Unsure</option>
+                      <option>Yes, available</option>
+                      <option>No</option>
+                      <option>Requested / in progress</option>
+                    </select>
+                  </label>
+                  <label>
+                    Year built
+                    <input
+                      id="year-built"
+                      value={quoteForm.yearBuilt}
+                      onChange={updateQuoteField("yearBuilt")}
+                      placeholder="2006"
+                      inputMode="numeric"
+                    />
+                  </label>
+                  <label>
+                    Roof age
+                    <input
+                      value={quoteForm.roofAge}
+                      onChange={updateQuoteField("roofAge")}
+                      placeholder="About 8 years"
+                    />
+                  </label>
+                  <label className="quote-notes">
+                    Anything we should know?
+                    <textarea
+                      value={quoteForm.notes}
+                      onChange={updateQuoteField("notes")}
+                      placeholder="Closing date, current carrier, wind mitigation, elevation certificate, rental details, or preferred call timing"
+                      rows="4"
+                    />
+                  </label>
+                </div>
+              </div>
+            )}
             {leadStatus.state === "error" && (
               <p className="form-error" role="alert">
                 {leadStatus.message} You can also email{" "}
                 <a href={`mailto:${leadRecipientEmail}`}>{leadRecipientEmail}</a>.
               </p>
             )}
-            <button className="primary-button" type="submit" disabled={leadStatus.state === "submitting"}>
-              {leadStatus.state === "submitting" ? "Sending your OBX check..." : "Send my OBX check"}
-              <ArrowRight size={20} aria-hidden="true" />
-            </button>
+            <div className="quote-form-actions">
+              {quoteStep === 2 && (
+                <button className="secondary-button" type="button" onClick={() => setQuoteStep(1)}>
+                  Back
+                </button>
+              )}
+              <button className="primary-button" type="submit" disabled={leadStatus.state === "submitting"}>
+                {leadStatus.state === "submitting"
+                  ? "Sending your OBX check..."
+                  : quoteStep === 1
+                    ? "Continue to optional details"
+                    : "Send my OBX check"}
+                <ArrowRight size={20} aria-hidden="true" />
+              </button>
+            </div>
           </form>
           <p className={quoteStarted ? "secure-note success" : "secure-note"}>
             <Lock size={18} aria-hidden="true" />
@@ -1389,6 +1615,7 @@ function App() {
       </main>
 
       <ObxGuideChat onStartCheck={focusQuoteForm} />
+      <QuickCallBar href="#quote" />
 
       {confirmationLead && (
         <LeadConfirmationModal
@@ -1419,6 +1646,21 @@ function App() {
         </p>
       </footer>
     </div>
+  );
+}
+
+function QuickCallBar({ href }) {
+  return (
+    <aside className="quick-call-sticky" aria-label="Quick OBX expert call request">
+      <a href={href} aria-label="Request a quick OBX expert call">
+        <PhoneCall size={18} aria-hidden="true" />
+        <span>
+          <strong>Quick OBX call</strong>
+          <small>Free property check. No spam.</small>
+        </span>
+        <ArrowRight size={17} aria-hidden="true" />
+      </a>
+    </aside>
   );
 }
 
@@ -1828,6 +2070,31 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
           </p>
         </section>
 
+        {page.sources?.length > 0 && (
+          <section className="seo-source-section" aria-labelledby="seo-source-title">
+            <div>
+              <span className="seo-eyebrow">Official-source context</span>
+              <h2 id="seo-source-title">Resources to verify while you prepare</h2>
+              <p>
+                These official resources support the educational side of the guide.
+                Your property-specific quotes, advice, binding, and servicing still
+                come from a licensed North Carolina insurance agent.
+              </p>
+            </div>
+            <div className="official-resource-links">
+              {page.sources.map((source) => (
+                <a href={source.url} key={source.name} target="_blank" rel="noreferrer">
+                  <span>
+                    <strong>{source.name}</strong>
+                    <small>{source.text}</small>
+                  </span>
+                  <ExternalLink size={16} aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section className="seo-faq-section" aria-labelledby="seo-faq-title">
           <h2 id="seo-faq-title">Questions about {page.eyebrow}</h2>
           <div>
@@ -1857,6 +2124,7 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
       </main>
       <SiteFooter />
       <ObxGuideChat onStartCheck={goToQuoteForm} />
+      <QuickCallBar href={quoteHref} />
     </div>
   );
 }
