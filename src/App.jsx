@@ -230,9 +230,9 @@ const informationHubCards = [
   },
   {
     icon: BookOpenCheck,
-    title: "They Ask, You Answer",
+    title: "Clear answers before the quote",
     text:
-      "We publish the answers homeowners ask for first, then help them start a licensed review with us when they are ready.",
+      "Learn what matters for your property, then start a licensed review with us when you are ready.",
   },
 ];
 
@@ -849,9 +849,9 @@ function App() {
         <section className="hero-section" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">
-              <span>Outer Banks property </span>
-              <span>insurance guidance </span>
-              <span>for OBX homeowners</span>
+              <span>Outer Banks</span>
+              <span>property insurance</span>
+              <span>for coastal homes</span>
             </h1>
             <p>
               Get clear, no-spam help for your Outer Banks home, second home, or
@@ -878,9 +878,6 @@ function App() {
                 <span>Your property details stay with OBXNCInsurance.com and our licensed agent reviewing your request. We do not sell leads or share your information with a marketing list.</span>
               </div>
             </div>
-            <p className="legal-line">
-              Quotes, advice, binding, and policy service are handled by a licensed North Carolina insurance agent.
-            </p>
           </div>
 
           <div className="hero-visual" aria-label="OBX property insurance brief preview">
@@ -1044,7 +1041,7 @@ function App() {
         <section className="rate-intelligence-section" aria-labelledby="rate-intelligence-title">
           <div className="rate-intelligence-layout">
             <div className="rate-intelligence-copy">
-              <span>They Ask, You Answer</span>
+              <span>OBX insurance education hub</span>
               <h2 id="rate-intelligence-title">
                 Outer Banks property insurance rates are moving. Your details matter.
               </h2>
@@ -1059,11 +1056,11 @@ function App() {
               <div className="motto-panel">
                 <ShieldCheck size={30} aria-hidden="true" />
                 <div>
-                  <strong>Transparent, educated, informed, and kind</strong>
+                  <strong>Clear guidance before you request a quote</strong>
                   <span>
-                    We give away useful answers first so homeowners can understand
-                    the property, the renewal, and the questions our licensed
-                    review needs to solve.
+                    Understand your property, renewal timing, wind, flood,
+                    rental use, and the details that help our licensed team
+                    review your request.
                   </span>
                 </div>
               </div>

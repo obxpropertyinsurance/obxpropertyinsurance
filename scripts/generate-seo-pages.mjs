@@ -183,7 +183,7 @@ const homepageStaticBody = `
       <main class="seo-static-fallback">
         <section>
           <p>Outer Banks property insurance</p>
-          <h1>Outer Banks property insurance guidance for OBX homeowners</h1>
+          <h1>Outer Banks property insurance for coastal homes</h1>
           <p>Create a free Outer Banks property insurance brief for homeowners, wind and hail, flood, second homes, vacation rentals, condos, landlord properties, and local licensed agent review. No spam.</p>
           <a href="/#quote">Create my free coverage brief</a>
         </section>
