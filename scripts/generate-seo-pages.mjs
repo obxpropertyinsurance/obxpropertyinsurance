@@ -34,6 +34,21 @@ const updateMeta = (html, page) => {
         about: page.eyebrow,
         citation: page.sources?.map((source) => source.url) || [],
       },
+      ...(page.dataTable
+        ? [
+            {
+              "@type": "Dataset",
+              "@id": `${canonical}#dataset`,
+              name: page.dataTable.title,
+              description: page.dataTable.note || page.dataTable.intro || page.description,
+              creator: {
+                "@id": `${siteUrl}/#organization`,
+              },
+              variableMeasured: page.dataTable.columns.map((column) => column.label),
+              citation: page.sources?.map((source) => source.url) || [],
+            },
+          ]
+        : []),
       {
         "@type": "Service",
         "@id": `${canonical}#service`,
@@ -136,6 +151,31 @@ const renderStaticBody = (page) => `
           )
           .join("")}
         ${
+          page.dataTable
+            ? `<section>
+          <p>${escapeHtml(page.dataTable.eyebrow)}</p>
+          <h2>${escapeHtml(page.dataTable.title)}</h2>
+          <p>${escapeHtml(page.dataTable.intro)}</p>
+          <table>
+            <thead>
+              <tr>${page.dataTable.columns
+                .map((column) => `<th>${escapeHtml(column.label)}</th>`)
+                .join("")}</tr>
+            </thead>
+            <tbody>${page.dataTable.rows
+              .map(
+                (row) =>
+                  `<tr>${page.dataTable.columns
+                    .map((column) => `<td>${escapeHtml(row[column.key] || "")}</td>`)
+                    .join("")}</tr>`,
+              )
+              .join("")}</tbody>
+          </table>
+          ${page.dataTable.note ? `<p>${escapeHtml(page.dataTable.note)}</p>` : ""}
+        </section>`
+            : ""
+        }
+        ${
           page.localInsights.length
             ? `<section>
           <h2>What matters for ${escapeHtml(page.eyebrow)}</h2>
@@ -175,6 +215,18 @@ const renderStaticBody = (page) => `
             )
             .join("")}
         </section>
+        ${
+          page.relatedSlugs?.length
+            ? `<section>
+          <h2>Related OBX insurance pages</h2>
+          <ul>${page.relatedSlugs
+            .map((slug) => seoPages.find((related) => related.slug === slug))
+            .filter(Boolean)
+            .map((related) => `<li><a href="/${escapeHtml(related.slug)}/">${escapeHtml(related.eyebrow)}</a></li>`)
+            .join("")}</ul>
+        </section>`
+            : ""
+        }
       </main>`;
 
 const template = await readFile(templatePath, "utf8");

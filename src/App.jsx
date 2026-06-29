@@ -2196,6 +2196,12 @@ function SiteFooter() {
 
 function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
   const quoteHref = getQuoteReviewHref(page);
+  const relatedPages = page.relatedSlugs?.length
+    ? page.relatedSlugs
+        .map((slug) => getSeoPageBySlug(slug))
+        .filter(Boolean)
+        .filter((related) => related.slug !== page.slug)
+    : seoPages.filter((related) => related.slug !== page.slug).slice(0, 6);
   const goToQuoteForm = () => {
     window.location.href = quoteHref;
   };
@@ -2254,6 +2260,37 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
             </article>
           ))}
         </section>
+
+        {page.dataTable && (
+          <section className="seo-data-section" aria-labelledby="seo-data-title">
+            <div className="seo-data-copy">
+              <span className="seo-eyebrow">{page.dataTable.eyebrow}</span>
+              <h2 id="seo-data-title">{page.dataTable.title}</h2>
+              <p>{page.dataTable.intro}</p>
+            </div>
+            <div className="seo-data-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    {page.dataTable.columns.map((column) => (
+                      <th key={column.key}>{column.label}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {page.dataTable.rows.map((row) => (
+                    <tr key={row.territory || JSON.stringify(row)}>
+                      {page.dataTable.columns.map((column) => (
+                        <td key={column.key}>{row[column.key]}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {page.dataTable.note && <p className="seo-data-note">{page.dataTable.note}</p>}
+          </section>
+        )}
 
         {page.localInsights.length > 0 && (
           <section className="seo-local-details-section" aria-labelledby="seo-local-details-title">
@@ -2329,15 +2366,12 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
         <section className="seo-related-section" aria-labelledby="related-title">
           <h2 id="related-title">Related OBX insurance pages</h2>
           <div className="seo-related-links">
-            {seoPages
-              .filter((related) => related.slug !== page.slug)
-              .slice(0, 6)
-              .map((related) => (
-                <a href={`/${related.slug}/`} key={related.slug}>
-                  {related.eyebrow}
-                  <ArrowRight size={16} aria-hidden="true" />
-                </a>
-              ))}
+            {relatedPages.slice(0, 6).map((related) => (
+              <a href={`/${related.slug}/`} key={related.slug}>
+                {related.eyebrow}
+                <ArrowRight size={16} aria-hidden="true" />
+              </a>
+            ))}
           </div>
         </section>
       </main>

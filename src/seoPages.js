@@ -171,6 +171,27 @@ export const officialSourceLinks = [
   },
 ];
 
+const rateContextSources = [
+  {
+    name: "NC DOI homeowners settlement",
+    url: "https://www.ncdoi.gov/news/press-releases/2025/01/17/commissioner-causey-negotiates-settlement-rate-bureaus-homeowners-insurance-request",
+    text:
+      "January 2025 settlement information for North Carolina homeowners insurance base-rate changes.",
+  },
+  {
+    name: "NC DOI homeowners settlement table",
+    url: "https://www.ncdoi.gov/2024-proposed-homeowners-insurance-increase-settlement-table/open",
+    text:
+      "Territory-level requested and approved homeowners insurance base-rate changes.",
+  },
+  {
+    name: "NC DOI dwelling settlement",
+    url: "https://www.ncdoi.gov/news/press-releases/2026/04/22/commissioner-causey-negotiates-dwelling-rate-settlement-insurance-companies",
+    text:
+      "Dwelling-policy rate context for rental homes, non-owner-occupied homes, and related property questions.",
+  },
+];
+
 const coreSeoPages = [
   {
     slug: "outer-banks-property-insurance",
@@ -347,7 +368,18 @@ const coreSeoPages = [
         body:
           "The goal is to prepare a cleaner review for coastal homes that face wind, hail, tropical weather, and hurricane exposure.",
       },
+      {
+        heading: "Ask how the wind path fits the full account",
+        body:
+          "Wind and hail should not be reviewed in isolation. Homeowners coverage, flood insurance, rental use, liability, deductible comfort, current carrier, and mortgage timing should be discussed together before an owner chooses a path.",
+      },
+      {
+        heading: "Roof age belongs in the first conversation",
+        body:
+          "Roof age, roof material, roof shape, updates, openings, and inspection notes can all shape the wind review. Sharing those facts early helps the licensed agent focus on realistic options for the property.",
+      },
     ],
+    sources: [officialSourceLinks[1], officialSourceLinks[0]],
     checklist: [
       "Wind exposure notes",
       "Roof age and updates",
@@ -365,6 +397,11 @@ const coreSeoPages = [
         question: "Can this help before closing?",
         answer:
           "Yes. Starting the wind review early can help the licensed agent understand the home and any timing needs.",
+      },
+      {
+        question: "What should I know about wind deductibles?",
+        answer:
+          "Wind deductibles may be structured differently than other property deductibles. The licensed agent can explain what applies to the available options for your specific OBX property.",
       },
     ],
   },
@@ -396,7 +433,18 @@ const coreSeoPages = [
         body:
           "If you are buying, refinancing, renewing, or simply checking your risk, the coverage check helps a local Outer Banks, NC licensed agent see what questions need attention.",
       },
+      {
+        heading: "Elevation documents can save time",
+        body:
+          "An elevation certificate, flood zone note, foundation description, and lender requirement can help the flood review move faster. If you do not have those details, start with the address and share what you know.",
+      },
+      {
+        heading: "Flood review can sit beside homeowners review",
+        body:
+          "Flood insurance is often separate from homeowners insurance, but owners should review both at the same time. The licensed review should understand the full property picture, including wind, flood, use, timing, and lender needs.",
+      },
     ],
+    sources: [officialSourceLinks[2], officialSourceLinks[3], officialSourceLinks[0]],
     checklist: [
       "Flood zone notes",
       "Elevation certificate status",
@@ -414,6 +462,11 @@ const coreSeoPages = [
         question: "Can flood coverage be reviewed with homeowners coverage?",
         answer:
           "Yes. The same coverage check can prepare both conversations so the local Outer Banks, NC licensed agent sees the full property picture.",
+      },
+      {
+        question: "What if I do not know my flood zone?",
+        answer:
+          "You can still start. Share the address, lender timing, and any documents you have, then the licensed team can explain what may need to be confirmed.",
       },
     ],
   },
@@ -445,7 +498,18 @@ const coreSeoPages = [
         body:
           "Whether you are buying a rental property or reviewing your current policy, the goal is to prepare a complete property summary for the licensed agent.",
       },
+      {
+        heading: "Amenities and guest use matter",
+        body:
+          "Pools, hot tubs, elevators, decks, docks, advertised guest count, pet-friendly use, golf carts, and property manager details can raise liability and underwriting questions. Those details belong in the first review.",
+      },
+      {
+        heading: "Review income, contents, and liability together",
+        body:
+          "Vacation rental owners should ask how furnished contents, loss of rent, guest liability, owner use, cleaning crews, and seasonal occupancy fit with homeowners, dwelling, wind, and flood coverage.",
+      },
     ],
+    sources: [officialSourceLinks[0], officialSourceLinks[2], officialSourceLinks[1]],
     checklist: [
       "Weekly rental use",
       "Second home occupancy",
@@ -463,6 +527,11 @@ const coreSeoPages = [
         question: "Can this help if I use a property manager?",
         answer:
           "Yes. You can still start the insurance review and add notes about management, guest use, or rental schedule.",
+      },
+      {
+        question: "Should I mention pools, hot tubs, or elevators?",
+        answer:
+          "Yes. Amenities can affect liability and rental review, so include them early with guest count, property manager details, and any advertised features.",
       },
     ],
   },
@@ -813,6 +882,279 @@ const coreSeoPages = [
 
 const clusterSeoPages = [
   {
+    slug: "outer-banks-property-insurance-rates",
+    title: "Outer Banks Property Insurance Rates | NC DOI Rate Context",
+    description:
+      "Understand Outer Banks property insurance rate changes, NC DOI settlement data, wind, flood, roof age, rental use, and the details that can shape your review.",
+    eyebrow: "Outer Banks property insurance rates",
+    h1: "Outer Banks property insurance rates and what homeowners should check",
+    intro:
+      "Outer Banks property insurance rates are affected by more than a single statewide headline. Beach area territory, coastal exposure, wind and hail treatment, flood questions, roof age, property use, and carrier underwriting can all shape the review.",
+    support:
+      "This page uses official North Carolina Department of Insurance settlement materials to explain OBX-related base-rate changes and why accurate property details matter before a licensed review.",
+    intent: "For OBX owners who want current rate context before a renewal, purchase, or quote review.",
+    sections: [
+      {
+        heading: "Rate changes are not the same as your quote",
+        body:
+          "The NC DOI settlement data explains approved base-rate changes by territory. A property premium can still change because of coverage limits, wind and hail treatment, flood insurance, deductibles, roof age, rental use, fees, carrier filings, and underwriting details.",
+      },
+      {
+        heading: "OBX details can change the conversation quickly",
+        body:
+          "Two homes in the same town can raise different questions if one is oceanfront, one is soundside, one is rented weekly, or one has an older roof. That is why the first step is to organize the address, property use, roof, wind, flood, and renewal timing together.",
+      },
+      {
+        heading: "Use rate news as a reason to prepare",
+        body:
+          "A renewal notice is easier to review when the owner already knows the property facts. Current carrier, expiration date, replacement cost, roof age, wind deductible, flood zone, and elevation certificate status can help the licensed review move faster.",
+      },
+    ],
+    dataTable: {
+      eyebrow: "NC DOI homeowners settlement data",
+      title: "OBX-related homeowners base-rate changes",
+      intro:
+        "The table below summarizes the Outer Banks-related territories from NC DOI settlement materials. These numbers are base-rate changes, not quotes for a specific home.",
+      columns: [
+        { key: "territory", label: "Territory" },
+        { key: "area", label: "Area described by NC DOI materials" },
+        { key: "requested", label: "Rate Bureau request" },
+        { key: "approved2025", label: "Approved 2025" },
+        { key: "approved2026", label: "Approved 2026" },
+      ],
+      rows: [
+        {
+          territory: "Territory 110",
+          area: "Beach areas in Currituck, Dare, and Hyde counties",
+          requested: "45.1%",
+          approved2025: "5.1%",
+          approved2026: "4.8%",
+        },
+        {
+          territory: "Territory 130",
+          area: "Coastal areas in Currituck, Dare, Hyde, and Pamlico counties",
+          requested: "33.9%",
+          approved2025: "2.8%",
+          approved2026: "2.8%",
+        },
+      ],
+      note:
+        "Use these figures as context only. Your property review still depends on the actual address, policy type, coverage choices, wind and flood treatment, and underwriting questions.",
+    },
+    sources: rateContextSources,
+    keywords: [
+      "Outer Banks property insurance rates",
+      "OBX home insurance rates",
+      "Outer Banks homeowners insurance rate increase",
+      "NC DOI homeowners insurance settlement Outer Banks",
+      "Dare County homeowners insurance rates",
+      "Currituck coastal homeowners insurance rates",
+      "Hyde County beach area insurance rates",
+    ],
+    localInsights: [
+      "Bring your current declarations page, renewal notice, wind deductible, flood policy, roof age, and occupancy details to the review.",
+      "Vacation rental and non-owner-occupied homes may need dwelling or rental-property context in addition to standard homeowners rate news.",
+      "If your renewal increased, the first question is not only price. The review should confirm coverage limits, wind and hail treatment, flood coverage, deductibles, and property details.",
+      "Base-rate changes do not explain every premium change, so the property should be reviewed as a complete coastal account.",
+    ],
+    checklist: [
+      "NC DOI rate context",
+      "Renewal notice review",
+      "Wind and hail treatment",
+      "Flood policy questions",
+      "Licensed OBX coverage brief",
+    ],
+    faqs: [
+      {
+        question: "Are these NC DOI rate changes the same as my premium change?",
+        answer:
+          "No. They are base-rate changes from settlement materials. Your premium can also be affected by coverage limits, deductibles, wind and flood treatment, property use, roof age, fees, and carrier underwriting.",
+      },
+      {
+        question: "Why can two Outer Banks homes have different insurance results?",
+        answer:
+          "Location, construction, roof age, elevation, flood zone, rental use, prior coverage, and carrier appetite can all change the review, even when two homes are in the same town.",
+      },
+      {
+        question: "What should I send if my renewal went up?",
+        answer:
+          "Share the renewal notice, current declarations page, property address, roof age, occupancy, rental use, wind deductible, flood policy status, and expiration date when available.",
+      },
+    ],
+    relatedSlugs: [
+      "outer-banks-insurance-renewal-review",
+      "obx-wind-hail-insurance",
+      "outer-banks-flood-insurance",
+      "obx-roof-age-insurance",
+      "obx-vacation-rental-insurance",
+      "outer-banks-property-insurance",
+    ],
+  },
+  {
+    slug: "outer-banks-insurance-renewal-review",
+    title: "Outer Banks Insurance Renewal Review | OBX Homeowners Help",
+    description:
+      "Review your Outer Banks insurance renewal with local guidance for homeowners, wind, flood, roof age, rental use, deductibles, and coverage changes.",
+    eyebrow: "Outer Banks insurance renewal review",
+    h1: "Outer Banks insurance renewal review before your policy renews",
+    intro:
+      "An Outer Banks insurance renewal deserves more than a quick price check. The right review looks at the property, current coverage, wind and hail, flood, roof age, rental use, deductible choices, and whether anything changed since the last policy term.",
+    support:
+      "Use this page when your renewal notice arrives, your carrier changes terms, your property use changed, or you want a licensed North Carolina insurance team to review the details before you decide what to do next.",
+    intent: "For OBX homeowners who want a calm, organized renewal review before the deadline.",
+    sections: [
+      {
+        heading: "Start before the renewal date feels urgent",
+        body:
+          "Coastal insurance reviews can take extra follow-up. Roof age, wind eligibility, flood questions, rental use, missing documents, and carrier underwriting can all add time when the policy expiration date is close.",
+      },
+      {
+        heading: "Compare more than the premium",
+        body:
+          "A lower premium is not helpful if the coverage, deductible, wind treatment, flood plan, or property use does not match the home. Renewal review should compare limits, deductibles, exclusions, forms, lender requirements, and real property details.",
+      },
+      {
+        heading: "Update the facts that changed",
+        body:
+          "Renovations, roof updates, new rental use, a different property manager, added amenities, ownership changes, mortgage changes, and elevation documents should be raised before options are reviewed.",
+      },
+      {
+        heading: "Keep a simple renewal packet",
+        body:
+          "The fastest review usually includes the current declarations page, renewal notice, expiration date, mortgagee information, flood policy status, roof age, property use, and any recent inspection or update notes.",
+      },
+    ],
+    sources: [officialSourceLinks[0], officialSourceLinks[1], officialSourceLinks[2]],
+    keywords: [
+      "Outer Banks insurance renewal review",
+      "OBX homeowners insurance renewal",
+      "Outer Banks home insurance renewal",
+      "Dare County insurance renewal review",
+      "OBX wind and flood renewal review",
+      "Outer Banks vacation rental insurance renewal",
+    ],
+    localInsights: [
+      "Start the renewal review when the notice arrives, not the week the policy expires.",
+      "Ask whether the current policy still matches the way the home is used today.",
+      "Review wind and flood alongside homeowners coverage so the full coastal picture is clear.",
+      "If your home is now rented weekly, has a new roof, or has new amenities, include those details from the beginning.",
+    ],
+    checklist: [
+      "Current declarations page",
+      "Renewal notice",
+      "Expiration date",
+      "Wind and flood details",
+      "Roof and rental updates",
+    ],
+    faqs: [
+      {
+        question: "When should I review my OBX insurance renewal?",
+        answer:
+          "Start as soon as the renewal notice arrives. Coastal property reviews can require follow-up on roof age, wind, flood, rental use, lender timing, and documents.",
+      },
+      {
+        question: "What should I compare besides premium?",
+        answer:
+          "Compare dwelling limit, other structures, personal property, liability, wind and hail treatment, flood coverage, deductibles, exclusions, lender requirements, and whether the policy matches how the home is used.",
+      },
+      {
+        question: "Can this help if my renewal is last minute?",
+        answer:
+          "Yes. Share the expiration date and current documents right away so the licensed review can see what is urgent and what may need follow-up.",
+      },
+    ],
+    relatedSlugs: [
+      "outer-banks-property-insurance-rates",
+      "obx-homeowners-insurance",
+      "obx-roof-age-insurance",
+      "outer-banks-flood-insurance",
+      "obx-vacation-rental-insurance",
+      "obx-multiple-property-insurance-review",
+    ],
+  },
+  {
+    slug: "obx-multiple-property-insurance-review",
+    title: "OBX Multiple Property Insurance Review | Outer Banks Coverage Help",
+    description:
+      "Organize insurance for multiple Outer Banks homes, rentals, second homes, condos, wind, flood, umbrella, auto, and renewal timing with local licensed review.",
+    eyebrow: "OBX multiple property insurance review",
+    h1: "OBX multiple property insurance review for coastal owners",
+    intro:
+      "Owning more than one Outer Banks property can make insurance harder to track. Each home may have a different use, renewal date, carrier, roof age, flood zone, wind deductible, property manager, lender, or rental exposure.",
+    support:
+      "This page helps owners organize multiple OBX homes, second homes, vacation rentals, condos, landlord properties, auto, umbrella, and related lines before a licensed North Carolina insurance team reviews the account.",
+    intent: "For OBX owners who want one organized view across more than one coastal property.",
+    sections: [
+      {
+        heading: "Build one inventory before comparing options",
+        body:
+          "A multi-property review should start with a simple list: address, town, occupancy, rental use, current carrier, expiration date, dwelling limit, roof age, wind deductible, flood policy, lender, and property manager if applicable.",
+      },
+      {
+        heading: "Do not assume every property needs the same answer",
+        body:
+          "A primary home, second home, weekly rental, condo, and long-term rental can raise different liability, contents, wind, flood, and servicing questions. Each property should be reviewed on its own facts before the account is considered together.",
+      },
+      {
+        heading: "Look for gaps and duplicated assumptions",
+        body:
+          "Multiple properties can create missed details. Umbrella limits, rental liability, loss of rent, flood coverage, named insureds, mortgagee details, and renewal timing should be checked across the whole portfolio.",
+      },
+      {
+        heading: "Plan renewals on a calendar",
+        body:
+          "When policies renew at different times, it helps to know which dates are urgent, which documents are missing, and which properties need updated roof, rental, flood, or lender information first.",
+      },
+    ],
+    sources: [officialSourceLinks[0], officialSourceLinks[1], officialSourceLinks[2]],
+    keywords: [
+      "OBX multiple property insurance",
+      "Outer Banks multiple home insurance",
+      "Outer Banks rental property insurance review",
+      "OBX second home and rental insurance",
+      "Outer Banks umbrella insurance review",
+      "OBX insurance portfolio review",
+    ],
+    localInsights: [
+      "Separate each property by use: primary, second home, weekly rental, seasonal rental, long-term rental, condo, or vacant property.",
+      "Keep renewal dates, current carriers, and flood policy details together so timing does not become the problem.",
+      "If one property has a pool, elevator, hot tub, private dock, or high rental income, flag it early for liability and rental review.",
+      "Ask about umbrella, auto, landlord, condo, and dwelling options when your account includes more than one exposure.",
+    ],
+    checklist: [
+      "Property inventory",
+      "Renewal calendar",
+      "Wind and flood by address",
+      "Rental and liability details",
+      "Umbrella and related lines",
+    ],
+    faqs: [
+      {
+        question: "Can I review more than one OBX property at a time?",
+        answer:
+          "Yes. Start with one organized summary for each property so the licensed review can compare timing, coverage needs, wind, flood, and property-use details.",
+      },
+      {
+        question: "Should weekly rentals be separated from second homes?",
+        answer:
+          "Yes. A home used only by the owner can raise different questions than a weekly or seasonal rental with guests, furnished contents, amenities, and rental income.",
+      },
+      {
+        question: "Can related lines be reviewed too?",
+        answer:
+          "Yes. If you have auto, umbrella, landlord, condo, or other property coverage, include it in the notes so the licensed team can understand the full account.",
+      },
+    ],
+    relatedSlugs: [
+      "obx-vacation-rental-insurance",
+      "obx-second-home-insurance",
+      "outer-banks-condo-insurance",
+      "obx-landlord-dwelling-fire-insurance",
+      "outer-banks-insurance-renewal-review",
+      "outer-banks-property-insurance",
+    ],
+  },
+  {
     slug: "obx-second-home-insurance",
     title: "OBX Second Home Insurance | Outer Banks Review",
     description:
@@ -1002,11 +1344,23 @@ const clusterSeoPages = [
         body:
           "A buyer who knows the roof age, replacement history, and inspection findings can have a more useful insurance conversation before lender deadlines become urgent.",
       },
+      {
+        heading: "Renewals can surface roof questions",
+        body:
+          "A renewal review can uncover roof-related questions that were not urgent in prior years. If the roof is older, recently repaired, or difficult to document, it should be discussed before the renewal deadline gets close.",
+      },
+      {
+        heading: "Photos and permits can help the review",
+        body:
+          "When available, roof permits, contractor invoices, inspection reports, and clear photos can help the licensed agent understand what was replaced, when the work was completed, and whether more documentation may be needed.",
+      },
     ],
+    sources: [officialSourceLinks[0], officialSourceLinks[1]],
     localInsights: [
       "Have the roof year, material, major repairs, inspection notes, and any permit details ready when available.",
       "Roof age can matter for both homeowners and wind and hail review in coastal North Carolina.",
       "If you are buying, ask for seller disclosures and inspection notes before the insurance review starts.",
+      "If you replaced the roof, gather the permit, invoice, warranty, inspection notes, and photos before the renewal review.",
     ],
     checklist: [
       "Roof age",
@@ -1025,6 +1379,11 @@ const clusterSeoPages = [
         question: "Does roof age affect wind insurance?",
         answer:
           "It can be part of the review. Roof age, condition, construction, and openings are often important coastal underwriting details.",
+      },
+      {
+        question: "What roof documents should I keep?",
+        answer:
+          "Keep permits, invoices, inspection notes, warranty details, photos, and any seller disclosures. These can help the licensed agent understand the roof history.",
       },
     ],
   },
@@ -1056,12 +1415,23 @@ const clusterSeoPages = [
         body:
           "Wind and hail are only part of the OBX coverage map. Homeowners, flood, rental use, liability, and timing should be reviewed together.",
       },
+      {
+        heading: "Use official information, then review your property",
+        body:
+          "Official NCJUA/NCIUA resources can help owners understand the pool at a high level. The next step is property-specific review, because address, construction, occupancy, roof age, deductibles, and other coverage still matter.",
+      },
+      {
+        heading: "Prepare questions before the call",
+        body:
+          "Ask how any available coastal wind path would work with homeowners coverage, flood coverage, deductibles, lender requirements, rental use, claims handling, and future renewals.",
+      },
     ],
     sources: [officialSourceLinks[1], officialSourceLinks[0]],
     localInsights: [
       "Have address, roof age, construction, occupancy, current policy, and wind deductible comfort ready.",
       "Ask a licensed agent to explain how any available coastal wind path fits with homeowners and flood coverage.",
       "Use the official NCJUA/NCIUA site for pool background, then use OBXNCInsurance.com to prepare a property-specific review.",
+      "Bring current coverage, expiration date, lender requirements, and any prior wind or hail documents into the review.",
     ],
     checklist: [
       "NCJUA/NCIUA questions",
@@ -1080,6 +1450,11 @@ const clusterSeoPages = [
         question: "Can OBXNCInsurance.com explain eligibility?",
         answer:
           "The site prepares your request. Eligibility, quotes, advice, binding, and service are handled by a local Outer Banks, NC licensed agent.",
+      },
+      {
+        question: "Should I review flood coverage at the same time?",
+        answer:
+          "Yes. Coastal wind and flood are different questions, but they should be reviewed together so the full property picture is clear.",
       },
     ],
   },
@@ -1111,12 +1486,23 @@ const clusterSeoPages = [
         body:
           "Flood insurance deserves early attention because homeowners policies commonly do not handle rising water or storm surge the way owners expect.",
       },
+      {
+        heading: "Ask where the document can be found",
+        body:
+          "For a purchase, ask the seller, listing agent, closing team, lender, or property manager whether an elevation certificate already exists. Finding an existing document can be faster than starting from scratch.",
+      },
+      {
+        heading: "Use the certificate as context, not a shortcut",
+        body:
+          "An elevation certificate can be useful, but the licensed review may still need foundation type, occupancy, replacement cost, lender timing, prior flood coverage, and whether the property is rented.",
+      },
     ],
     sources: [officialSourceLinks[2], officialSourceLinks[3], officialSourceLinks[0]],
     localInsights: [
       "Share the flood zone if known, but do not delay if you are unsure.",
       "Elevation certificate status, lender timing, foundation type, and occupancy can all change the next question.",
       "Buyers should ask sellers, agents, or closing teams whether elevation documents are already available.",
+      "If the home is rented weekly, include that use along with flood and elevation details so the full account can be reviewed.",
     ],
     checklist: [
       "Flood zone",
@@ -1135,6 +1521,11 @@ const clusterSeoPages = [
         question: "Can I submit the form if I do not know my flood zone?",
         answer:
           "Yes. Choose needs review or unsure, then include any lender or closing timing you already know.",
+      },
+      {
+        question: "Where should I look for an elevation certificate?",
+        answer:
+          "Start by asking the seller, listing agent, closing team, lender, property manager, or local records contact. If one is not available, the licensed review can explain what may be needed next.",
       },
     ],
   },
@@ -1432,6 +1823,9 @@ const imageBySlug = {
   "obx-wind-hail-insurance": localImages.kittyHawk,
   "outer-banks-flood-insurance": localImages.manteo,
   "obx-vacation-rental-insurance": localImages.corolla,
+  "outer-banks-property-insurance-rates": localImages.outerBanks,
+  "outer-banks-insurance-renewal-review": localImages.nagsHead,
+  "obx-multiple-property-insurance-review": localImages.duck,
   "obx-second-home-insurance": localImages.nagsHead,
   "outer-banks-beach-house-insurance": localImages.outerBanks,
   "outer-banks-home-buyer-insurance-checklist": localImages.duck,
@@ -1509,16 +1903,19 @@ const localInsightBySlug = {
     "Wind and hail review usually starts with roof age, roof shape, openings, construction type, and distance from ocean or sound exposure.",
     "Deductibles may be quoted differently than an all-other-perils deductible, so the preferred deductible should be discussed early.",
     "Older roofs, recent updates, and prior claims history can shape which wind paths are realistic for the property.",
+    "Review homeowners, wind, flood, rental use, and lender timing together so one coverage decision does not create a problem somewhere else.",
   ],
   "outer-banks-flood-insurance": [
     "Flood review depends on flood zone, elevation certificate status, foundation type, lender timing, and whether the home is elevated.",
     "NFIP and private flood options may ask different questions, so clear property details help avoid delays.",
     "For buyers, flood review should start before closing pressure builds because elevation documents can take time to locate.",
+    "If you have a flood policy now, include the declarations page and renewal date with the homeowners and wind review.",
   ],
   "obx-vacation-rental-insurance": [
     "Weekly rental use should be stated clearly because guest occupancy, furnished contents, liability, and loss-of-rent questions matter.",
     "Pools, hot tubs, elevators, decks, rental income, property managers, and advertised amenities may all change the insurance review.",
     "The agent needs to know if the home is owner-used part time, rented seasonally, rented weekly, or managed by a rental company.",
+    "Rental owners should gather current carrier, policy expiration, property manager details, advertised guest count, amenities, and any loss-of-rent questions.",
   ],
   "nags-head-home-insurance": [
     "Nags Head homes may involve oceanfront, west-side, soundside, or rental exposure, so address-level review matters.",
@@ -1567,9 +1964,13 @@ const townNameFromPage = (page) =>
 
 const buildKeywords = (page) => {
   const isTownPage = townSeoSlugs.has(page.slug);
+  const uniqueKeywords = (items) =>
+    Array.from(new Set(items.filter(Boolean)));
+
   if (isTownPage) {
     const town = townNameFromPage(page);
-    return [
+    return uniqueKeywords([
+      ...(page.keywords || []),
       `${town} home insurance`,
       `${town} homeowners insurance`,
       `${town} flood insurance`,
@@ -1577,11 +1978,12 @@ const buildKeywords = (page) => {
       `${town} vacation rental insurance`,
       "Outer Banks NC property insurance",
       "outerbanks property insurance",
-    ];
+    ]);
   }
 
   const base = page.eyebrow;
-  return [
+  return uniqueKeywords([
+    ...(page.keywords || []),
     base,
     `${base} Outer Banks NC`,
     "Outer Banks property insurance",
@@ -1589,7 +1991,7 @@ const buildKeywords = (page) => {
     "OBX homeowners insurance",
     "Outer Banks wind and hail insurance",
     "Outer Banks flood insurance",
-  ];
+  ]);
 };
 
 const enhanceSeoPage = (page) => {
