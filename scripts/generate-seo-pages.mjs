@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
-import { officialSourceLinks, seoPages } from "../src/seoPages.js";
+import { obxResourceTools, officialSourceLinks, seoPages } from "../src/seoPages.js";
 
 const siteUrl = "https://www.obxncinsurance.com";
 const distDir = fileURLToPath(new URL("../dist/", import.meta.url));
@@ -27,6 +27,7 @@ const updateMeta = (html, page) => {
         url: canonical,
         name: page.title,
         description: page.description,
+        dateModified: page.lastReviewed,
         image: page.image.url,
         isPartOf: {
           "@id": `${siteUrl}/#website`,
@@ -194,6 +195,7 @@ const renderStaticBody = (page) => `
             ? `<section>
           <h2>Official resources to verify while you prepare</h2>
           <p>These official resources support the educational side of this guide. Quotes, advice, binding, and service still come from a licensed North Carolina insurance agent.</p>
+          ${page.lastReviewed ? `<p>Last reviewed: ${escapeHtml(page.lastReviewed)}</p>` : ""}
           <ul>${page.sources
             .map(
               (source) =>
@@ -268,6 +270,15 @@ const homepageStaticBody = `
           <ul>${seoPages
             .slice(0, 16)
             .map((page) => `<li><a href="/${escapeHtml(page.slug)}/">${escapeHtml(page.eyebrow)}</a></li>`)
+            .join("")}</ul>
+        </section>
+        <section>
+          <h2>Free OBX insurance prep tools</h2>
+          <ul>${obxResourceTools
+            .map(
+              (tool) =>
+                `<li><a href="/${escapeHtml(tool.slug)}/">${escapeHtml(tool.title)}</a>: ${escapeHtml(tool.summary)}</li>`,
+            )
             .join("")}</ul>
         </section>
         <section>

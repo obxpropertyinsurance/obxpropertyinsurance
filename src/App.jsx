@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BadgeCheck,
-  BellRing,
   Bot,
   BookOpenCheck,
   Check,
@@ -35,6 +34,7 @@ import {
   getSeoPageByPath,
   getSeoPageBySlug,
   homepageImages,
+  obxResourceTools,
   officialSourceLinks,
   seoPages,
 } from "./seoPages.js";
@@ -236,6 +236,39 @@ const informationHubCards = [
   },
 ];
 
+const atlasFeatureLinks = [
+  {
+    title: "Oceanfront homes",
+    text: "Wind, flood, elevation, rental use, dune exposure, and deductible questions.",
+    href: "/outer-banks-oceanfront-home-insurance/",
+  },
+  {
+    title: "Soundside homes",
+    text: "Flood zones, docks, outbuildings, wind, shoreline, and property-use details.",
+    href: "/outer-banks-soundside-home-insurance/",
+  },
+  {
+    title: "Canalfront homes",
+    text: "Bulkheads, docks, other structures, liability, flood, and rental review.",
+    href: "/outer-banks-canalfront-home-insurance/",
+  },
+  {
+    title: "4x4 access homes",
+    text: "Remote access, replacement logistics, Carova-area questions, wind, flood, and rental use.",
+    href: "/outer-banks-4x4-access-home-insurance/",
+  },
+  {
+    title: "Named storm deductibles",
+    text: "Wind, hurricane, named storm, percentage deductibles, and renewal comparison.",
+    href: "/outer-banks-named-storm-deductible-guide/",
+  },
+  {
+    title: "Nonrenewal or carrier change",
+    text: "What to gather when timing, carrier appetite, roof age, or renewal terms change.",
+    href: "/outer-banks-insurance-nonrenewal-carrier-change/",
+  },
+];
+
 const contactPreferences = [
   "Phone call",
   "Text first",
@@ -296,13 +329,37 @@ const coverageLayers = [
   },
 ];
 
-const prepChecklist = [
-  "Property address",
-  "Primary, second home, or rental use",
-  "Roof age and major updates",
-  "Flood zone or elevation certificate",
-  "Current carrier and renewal date",
-  "Closing date or coverage-needed date",
+const toolkitIconBySlug = {
+  "outer-banks-insurance-renewal-review": Clock3,
+  "outer-banks-flood-zone-elevation-certificate": Waves,
+  "obx-vacation-rental-insurance": Umbrella,
+  "obx-multiple-property-insurance-review": Layers3,
+  "obx-roof-age-insurance": Home,
+  "outer-banks-home-buyer-insurance-checklist": FileCheck2,
+};
+
+const trustFoundationCards = [
+  {
+    icon: BookOpenCheck,
+    title: "Source-backed education",
+    text:
+      "Major guides link to NC DOI, FEMA, FloodSmart, NCJUA/NCIUA, Dare County, or rate filing context when those sources help homeowners verify the topic.",
+    href: "/obx-insurance-trust-and-source-standards/",
+  },
+  {
+    icon: ShieldCheck,
+    title: "No lead selling",
+    text:
+      "Your details are used for your OBX property insurance request. We do not sell your information to an agent network.",
+    href: "/obx-insurance-trust-and-source-standards/",
+  },
+  {
+    icon: UserCheck,
+    title: "Licensed review boundary",
+    text:
+      "Education helps you prepare. Quotes, advice, binding, recommendations, and servicing stay with a licensed North Carolina insurance agent.",
+    href: "/obx-insurance-trust-and-source-standards/",
+  },
 ];
 
 const alertCards = [
@@ -315,6 +372,11 @@ const alertCards = [
     icon: FileCheck2,
     title: "Renewal coming up",
     text: "Share your current carrier, expiration date, roof age, and deductible comfort for a cleaner review.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Nonrenewal or carrier change",
+    text: "Send the notice, deadline, current declarations page, roof details, and property use so timing is clear.",
   },
   {
     icon: Waves,
@@ -380,11 +442,18 @@ const getReviewOptionForPage = (page) => {
   const slug = page?.slug || "";
   if (slug.includes("flood")) return "Flood guidance";
   if (slug.includes("rental")) return "Rental-use clarity";
+  if (slug.includes("wind") || slug.includes("storm") || slug.includes("deductible")) {
+    return "Homeowners + wind review";
+  }
   return "Homeowners + wind review";
 };
 
 const getLeadGoalForPage = (page) => {
   const slug = page?.slug || "";
+  if (slug.includes("renewal") || slug.includes("nonrenewal") || slug.includes("carrier-change")) {
+    return "Renewal review";
+  }
+  if (slug.includes("multiple-property") || slug.includes("toolkit")) return "Current policy review";
   if (slug.includes("vacation-rental")) return "Current policy review";
   return "Buying / closing soon";
 };
@@ -542,6 +611,7 @@ function App() {
   const [coverage, setCoverage] = useState(750000);
   const [deductible, setDeductible] = useState(2500);
   const [selectedOption, setSelectedOption] = useState("Homeowners + wind review");
+  const [selectedToolkitTitle, setSelectedToolkitTitle] = useState(obxResourceTools[0].title);
   const [openFaq, setOpenFaq] = useState(0);
   const [quoteStarted, setQuoteStarted] = useState(false);
   const [quoteStep, setQuoteStep] = useState(1);
@@ -570,6 +640,8 @@ function App() {
   });
   const activeSeoPage = getSeoPageByPath(window.location.pathname);
   const reviewSeoPage = useMemo(getReviewPageFromSearch, []);
+  const selectedToolkit =
+    obxResourceTools.find((tool) => tool.title === selectedToolkitTitle) || obxResourceTools[0];
 
   useEffect(() => {
     if (!activeSeoPage) {
@@ -805,7 +877,7 @@ function App() {
           <a href="#wind-flood">Wind & flood</a>
           <a href="#how-it-works">How it works</a>
           <a href="#service-area">OBX towns</a>
-          <a href="#local-agents">Licensed review</a>
+          <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
         </nav>
 
         <a className="header-cta" href="#quote">
@@ -836,8 +908,8 @@ function App() {
           <a href="#service-area" onClick={() => setMobileNavOpen(false)}>
             OBX towns
           </a>
-          <a href="#local-agents" onClick={() => setMobileNavOpen(false)}>
-            Licensed review
+          <a href="/outer-banks-insurance-atlas/" onClick={() => setMobileNavOpen(false)}>
+            Insurance atlas
           </a>
           <a className="mobile-nav-cta" href="#quote" onClick={() => setMobileNavOpen(false)}>
             Get my OBX brief
@@ -1190,6 +1262,31 @@ function App() {
           </div>
         </section>
 
+        <section className="atlas-section" aria-labelledby="atlas-title">
+          <div className="atlas-copy">
+            <span>OBX Insurance Atlas</span>
+            <h2 id="atlas-title">Find the guide that matches your property</h2>
+            <p>
+              Outer Banks insurance questions change by setting, use, and timing.
+              Start with the scenario closest to your home, then create a coverage
+              brief when you are ready for licensed review.
+            </p>
+            <a className="primary-button" href="/outer-banks-insurance-atlas/">
+              Open the full atlas
+              <ArrowRight size={19} aria-hidden="true" />
+            </a>
+          </div>
+          <div className="atlas-link-grid">
+            {atlasFeatureLinks.map((item) => (
+              <a href={item.href} key={item.title}>
+                <strong>{item.title}</strong>
+                <span>{item.text}</span>
+                <ArrowRight size={17} aria-hidden="true" />
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section className="intelligence-section" aria-labelledby="intelligence-title">
           <div className="intelligence-copy">
             <span>Free Outer Banks insurance intelligence</span>
@@ -1241,43 +1338,78 @@ function App() {
           <div className="toolkit-card">
             <div>
               <ListChecks size={31} aria-hidden="true" />
-              <h2 id="toolkit-title">Free OBX insurance prep checklist</h2>
+              <h2 id="toolkit-title">Free OBX insurance prep toolkit</h2>
               <p>
-                The best quote review starts with clean property facts. We help
-                you gather them before you submit your request.
+                Choose the situation that matches your property, then gather the
+                details that help a licensed review start cleaner.
               </p>
             </div>
+            <div className="toolkit-selector" role="tablist" aria-label="OBX insurance prep tools">
+              {obxResourceTools.map((tool) => {
+                const isSelected = selectedToolkit.title === tool.title;
+                return (
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={isSelected}
+                    className={isSelected ? "selected" : ""}
+                    key={tool.title}
+                    onClick={() => setSelectedToolkitTitle(tool.title)}
+                  >
+                    {tool.title}
+                  </button>
+                );
+              })}
+            </div>
+            <article className="toolkit-detail" aria-live="polite">
+              {(() => {
+                const Icon = toolkitIconBySlug[selectedToolkit.slug] || ListChecks;
+                return <Icon size={28} aria-hidden="true" />;
+              })()}
+              <div>
+                <h3>{selectedToolkit.title}</h3>
+                <p>{selectedToolkit.summary}</p>
+              </div>
+            </article>
             <ul>
-              {prepChecklist.map((item) => (
+              {selectedToolkit.items.map((item) => (
                 <li key={item}>
                   <CheckCircle2 size={18} aria-hidden="true" />
                   {item}
                 </li>
               ))}
             </ul>
-            <a className="primary-button" href="#quote">
-              Start with this checklist
+            <div className="toolkit-actions">
+              <a className="primary-button" href="#quote">
+                Start my coverage brief
+                <ArrowRight size={19} aria-hidden="true" />
+              </a>
+              <a className="text-button" href={`/${selectedToolkit.slug}/`}>
+                Open this guide
+                <ArrowRight size={18} aria-hidden="true" />
+              </a>
+            </div>
+            <a className="toolkit-library-link" href="/obx-insurance-toolkit/">
+              View the full OBX insurance toolkit
               <ArrowRight size={19} aria-hidden="true" />
             </a>
           </div>
 
           <div className="trust-ledger">
-            <article>
-              <BookOpenCheck size={30} aria-hidden="true" />
-              <h3>Helpful even before the form</h3>
-              <p>
-                Town pages, wind notes, flood notes, and rental guidance are written
-                to help homeowners understand what matters before they submit anything.
-              </p>
-            </article>
-            <article>
-              <BellRing size={30} aria-hidden="true" />
-              <h3>Built around urgent OBX moments</h3>
-              <p>
-                Buying, renewing, replacing coverage, or reviewing a rental home each
-                creates a different review priority.
-              </p>
-            </article>
+            {trustFoundationCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <article key={card.title}>
+                  <Icon size={30} aria-hidden="true" />
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                  <a href={card.href}>
+                    Review our trust standards
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </a>
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -1853,6 +1985,8 @@ function App() {
           <a href="#coverage">Home coverage</a>
           <a href="#wind-flood">Wind & flood</a>
           <a href="#service-area">OBX towns</a>
+          <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
+          <a href="/obx-insurance-toolkit/">Toolkit</a>
           <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
           <a href="#quote">Privacy</a>
           <a href="#local-agents">Licensing</a>
@@ -2129,7 +2263,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
           <a href="/#wind-flood">Wind & flood</a>
           <a href="/#how-it-works">How it works</a>
           <a href="/#service-area">OBX towns</a>
-          <a href="/outer-banks-property-insurance/">Insurance guides</a>
+          <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
         </nav>
 
         <a className="header-cta" href={quoteHref}>
@@ -2160,8 +2294,8 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
           <a href="/#service-area" onClick={() => setMobileNavOpen(false)}>
             OBX towns
           </a>
-          <a href="/outer-banks-property-insurance/" onClick={() => setMobileNavOpen(false)}>
-            Insurance guides
+          <a href="/outer-banks-insurance-atlas/" onClick={() => setMobileNavOpen(false)}>
+            Insurance atlas
           </a>
           <a className="mobile-nav-cta" href={quoteHref} onClick={() => setMobileNavOpen(false)}>
             Get my OBX brief
@@ -2182,6 +2316,8 @@ function SiteFooter() {
         <a href="/#service-area">OBX towns</a>
         <a href="/outer-banks-property-insurance/">Property insurance</a>
         <a href="/outer-banks-flood-insurance/">Flood insurance</a>
+        <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
+        <a href="/obx-insurance-toolkit/">Toolkit</a>
         <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
       </nav>
       <p>
@@ -2225,8 +2361,8 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
                 Start my OBX check
                 <ArrowRight size={19} aria-hidden="true" />
               </a>
-              <a className="text-button" href="/outer-banks-property-insurance/">
-                View property insurance guide
+              <a className="text-button" href="/outer-banks-insurance-atlas/">
+                View insurance atlas
                 <ArrowRight size={18} aria-hidden="true" />
               </a>
             </div>
@@ -2336,6 +2472,9 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
                 Your property-specific quotes, advice, binding, and servicing still
                 come from a licensed North Carolina insurance agent.
               </p>
+              {page.lastReviewed && (
+                <p className="seo-reviewed-note">Last reviewed: {page.lastReviewed}</p>
+              )}
             </div>
             <div className="official-resource-links">
               {page.sources.map((source) => (

@@ -812,6 +812,85 @@ img {
   color: var(--teal);
 }
 
+.atlas-section {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.56fr) minmax(600px, 1fr);
+  gap: 34px;
+  align-items: start;
+  padding: 68px max(28px, calc((100vw - var(--max)) / 2));
+  background: #fff;
+}
+
+.atlas-copy > span {
+  display: block;
+  color: var(--teal-dark);
+  font-size: 13px;
+  font-weight: 860;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.atlas-copy h2 {
+  margin: 14px 0 0;
+  color: var(--ink);
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.atlas-copy p {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.52;
+}
+
+.atlas-copy .primary-button {
+  width: fit-content;
+  margin-top: 24px;
+}
+
+.atlas-link-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.atlas-link-grid a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 14px;
+  align-items: start;
+  min-height: 150px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f9fcfd;
+  color: var(--ink);
+}
+
+.atlas-link-grid a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 127, 131, 0.32);
+  box-shadow: 0 18px 38px rgba(22, 36, 54, 0.08);
+}
+
+.atlas-link-grid strong {
+  font-size: 20px;
+  line-height: 1.18;
+}
+
+.atlas-link-grid span {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.48;
+}
+
+.atlas-link-grid svg {
+  color: var(--teal);
+}
+
 .intelligence-section {
   display: grid;
   grid-template-columns: minmax(380px, 0.88fr) minmax(540px, 1fr);
@@ -972,6 +1051,54 @@ img {
   background: #f9fcfd;
 }
 
+.toolkit-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.toolkit-selector button {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 820;
+  cursor: pointer;
+}
+
+.toolkit-selector button:hover,
+.toolkit-selector button.selected {
+  border-color: rgba(0, 127, 131, 0.35);
+  background: var(--soft);
+  color: var(--teal-dark);
+}
+
+.toolkit-detail {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 18px;
+  border: 1px solid rgba(0, 127, 131, 0.18);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.toolkit-detail h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 21px;
+  line-height: 1.2;
+}
+
+.toolkit-detail p {
+  margin: 8px 0 0;
+  font-size: 15px;
+}
+
 .toolkit-card svg,
 .trust-ledger svg,
 .alert-card-grid svg {
@@ -1002,8 +1129,26 @@ img {
   line-height: 1.35;
 }
 
+.toolkit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+}
+
 .toolkit-card .primary-button {
   width: fit-content;
+}
+
+.toolkit-library-link,
+.trust-ledger a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  color: var(--teal-dark);
+  font-size: 14px;
+  font-weight: 850;
 }
 
 .trust-ledger {
@@ -2383,6 +2528,12 @@ select {
   line-height: 1.58;
 }
 
+.seo-source-section .seo-reviewed-note {
+  color: var(--teal-dark);
+  font-size: 14px;
+  font-weight: 820;
+}
+
 .seo-source-section {
   display: grid;
   grid-template-columns: minmax(320px, 0.62fr) minmax(520px, 1fr);
@@ -3188,6 +3339,10 @@ select {
     gap: 42px;
   }
 
+  .atlas-section {
+    grid-template-columns: 1fr;
+  }
+
   .intelligence-section,
   .homeowner-toolkit-section,
   .alert-center-section,
@@ -3600,6 +3755,7 @@ select {
 	  }
 
 	  .rate-intelligence-section,
+	  .atlas-section,
 	  .intelligence-section,
 	  .homeowner-toolkit-section,
 	  .alert-center-section,
@@ -3608,6 +3764,7 @@ select {
 	  }
 
 	  .rate-intelligence-copy h2,
+	  .atlas-copy h2,
 	  .intelligence-copy h2,
 	  .homeowner-toolkit-section h2,
 	  .alert-center-copy h2,
@@ -3616,6 +3773,7 @@ select {
 	  }
 
 	  .rate-intelligence-copy p,
+	  .atlas-copy p,
 	  .intelligence-copy p,
 	  .homeowner-toolkit-section p,
 	  .alert-center-copy p,
@@ -3625,6 +3783,7 @@ select {
 
 	  .quick-call-promise,
 	  .motto-panel,
+	  .toolkit-detail,
 	  .dwelling-context-panel,
 	  .coverage-layer-list article {
 	    grid-template-columns: 1fr;
@@ -3636,6 +3795,19 @@ select {
 
 	  .rate-education-grid {
 	    grid-template-columns: 1fr;
+	  }
+
+	  .atlas-link-grid {
+	    grid-template-columns: 1fr;
+	  }
+
+	  .atlas-link-grid a {
+	    min-height: auto;
+	    padding: 18px;
+	  }
+
+	  .atlas-copy .primary-button {
+	    width: 100%;
 	  }
 
 	  .rate-bar-line {
@@ -3657,6 +3829,17 @@ select {
 
   .toolkit-card .primary-button {
     width: 100%;
+  }
+
+  .toolkit-actions {
+    display: grid;
+    gap: 14px;
+  }
+
+  .toolkit-actions .primary-button,
+  .toolkit-actions .text-button {
+    width: 100%;
+    justify-content: center;
   }
 
   .quote-cta-section {
