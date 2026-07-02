@@ -645,12 +645,12 @@ function App() {
 
   useEffect(() => {
     if (!activeSeoPage) {
-      document.title = "OBXNCInsurance.com | Outer Banks, NC Property Insurance";
+      document.title = "Outer Banks Homeowners Insurance | OBXNCInsurance.com";
       document
         .querySelector('meta[name="description"]')
         ?.setAttribute(
           "content",
-          "Create a free Outer Banks property insurance brief for homeowners, wind and hail, flood, second homes, rentals, and local licensed agent review. No spam.",
+          "Create a free Outer Banks homeowners and property insurance brief for coastal homes, wind, flood, second homes, vacation rentals, and local licensed review.",
         );
       document
         .querySelector('link[rel="canonical"]')
@@ -852,7 +852,7 @@ function App() {
 
   const quoteTitle = reviewSeoPage
     ? `Create your ${reviewSeoPage.eyebrow} brief`
-    : "Create your Outer Banks property insurance brief";
+    : "Create your Outer Banks homeowners insurance brief";
   const quoteIntro = reviewSeoPage
     ? `You came from our ${reviewSeoPage.eyebrow} guide. Send the property details below and we will preserve that context for local Outer Banks, NC licensed agent review.`
     : "Send the essentials first. We will prepare a no-spam coverage brief for review by a local Outer Banks, NC licensed agent.";
@@ -873,8 +873,9 @@ function App() {
         <Logo />
 
         <nav className="desktop-nav" aria-label="Primary navigation">
-          <a href="#coverage">Home coverage</a>
-          <a href="#wind-flood">Wind & flood</a>
+          <a href="/outer-banks-insurance/">OBX insurance</a>
+          <a href="/outer-banks-homeowners-insurance/">Homeowners</a>
+          <a href="/#wind-flood">Wind & flood</a>
           <a href="#how-it-works">How it works</a>
           <a href="#service-area">OBX towns</a>
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
@@ -896,10 +897,13 @@ function App() {
 
       {mobileNavOpen && (
         <nav className="mobile-nav" aria-label="Mobile navigation">
-          <a href="#coverage" onClick={() => setMobileNavOpen(false)}>
-            Home coverage
+          <a href="/outer-banks-insurance/" onClick={() => setMobileNavOpen(false)}>
+            OBX insurance
           </a>
-          <a href="#wind-flood" onClick={() => setMobileNavOpen(false)}>
+          <a href="/outer-banks-homeowners-insurance/" onClick={() => setMobileNavOpen(false)}>
+            Homeowners
+          </a>
+          <a href="/#wind-flood" onClick={() => setMobileNavOpen(false)}>
             Wind & flood
           </a>
           <a href="#how-it-works" onClick={() => setMobileNavOpen(false)}>
@@ -922,14 +926,15 @@ function App() {
           <div className="hero-copy">
             <h1 id="hero-title">
               <span>Outer Banks</span>
-              <span>property insurance</span>
+              <span>homeowners insurance</span>
               <span>for coastal homes</span>
             </h1>
             <p>
               Get clear, no-spam help for your Outer Banks home, second home, or
               vacation rental. We help you understand the property details that
-              shape homeowners, wind, flood, rental use, roof age, renewals, and
-              your quote review with our licensed North Carolina insurance team.
+              shape homeowners insurance, property insurance, wind, flood,
+              rental use, roof age, renewals, and your quote review with our
+              licensed North Carolina insurance team.
             </p>
 
             <div className="hero-actions">
@@ -2259,7 +2264,8 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
         <Logo />
 
         <nav className="desktop-nav" aria-label="Primary navigation">
-          <a href="/#coverage">Home coverage</a>
+          <a href="/outer-banks-insurance/">OBX insurance</a>
+          <a href="/outer-banks-homeowners-insurance/">Homeowners</a>
           <a href="/#wind-flood">Wind & flood</a>
           <a href="/#how-it-works">How it works</a>
           <a href="/#service-area">OBX towns</a>
@@ -2282,8 +2288,11 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
 
       {mobileNavOpen && (
         <nav className="mobile-nav" aria-label="Mobile navigation">
-          <a href="/#coverage" onClick={() => setMobileNavOpen(false)}>
-            Home coverage
+          <a href="/outer-banks-insurance/" onClick={() => setMobileNavOpen(false)}>
+            OBX insurance
+          </a>
+          <a href="/outer-banks-homeowners-insurance/" onClick={() => setMobileNavOpen(false)}>
+            Homeowners
           </a>
           <a href="/#wind-flood" onClick={() => setMobileNavOpen(false)}>
             Wind & flood
@@ -2311,10 +2320,12 @@ function SiteFooter() {
     <footer className="site-footer">
       <Logo />
       <nav aria-label="Footer navigation">
-        <a href="/#coverage">Home coverage</a>
+        <a href="/outer-banks-insurance/">Outer Banks insurance</a>
+        <a href="/outer-banks-homeowners-insurance/">Homeowners insurance</a>
         <a href="/#wind-flood">Wind & flood</a>
         <a href="/#service-area">OBX towns</a>
         <a href="/outer-banks-property-insurance/">Property insurance</a>
+        <a href="/north-carolina-vacation-home-insurance/">Vacation homes</a>
         <a href="/outer-banks-flood-insurance/">Flood insurance</a>
         <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
         <a href="/obx-insurance-toolkit/">Toolkit</a>
