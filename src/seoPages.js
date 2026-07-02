@@ -316,9 +316,9 @@ const coreSeoPages = [
       },
     ],
     localInsights: [
-      "Google is already testing broad searches like Outer Banks insurance and OBX insurance, so this hub connects those searches to the most relevant homeowners, property, wind, flood, rental, and town pages.",
+      "Start with the broad insurance question, then narrow the review to homeowners, property, wind, flood, rental, town, renewal, or buying details.",
       "Owners should prepare address, county, town, water exposure, occupancy, rental use, roof age, flood zone, elevation certificate status, current carrier, and timing.",
-      "A broad insurance search should quickly route to a precise next step, such as homeowners, wind and hail, flood, vacation rental, second home, renewal, or town-specific guidance.",
+      "This guide helps you choose the next step without having to guess which coastal insurance detail matters first.",
     ],
     checklist: [
       "Outer Banks homeowners insurance",
@@ -371,7 +371,7 @@ const coreSeoPages = [
     intro:
       "Homeowners insurance in the Outer Banks needs more than a street address. Coastal exposure, roof age, flood zone, occupancy, rental use, and wind deductible questions can all shape the review.",
     support:
-      "This page targets homeowners insurance Outer Banks NC searches and helps owners prepare a cleaner request for a primary home, second home, beach house, condo, or vacation rental.",
+      "If you are comparing homeowners insurance in the Outer Banks, start here to prepare a cleaner request for a primary home, second home, beach house, condo, or vacation rental.",
     intent: "For owners searching specifically for homeowners insurance in the Outer Banks.",
     sections: [
       {
@@ -396,9 +396,9 @@ const coreSeoPages = [
       },
     ],
     localInsights: [
-      "The exact query homeowners insurance Outer Banks NC is appearing in Search Console, so this page should become the primary match for that intent.",
-      "Use homeowners language naturally in the title, H1, intro, support copy, FAQs, and internal links without turning every town page into a duplicate.",
-      "The page should internally connect to property insurance, wind and hail, flood, second home, beach house, vacation rental, and town pages.",
+      "A strong homeowners review starts with the address, occupancy, replacement cost, roof age, wind exposure, flood zone, rental use, and timing.",
+      "Homeowners coverage, property coverage, wind and hail, flood, liability, and rental use should be discussed together for an Outer Banks home.",
+      "Use this guide to move from a broad homeowners question into the right next step, whether that is wind, flood, second home, beach house, vacation rental, or town-specific guidance.",
     ],
     checklist: [
       "Outer Banks homeowners review",
@@ -819,9 +819,9 @@ const coreSeoPages = [
       },
     ],
     localInsights: [
-      "Search Console is already showing vacation home insurance North Carolina, which is broader than OBX but directly relevant for second-home and rental owners.",
-      "Use this page as the statewide educational bridge, then route coastal owners into OBX vacation rental, second home, beach house, wind, flood, and town pages.",
-      "The page cites NC DOI dwelling-policy guidance so the content is useful and source-backed, not just a sales page.",
+      "Vacation-home owners often need to understand statewide basics before narrowing the review to a specific Outer Banks address.",
+      "Use this guide as a starting point for second homes, seasonal homes, weekly rentals, dwelling-policy questions, wind, flood, and coastal property details.",
+      "NC DOI dwelling-policy guidance can help owners understand why vacation homes, seasonal homes, rentals, vacant homes, and secondary homes may need a different review path.",
     ],
     checklist: [
       "Vacation home occupancy",
@@ -2858,13 +2858,13 @@ const localInsightBySlug = {
     "If the property is in a remote or 4x4 access area, access and replacement-cost details should be raised early.",
   ],
   "kitty-hawk-home-insurance": [
-    "Kitty Hawk homeowners insurance searches should land on one strong page that also answers home insurance, property insurance, wind, flood, rental, and renewal questions.",
+    "Kitty Hawk homeowners should keep home insurance, property insurance, wind, flood, rental, and renewal questions together instead of treating them as separate conversations.",
     "Kitty Hawk properties can include beach cottages, west-side homes, soundside exposure, second homes, rentals, and year-round residences, so exact location and use matter.",
     "Roof age, wind exposure, flood zone, current carrier, renewal date, elevation certificate status, and whether the home is rented should be gathered before quote review.",
     "Buyers should share closing timing early because lender questions around homeowners, wind, and flood can become urgent quickly.",
   ],
   "kill-devil-hills-home-insurance": [
-    "Kill Devil Hills homeowners insurance searches should be served by the existing town page, strengthened for home insurance, property insurance, wind, flood, rental, condo, and renewal intent.",
+    "Kill Devil Hills homeowners should review home insurance, property insurance, wind, flood, rental, condo, and renewal details together before choosing a path.",
     "Kill Devil Hills homes often vary by block, with different questions for oceanfront, central, west-side, soundside, primary, condo, and rental properties.",
     "Weekly rental use, roof age, elevation details, flood zone, wind deductible comfort, and current policy documents should be discussed together.",
     "Renewal date, current carrier, carrier-change notices, and current policy expiration help a local agent decide how quickly to review alternatives.",
