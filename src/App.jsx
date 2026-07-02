@@ -1537,7 +1537,7 @@ function App() {
 
         <section className="search-intent-section" aria-labelledby="search-intent-title">
           <div className="search-intent-copy">
-            <h2 id="search-intent-title">Insurance help for the way OBX owners actually search</h2>
+            <h2 id="search-intent-title">Insurance help for the questions OBX owners actually ask</h2>
             <p>
               Outer Banks property insurance often involves homeowners coverage,
               wind and hail, flood, and rental-use questions. OBXNCInsurance.com
@@ -1637,8 +1637,8 @@ function App() {
             <h2 id="service-title">Outer Banks insurance help by town</h2>
             <p>
               Start one OBX insurance check for homes across Dare County, Currituck
-              County, Hyde County, and the barrier island communities buyers search
-              for every day.
+              County, Hyde County, and the barrier island communities buyers ask
+              about every day.
             </p>
           </div>
           <ul aria-label="Outer Banks service areas">
@@ -1658,10 +1658,10 @@ function App() {
 
         <section className="seo-links-section" aria-labelledby="seo-links-title">
           <div>
-            <h2 id="seo-links-title">Popular OBX insurance searches</h2>
+            <h2 id="seo-links-title">Popular OBX insurance questions</h2>
             <p>
               Explore dedicated pages for the local property insurance questions
-              Outer Banks owners search before they talk with a licensed Outer Banks, NC agent.
+              Outer Banks owners ask before they talk with a licensed Outer Banks, NC agent.
             </p>
           </div>
           <div className="seo-link-grid">
@@ -1703,7 +1703,7 @@ function App() {
             <div className="quote-intent-banner">
               <SearchCheck size={20} aria-hidden="true" />
               <span>
-                Search intent saved:
+                Review topic saved:
                 <strong> {reviewSeoPage.eyebrow}</strong>
               </span>
             </div>
@@ -1734,7 +1734,7 @@ function App() {
                   <h3>Create your free OBX coverage brief</h3>
                   <p>
                     Send the essentials first. We will preserve your property use,
-                    timing, search intent, and contact preference so the review
+                    timing, review topic, and contact preference so the review
                     starts with context.
                   </p>
                 </div>
@@ -2467,9 +2467,10 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
         <section className="seo-topic-section" aria-labelledby="seo-topic-title">
           <h2 id="seo-topic-title">Insurance help for this area</h2>
           <p>
-            People often look for {page.keywords.join(", ")}. This page helps
-            Outer Banks, North Carolina property owners start with clear details
-            before our local Outer Banks, NC licensed agent reviews available options.
+            Use this guide when you are trying to understand {page.eyebrow}.
+            Start with the property facts that can shape the review: address,
+            occupancy, rental use, roof age, wind exposure, flood questions,
+            current coverage, and timing.
           </p>
         </section>
 

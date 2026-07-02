@@ -188,7 +188,7 @@ const renderStaticBody = (page) => `
         }
         <section>
           <h2>Insurance help for this area</h2>
-          <p>People often look for ${escapeHtml(page.keywords.join(", "))}. This page helps Outer Banks, North Carolina property owners start with clear details before a local Outer Banks, NC licensed agent reviews available options.</p>
+          <p>Use this guide when you are trying to understand ${escapeHtml(page.eyebrow)}. Start with the property facts that can shape the review: address, occupancy, rental use, roof age, wind exposure, flood questions, current coverage, and timing.</p>
         </section>
         ${
           page.sources?.length
@@ -266,7 +266,7 @@ const homepageStaticBody = `
           </ul>
         </section>
         <section>
-          <h2>Popular OBX insurance searches</h2>
+          <h2>Popular OBX insurance questions</h2>
           <ul>${seoPages
             .slice(0, 16)
             .map((page) => `<li><a href="/${escapeHtml(page.slug)}/">${escapeHtml(page.eyebrow)}</a></li>`)

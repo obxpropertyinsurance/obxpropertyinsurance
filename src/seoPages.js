@@ -372,7 +372,7 @@ const coreSeoPages = [
       "Homeowners insurance in the Outer Banks needs more than a street address. Coastal exposure, roof age, flood zone, occupancy, rental use, and wind deductible questions can all shape the review.",
     support:
       "If you are comparing homeowners insurance in the Outer Banks, start here to prepare a cleaner request for a primary home, second home, beach house, condo, or vacation rental.",
-    intent: "For owners searching specifically for homeowners insurance in the Outer Banks.",
+    intent: "For owners comparing homeowners insurance for an Outer Banks property.",
     sections: [
       {
         heading: "Homeowners coverage is the starting layer",
@@ -547,10 +547,10 @@ const coreSeoPages = [
     eyebrow: "Outer Banks home insurance",
     h1: "Outer Banks home insurance for beach and soundside homes",
     intro:
-      "Outer Banks home insurance searches often start with the same question: who can review this specific coastal property? OBXNCInsurance.com helps you share the details a local Outer Banks, NC licensed agent needs before looking at available options.",
+      "Outer Banks home insurance often starts with the same practical question: who can review this specific coastal property? OBXNCInsurance.com helps you share the details a local Outer Banks, NC licensed agent needs before looking at available options.",
     support:
       "This page is written for owners in Nags Head, Duck, Corolla, Kitty Hawk, Kill Devil Hills, Manteo, Hatteras Island, and nearby OBX communities.",
-    intent: "For owners searching plain-language help with Outer Banks home insurance.",
+    intent: "For owners who want plain-language help with Outer Banks home insurance.",
     sections: [
       {
         heading: "Coastal homes are different",
@@ -1442,8 +1442,8 @@ const atlasSeoPages = [
     ],
     localInsights: [
       "Start with town, county, water exposure, occupancy, rental use, roof age, flood zone, and renewal or closing timing.",
-      "Use town pages for local search intent, then use scenario pages for oceanfront, soundside, canalfront, 4x4 access, and rental-specific details.",
-      "Every guide should lead back to a no-spam coverage brief when the owner is ready for licensed review.",
+      "Use town pages for local details, then use scenario pages for oceanfront, soundside, canalfront, 4x4 access, and rental-specific details.",
+      "When you are ready, the no-spam coverage brief keeps the next step organized for licensed review.",
     ],
     checklist: [
       "Town and county",
