@@ -3010,7 +3010,7 @@ select {
 
 .obx-chat {
   position: fixed;
-  z-index: 30;
+  z-index: 35;
   right: 24px;
   bottom: calc(24px + env(safe-area-inset-bottom));
   display: grid;
@@ -3019,7 +3019,7 @@ select {
   pointer-events: none;
 }
 
-.chat-panel,
+.tide-panel,
 .chat-launcher {
   pointer-events: auto;
 }
@@ -3040,51 +3040,60 @@ select {
   cursor: pointer;
 }
 
-.chat-panel {
-  width: min(380px, calc(100vw - 36px));
-  overflow: hidden;
+.tide-launcher {
+  background: var(--teal-dark);
+}
+
+.tide-panel {
+  width: min(520px, calc(100vw - 36px));
+  max-height: min(760px, calc(100vh - 106px));
+  overflow-y: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
-  box-shadow: 0 22px 58px rgba(7, 17, 43, 0.2);
+  box-shadow: 0 26px 70px rgba(7, 17, 43, 0.24);
 }
 
-.chat-header {
+.tide-header {
   display: grid;
-  grid-template-columns: 42px 1fr auto;
+  grid-template-columns: 46px minmax(0, 1fr) auto;
   align-items: center;
   gap: 12px;
-  padding: 14px;
+  padding: 16px;
   border-bottom: 1px solid var(--line);
   background: var(--soft);
 }
 
-.chat-header > span {
+.tide-avatar {
   display: inline-grid;
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   place-items: center;
   border-radius: 8px;
   background: #fff;
   color: var(--teal);
+  box-shadow: inset 0 0 0 1px rgba(0, 127, 131, 0.16);
 }
 
-.chat-header div {
+.tide-header div {
   display: grid;
-  gap: 2px;
+  gap: 3px;
+  min-width: 0;
 }
 
-.chat-header strong {
-  font-size: 15px;
+.tide-header strong {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.15;
 }
 
-.chat-header small {
+.tide-header small {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.25;
 }
 
-.chat-header button {
+.tide-header button {
   display: inline-grid;
   width: 34px;
   height: 34px;
@@ -3095,89 +3104,385 @@ select {
   cursor: pointer;
 }
 
-.chat-messages {
-  display: grid;
-  max-height: 300px;
-  gap: 10px;
-  overflow-y: auto;
-  padding: 14px;
-  background: linear-gradient(180deg, #fff 0%, #f8fbfc 100%);
+.tide-trust-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--teal-dark);
+  font-size: 12px;
+  font-weight: 760;
+  line-height: 1.35;
 }
 
-.chat-message {
-  max-width: 88%;
+.tide-trust-row svg {
+  flex: 0 0 auto;
+}
+
+.tide-progress {
+  display: grid;
+  gap: 9px;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tide-progress div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.tide-progress span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.tide-progress strong {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.tide-progress meter {
+  width: 100%;
+  height: 8px;
+}
+
+.tide-body {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(180deg, #fff 0%, #f7fbfc 100%);
+}
+
+.tide-question-card {
+  display: grid;
+  gap: 13px;
+  min-height: 220px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.tide-question-card h3,
+.tide-success-card h3 {
   margin: 0;
-  padding: 11px 12px;
+  color: var(--ink);
+  font-size: 22px;
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.tide-question-card p,
+.tide-success-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.tide-option-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.tide-option,
+.tide-chip-grid button {
+  display: grid;
+  gap: 5px;
+  min-height: 58px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.tide-option strong {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.tide-option span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.tide-option:hover,
+.tide-option.selected,
+.tide-chip-grid button:hover,
+.tide-chip-grid button.selected {
+  border-color: rgba(0, 127, 131, 0.46);
+  background: var(--soft);
+  color: var(--teal-dark);
+}
+
+.tide-chip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.tide-chip-grid button {
+  align-content: center;
+  min-height: 48px;
+  font-size: 13px;
+  font-weight: 780;
+}
+
+.tide-field,
+.tide-field-row {
+  display: grid;
+  gap: 8px;
+}
+
+.tide-field {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 820;
+}
+
+.tide-field-row {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tide-field input,
+.tide-field select,
+.tide-field textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.tide-field input,
+.tide-field select {
+  min-height: 46px;
+  padding: 0 12px;
+}
+
+.tide-field textarea {
+  min-height: 92px;
+  padding: 12px;
+  line-height: 1.38;
+  resize: vertical;
+}
+
+.tide-summary {
+  display: grid;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid rgba(0, 127, 131, 0.2);
+  border-radius: 8px;
+  background: #f2fbfb;
+}
+
+.tide-summary > strong {
+  color: var(--teal-dark);
+  font-size: 13px;
+}
+
+.tide-summary div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tide-summary span {
+  display: grid;
+  gap: 2px;
+  max-width: 100%;
+  padding: 7px 9px;
+  border: 1px solid rgba(0, 127, 131, 0.16);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.tide-summary small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 780;
+  text-transform: uppercase;
+}
+
+.tide-status {
+  margin: 0;
+  padding: 0 16px 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.tide-status.error {
+  color: var(--coral-dark);
+  font-weight: 780;
+}
+
+.tide-status.success {
+  color: var(--teal-dark);
+  font-weight: 780;
+}
+
+.tide-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 16px 14px;
+}
+
+.tide-primary-action,
+.tide-secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  gap: 8px;
   border-radius: 8px;
   font-size: 14px;
-  line-height: 1.4;
+  font-weight: 850;
+  cursor: pointer;
 }
 
-.chat-message.assistant {
+.tide-primary-action {
+  flex: 1;
+  padding: 0 16px;
+  background: var(--coral);
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(255, 75, 62, 0.22);
+}
+
+.tide-primary-action:disabled,
+.tide-secondary-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.tide-secondary-action {
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--teal-dark);
+}
+
+.tide-ask {
+  display: inline-grid;
+  width: 100%;
+  gap: 10px;
+  padding: 13px 16px;
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+
+.tide-message-list {
+  display: grid;
+  max-height: 116px;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.tide-message {
+  max-width: 92%;
+  margin: 0;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.38;
+}
+
+.tide-message.assistant {
   justify-self: start;
   background: #eef8f9;
   color: #173d44;
 }
 
-.chat-message.user {
+.tide-message.user {
   justify-self: end;
   background: var(--ink);
   color: #fff;
 }
 
-.chat-quick-actions {
+.tide-quick-questions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  padding: 0 14px 12px;
-  background: #f8fbfc;
+  gap: 7px;
 }
 
-.chat-quick-actions button {
-  min-height: 34px;
-  padding: 0 10px;
+.tide-quick-questions button {
+  min-height: 30px;
+  padding: 0 9px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
   color: var(--teal-dark);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 780;
   cursor: pointer;
 }
 
-.chat-form {
+.tide-question-form {
   display: grid;
-  grid-template-columns: 1fr 42px;
+  grid-template-columns: 1fr 40px;
   gap: 8px;
-  padding: 12px 14px;
-  border-top: 1px solid var(--line);
 }
 
-.chat-form input {
-  width: 100%;
-  min-height: 42px;
-  padding: 0 12px;
+.tide-question-form input {
+  min-width: 0;
+  min-height: 40px;
+  padding: 0 11px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
-.chat-form button {
+.tide-question-form button {
   display: inline-grid;
-  min-height: 42px;
+  min-height: 40px;
   place-items: center;
   border-radius: 8px;
-  background: var(--coral);
+  background: var(--teal);
   color: #fff;
   cursor: pointer;
 }
 
-.chat-disclaimer {
-  margin: 0;
-  padding: 0 14px 14px;
+.tide-footer {
+  display: grid;
+  gap: 7px;
+  padding: 0 16px 16px;
   color: var(--muted);
   font-size: 11px;
   line-height: 1.35;
+}
+
+.tide-footer button {
+  width: fit-content;
+  color: var(--teal-dark);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.tide-success-card {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid rgba(0, 127, 131, 0.22);
+  border-radius: 8px;
+  background: #f2fbfb;
+  color: var(--teal-dark);
 }
 
 .quick-call-sticky {
@@ -3981,13 +4286,32 @@ select {
     left: auto;
   }
 
-  .chat-panel {
-    width: 100%;
-    max-height: calc(100vh - 120px);
+  .tide-panel {
+    width: calc(100vw - 28px);
+    max-height: calc(100vh - 92px);
   }
 
-  .chat-messages {
-    max-height: min(280px, calc(100vh - 380px));
+  .tide-body {
+    padding: 12px;
+  }
+
+  .tide-question-card {
+    min-height: 0;
+    padding: 14px;
+  }
+
+  .tide-question-card h3,
+  .tide-success-card h3 {
+    font-size: 20px;
+  }
+
+  .tide-field-row,
+  .tide-chip-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tide-message-list {
+    max-height: 96px;
   }
 
   .chat-launcher {
@@ -3998,10 +4322,6 @@ select {
   }
 
   .chat-launcher span {
-    display: none;
-  }
-
-  .obx-chat {
     display: none;
   }
 
