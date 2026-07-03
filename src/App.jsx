@@ -3125,8 +3125,12 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
                 <ShieldCheck size={20} aria-hidden="true" />
                 No spam. No lead selling. No pressure parade. Just local guidance.
               </p>
-              <button type="button" className="tide-secondary-action" onClick={goBack} disabled={stepIndex === 0}>
-                Back
+              <button
+                type="button"
+                className="tide-secondary-action"
+                onClick={stepIndex === 0 ? tuckTideAway : goBack}
+              >
+                {stepIndex === 0 ? "Keep researching" : "Back"}
               </button>
               {!isFinalStep ? (
                 <button type="button" className="tide-primary-action" onClick={goNext}>
