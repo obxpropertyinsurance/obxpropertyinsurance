@@ -188,7 +188,10 @@ const renderStaticBody = (page) => `
         }
         <section>
           <h2>Insurance help for this area</h2>
-          <p>Use this guide when you are trying to understand ${escapeHtml(page.eyebrow)}. Start with the property facts that can shape the review: address, occupancy, rental use, roof age, wind exposure, flood questions, current coverage, and timing.</p>
+          <p>${escapeHtml(
+            page.topicHelpText ||
+              `Use this guide when you are trying to understand ${page.eyebrow}. Start with the property facts that can shape the review: address, occupancy, rental use, roof age, wind exposure, flood questions, current coverage, and timing.`,
+          )}</p>
         </section>
         ${
           page.sources?.length

@@ -466,8 +466,8 @@ const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value |
 
 const tideAgent = {
   name: "Tide",
-  title: "Tide, your OBX insurance guide",
-  promise: "No spam. Your details stay with OBXNCInsurance.com and our licensed review team.",
+  title: "Tide, your OBX Insurance Advisor",
+  promise: "Save time. Avoid costly surprises. No spam.",
 };
 
 const tideInitialAnswers = {
@@ -496,28 +496,34 @@ const tidePropertyOptions = [
   {
     value: "Primary home",
     label: "Primary home",
-    detail: "Year-round OBX living, homeowners, wind, flood, and liability review.",
+    detail: "This is my main residence",
+    icon: Home,
+    updates: { rentalUse: "Not rented" },
   },
   {
     value: "Second home",
     label: "Second home",
-    detail: "Seasonal use, family stays, roof age, wind, flood, and vacancy questions.",
+    detail: "I use this home part-time",
+    icon: Home,
   },
   {
     value: "Vacation rental",
     label: "Vacation rental",
-    detail: "Weekly guests, rental income, liability, contents, pools, decks, and timing.",
+    detail: "I rent this property to guests",
+    icon: Umbrella,
     updates: { rentalUse: "Weekly / seasonal" },
   },
   {
     value: "Condo",
     label: "Condo",
-    detail: "Unit coverage, master policy, loss assessment, wind, flood, and contents.",
+    detail: "Condo or townhome",
+    icon: Layers3,
   },
   {
     value: "Buying / closing soon",
     label: "Buying soon",
-    detail: "Closing date, lender needs, flood questions, and fast quote review.",
+    detail: "I am under contract or shopping",
+    icon: ClipboardCheck,
     updates: { leadGoal: "Buying / closing soon" },
   },
 ];
@@ -583,21 +589,20 @@ const tideContactWindows = [
 ];
 
 const tideQuickQuestions = [
+  "Will I get spammed?",
+  "Do I have to take a sales call?",
   "Why do wind and flood matter?",
   "What if it is a weekly rental?",
   "What documents help most?",
-  "How does no spam work?",
+  "What if my renewal jumped?",
 ];
 
 const tideSteps = [
   "Property",
-  "Location",
-  "Timing",
-  "Use",
-  "Coastal details",
-  "Roof",
-  "Policy",
-  "Contact",
+  "Details",
+  "Coverage",
+  "You",
+  "Review",
 ];
 
 const getTideSelectedCoverage = (answers) => {
@@ -608,6 +613,126 @@ const getTideSelectedCoverage = (answers) => {
 };
 
 const getTideSourcePath = () => `${window.location.pathname}${window.location.search}`;
+
+const tideStopWords = new Set([
+  "about",
+  "after",
+  "also",
+  "because",
+  "before",
+  "being",
+  "between",
+  "could",
+  "does",
+  "from",
+  "have",
+  "help",
+  "home",
+  "homes",
+  "insurance",
+  "outer",
+  "banks",
+  "obx",
+  "policy",
+  "property",
+  "question",
+  "review",
+  "should",
+  "that",
+  "their",
+  "there",
+  "they",
+  "this",
+  "what",
+  "when",
+  "where",
+  "which",
+  "with",
+  "would",
+  "your",
+]);
+
+const tideKnowledgeBase = [
+  ...seoPages.flatMap((page) => {
+    const pageUrl = `/${page.slug}/`;
+    return [
+      {
+        title: page.h1 || page.eyebrow,
+        text: [page.eyebrow, page.intro, page.support, page.intent, ...(page.checklist || [])].join(" "),
+        url: pageUrl,
+      },
+      ...(page.sections || []).map((section) => ({
+        title: `${page.eyebrow}: ${section.heading}`,
+        text: section.body,
+        url: pageUrl,
+      })),
+      ...(page.localInsights || []).map((insight) => ({
+        title: `${page.eyebrow}: local note`,
+        text: insight,
+        url: pageUrl,
+      })),
+      ...(page.faqs || []).map((faq) => ({
+        title: faq.question,
+        text: faq.answer,
+        url: pageUrl,
+      })),
+    ];
+  }),
+  ...obxResourceTools.map((tool) => ({
+    title: tool.title,
+    text: `${tool.summary} Helpful items include ${tool.items.join(", ")}.`,
+    url: `/${tool.slug}/`,
+  })),
+  ...officialSourceLinks.map((source) => ({
+    title: source.name,
+    text: source.text,
+    url: source.url,
+  })),
+];
+
+const getTideTerms = (message) =>
+  Array.from(
+    new Set(
+      message
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, " ")
+        .split(/\s+/)
+        .map((term) => term.trim())
+        .filter((term) => term.length > 3 && !tideStopWords.has(term)),
+    ),
+  );
+
+const getTideKnowledgeMatches = (message, limit = 2) => {
+  const terms = getTideTerms(message);
+  if (!terms.length) return [];
+
+  return tideKnowledgeBase
+    .map((item) => {
+      const title = item.title.toLowerCase();
+      const text = item.text.toLowerCase();
+      const score = terms.reduce((total, term) => {
+        if (title.includes(term)) return total + 5;
+        if (text.includes(term)) return total + 2;
+        return total;
+      }, 0);
+      return { item, score };
+    })
+    .filter((match) => match.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((match) => match.item);
+};
+
+const getTideKnowledgeReply = (message) => {
+  const matches = getTideKnowledgeMatches(message);
+  if (!matches.length) return null;
+  const [primary, secondary] = matches;
+  const related = secondary ? ` Related guide: ${secondary.title}.` : "";
+  return {
+    text:
+      `Tide take: ${primary.text} Tide can add this context to your quote brief so the licensed Outer Banks review starts with better facts. Helpful guide: ${primary.title}.${related}`,
+  };
+};
 
 const buildTideNotes = (answers, pageContext) => {
   const notes = [
@@ -672,10 +797,30 @@ const submitLeadPayload = async (leadPayload) => {
 const getTideGuideReply = (message) => {
   const text = message.toLowerCase();
 
-  if (text.includes("spam") || text.includes("sell") || text.includes("marketing")) {
+  if (
+    text.includes("spam") ||
+    text.includes("sell") ||
+    text.includes("lead") ||
+    text.includes("marketing") ||
+    text.includes("bombard")
+  ) {
     return {
       text:
-        "No spam means your details are used for this OBX insurance request only. They are not sold to a lead marketplace or added to an unrelated marketing list.",
+        "No spam means no lead marketplace, no unrelated marketing list, and no mystery phone parade. Your details are used for this OBX insurance request with OBXNCInsurance.com and our licensed review team.",
+    };
+  }
+
+  if (text.includes("phone") || text.includes("call") || text.includes("sales") || text.includes("pressure")) {
+    return {
+      text:
+        "Tide is built for people who want answers before a call. You can ask questions, build the brief, and choose your preferred follow-up. A licensed Outer Banks insurance agent follows up about this request, not to pressure you into a phone marathon.",
+    };
+  }
+
+  if (text.includes("agent") || text.includes("licensed") || text.includes("human")) {
+    return {
+      text:
+        "Tide organizes the details and explains what matters. Quotes, advice, binding, recommendations, and policy service come from a licensed North Carolina insurance agent after your brief is submitted.",
     };
   }
 
@@ -714,9 +859,12 @@ const getTideGuideReply = (message) => {
     };
   }
 
+  const knowledgeReply = getTideKnowledgeReply(text);
+  if (knowledgeReply) return knowledgeReply;
+
   return {
     text:
-      "That is a smart OBX insurance question. Tide can help gather the address, home use, wind exposure, flood details, rental use, roof age, and timing so a real licensed North Carolina insurance agent has better context for follow-up.",
+      "That is a very OBX insurance question, which is exactly why Tide exists. Share the property type, address, use, wind, flood, roof, timing, or renewal concern you are thinking about, and Tide will organize it into a cleaner brief for licensed review.",
   };
 };
 
@@ -1044,7 +1192,7 @@ function App() {
           <a href="/outer-banks-insurance/">OBX insurance</a>
           <a href="/outer-banks-homeowners-insurance/">Homeowners</a>
           <a href="/#wind-flood">Wind & flood</a>
-          <a href="#how-it-works">How it works</a>
+          <a href="/tide-obx-insurance-guide/">Ask Tide</a>
           <a href="#service-area">OBX towns</a>
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
         </nav>
@@ -1073,6 +1221,9 @@ function App() {
           </a>
           <a href="/#wind-flood" onClick={() => setMobileNavOpen(false)}>
             Wind & flood
+          </a>
+          <a href="/tide-obx-insurance-guide/" onClick={() => setMobileNavOpen(false)}>
+            Ask Tide
           </a>
           <a href="#how-it-works" onClick={() => setMobileNavOpen(false)}>
             How it works
@@ -2158,6 +2309,7 @@ function App() {
           <a href="#coverage">Home coverage</a>
           <a href="#wind-flood">Wind & flood</a>
           <a href="#service-area">OBX towns</a>
+          <a href="/tide-obx-insurance-guide/">Ask Tide</a>
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
           <a href="/obx-insurance-toolkit/">Toolkit</a>
           <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
@@ -2327,12 +2479,13 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   const [isOpen, setIsOpen] = useState(true);
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState(tideInitialAnswers);
+  const [askOpen, setAskOpen] = useState(false);
   const [questionDraft, setQuestionDraft] = useState("");
   const [guideMessages, setGuideMessages] = useState([
     {
       role: "assistant",
       text:
-        "I can help you build a clean OBX quote brief. A real licensed North Carolina insurance agent reviews quotes, advice, binding, and service.",
+        "Ask me anything about OBX insurance before you talk to anyone. I can save you time, explain what matters, and build a no-spam brief for a licensed Outer Banks agent.",
     },
   ]);
   const [guideStatus, setGuideStatus] = useState({ state: "idle", message: "" });
@@ -2355,6 +2508,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   }, [stepIndex, submittedLead]);
 
   const progress = Math.round(((stepIndex + 1) / tideSteps.length) * 100);
+  const isFinalStep = stepIndex === tideSteps.length - 1;
 
   const updateAnswer = (field, value) => {
     setAnswers((current) => ({
@@ -2380,8 +2534,12 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     if (stepIndex === 0 && !answers.propertyUse) return "Choose the property type so Tide can tailor the next questions.";
     if (stepIndex === 1 && !answers.address.trim()) return "Add the OBX property address, town, or community.";
     if (stepIndex === 2 && !answers.leadGoal) return "Choose what you want the review to solve first.";
-    if (stepIndex === 3 && !answers.rentalUse) return "Choose the rental or occupancy detail that fits best.";
-    if (stepIndex === 7) {
+    if (stepIndex === 3) {
+      if (!answers.fullName.trim()) return "Add your name so the licensed agent knows who to follow up with.";
+      if (!isValidEmail(answers.email)) return "Add a valid email address.";
+      if (!answers.phone.trim()) return "Add a phone number for quick follow-up.";
+    }
+    if (stepIndex === 4) {
       if (!answers.fullName.trim()) return "Add your name so the licensed agent knows who to follow up with.";
       if (!isValidEmail(answers.email)) return "Add a valid email address.";
       if (!answers.phone.trim()) return "Add a phone number for quick follow-up.";
@@ -2450,14 +2608,33 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     }
   };
 
-  const summaryItems = [
+  const briefRows = [
+    { label: "Property type", value: answers.propertyUse, icon: Home },
+    { label: "Location", value: answers.address, icon: MapPin },
+    { label: "Use", value: answers.rentalUse, icon: Umbrella },
+    { label: "Construction", value: answers.yearBuilt, icon: ClipboardCheck },
+    { label: "Roof age", value: answers.roofAge, icon: Home },
+    {
+      label: "Flood zone",
+      value: answers.floodZone === "Needs review" ? "" : answers.floodZone,
+      icon: Waves,
+    },
+    { label: "Coverage", value: answers.leadGoal, icon: ShieldCheck },
+  ];
+
+  const reviewRows = [
     { label: "Property", value: answers.propertyUse },
-    { label: "Location", value: answers.address },
-    { label: "Timing", value: answers.leadGoal },
-    { label: "Rental use", value: answers.rentalUse },
-    { label: "Wind", value: answers.windExposure },
-    { label: "Flood", value: answers.floodZone },
-  ].filter((item) => item.value);
+    { label: "Address", value: answers.address },
+    { label: "Use", value: answers.rentalUse || "Needs review" },
+    { label: "Goal", value: answers.leadGoal || "Coverage review" },
+    { label: "Wind", value: answers.windExposure || "Needs review" },
+    { label: "Flood", value: answers.floodZone || "Needs review" },
+    { label: "Elevation certificate", value: answers.elevationCertificate || "Unsure" },
+    { label: "Year built", value: answers.yearBuilt || "Not provided" },
+    { label: "Roof age", value: answers.roofAge || "Not provided" },
+    { label: "Name", value: answers.fullName || "Not provided" },
+    { label: "Preferred contact", value: answers.preferredContact },
+  ];
 
   const renderOptionCards = (options, field) => (
     <div className="tide-option-grid">
@@ -2468,8 +2645,14 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
           key={option.value}
           onClick={() => chooseOption(field, option.value, option.updates)}
         >
-          <strong>{option.label}</strong>
-          <span>{option.detail}</span>
+          <span className="tide-option-icon" aria-hidden="true">
+            {option.icon ? <option.icon size={24} /> : <CheckCircle2 size={24} />}
+          </span>
+          <span>
+            <strong>{option.label}</strong>
+            <small>{option.detail}</small>
+          </span>
+          <ArrowRight size={22} aria-hidden="true" />
         </button>
       ))}
     </div>
@@ -2483,7 +2666,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
           <h3>Thanks{submittedLead.name ? `, ${submittedLead.name}` : ""}. Tide sent your OBX brief.</h3>
           <p>
             We received the details{submittedLead.address ? ` for ${submittedLead.address}` : ""}.
-            Follow-up is only about this OBX insurance request. No spam, no lead selling.
+            A licensed Outer Banks insurance agent will be in touch about this request. No spam, no lead selling.
           </p>
           <button type="button" className="tide-secondary-action" onClick={() => setIsOpen(false)}>
             Done
@@ -2495,8 +2678,24 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     if (stepIndex === 0) {
       return (
         <>
+          <div className="tide-agent-note">
+            <span className="tide-agent-photo" aria-hidden="true">
+              <img className="tide-agent-face" src="/tide-agent-headshot.png" alt="" />
+            </span>
+            <div>
+              <p>
+                <strong>Hey there. I am Tide, your OBX Insurance Advisor.</strong>
+              </p>
+              <p>
+                I am here to save you time, help you avoid costly surprises, and protect you from spam.
+                I ask the questions that matter and help build a quote brief without the spam circus.
+              </p>
+              <p>
+                <strong>Ready? Let's get the mystery out of this.</strong>
+              </p>
+            </div>
+          </div>
           <h3>What kind of OBX property are we helping with?</h3>
-          <p>Tide will adjust the questions based on how the home is used.</p>
           {renderOptionCards(tidePropertyOptions, "propertyUse")}
         </>
       );
@@ -2505,7 +2704,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     if (stepIndex === 1) {
       return (
         <>
-          <h3>Where is the property?</h3>
+          <h3>Tell us the property details Tide should organize.</h3>
           <p>The exact address is best. Town or community is okay if you are still shopping.</p>
           <label className="tide-field">
             OBX property address, town, or community
@@ -2516,83 +2715,18 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               autoComplete="street-address"
             />
           </label>
-        </>
-      );
-    }
-
-    if (stepIndex === 2) {
-      return (
-        <>
-          <h3>What should the review solve first?</h3>
-          <p>This helps the licensed agent understand the clock, lender pressure, or renewal need.</p>
-          {renderOptionCards(tideGoalOptions, "leadGoal")}
-        </>
-      );
-    }
-
-    if (stepIndex === 3) {
-      return (
-        <>
-          <h3>How is the property used?</h3>
-          <p>Rental use can affect liability, contents, carrier fit, and follow-up questions.</p>
           <div className="tide-chip-grid" role="group" aria-label="Rental use">
             {tideRentalOptions.map((option) => (
               <button
                 type="button"
                 className={answers.rentalUse === option ? "selected" : ""}
                 key={option}
-                onClick={() => chooseOption("rentalUse", option)}
+                onClick={() => updateAnswer("rentalUse", option)}
               >
                 {option}
               </button>
             ))}
           </div>
-        </>
-      );
-    }
-
-    if (stepIndex === 4) {
-      return (
-        <>
-          <h3>What do you know about wind and flood?</h3>
-          <p>Not sure is a perfectly useful answer. Tide will flag it for review.</p>
-          <label className="tide-field">
-            Wind exposure
-            <select value={answers.windExposure} onChange={(event) => updateAnswer("windExposure", event.target.value)}>
-              {tideWindOptions.map((option) => (
-                <option key={option}>{option}</option>
-              ))}
-            </select>
-          </label>
-          <label className="tide-field">
-            Flood details
-            <select value={answers.floodZone} onChange={(event) => updateAnswer("floodZone", event.target.value)}>
-              {tideFloodOptions.map((option) => (
-                <option key={option}>{option}</option>
-              ))}
-            </select>
-          </label>
-          <label className="tide-field">
-            Elevation certificate
-            <select
-              value={answers.elevationCertificate}
-              onChange={(event) => updateAnswer("elevationCertificate", event.target.value)}
-            >
-              <option>Unsure</option>
-              <option>Yes, available</option>
-              <option>No</option>
-              <option>Requested / in progress</option>
-            </select>
-          </label>
-        </>
-      );
-    }
-
-    if (stepIndex === 5) {
-      return (
-        <>
-          <h3>What do you know about the roof and home age?</h3>
-          <p>These details can matter for homeowners, wind, and carrier review.</p>
           <div className="tide-field-row">
             <label className="tide-field">
               Year built
@@ -2612,15 +2746,46 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               />
             </label>
           </div>
+          <div className="tide-field-row">
+            <label className="tide-field">
+              Flood details
+              <select value={answers.floodZone} onChange={(event) => updateAnswer("floodZone", event.target.value)}>
+                {tideFloodOptions.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
+              </select>
+            </label>
+            <label className="tide-field">
+              Elevation certificate
+              <select
+                value={answers.elevationCertificate}
+                onChange={(event) => updateAnswer("elevationCertificate", event.target.value)}
+              >
+                <option>Unsure</option>
+                <option>Yes, available</option>
+                <option>No</option>
+                <option>Requested / in progress</option>
+              </select>
+            </label>
+          </div>
         </>
       );
     }
 
-    if (stepIndex === 6) {
+    if (stepIndex === 2) {
       return (
         <>
-          <h3>Any current policy or timing details?</h3>
-          <p>Optional, but these answers can make the agent follow-up faster.</p>
+          <h3>What should the coverage review solve first?</h3>
+          <p>This helps the licensed agent understand the clock, lender pressure, renewal need, or policy question.</p>
+          {renderOptionCards(tideGoalOptions, "leadGoal")}
+          <label className="tide-field">
+            Wind exposure
+            <select value={answers.windExposure} onChange={(event) => updateAnswer("windExposure", event.target.value)}>
+              {tideWindOptions.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+            </select>
+          </label>
           <div className="tide-field-row">
             <label className="tide-field">
               Current carrier
@@ -2660,73 +2825,90 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
       );
     }
 
+    if (stepIndex === 3) {
+      return (
+        <>
+          <h3>Where should the real agent follow up?</h3>
+          <p>Tide sends this as a no-spam quote brief for licensed review.</p>
+          <label className="honeypot-field" aria-hidden="true">
+            Company website
+            <input
+              tabIndex={-1}
+              autoComplete="off"
+              value={answers.companyWebsite}
+              onChange={(event) => updateAnswer("companyWebsite", event.target.value)}
+            />
+          </label>
+          <label className="tide-field">
+            Full name
+            <input
+              value={answers.fullName}
+              onChange={(event) => updateAnswer("fullName", event.target.value)}
+              placeholder="Your name"
+              autoComplete="name"
+            />
+          </label>
+          <div className="tide-field-row">
+            <label className="tide-field">
+              Email
+              <input
+                type="email"
+                value={answers.email}
+                onChange={(event) => updateAnswer("email", event.target.value)}
+                placeholder="you@example.com"
+                autoComplete="email"
+              />
+            </label>
+            <label className="tide-field">
+              Phone
+              <input
+                type="tel"
+                value={answers.phone}
+                onChange={(event) => updateAnswer("phone", event.target.value)}
+                placeholder="(252) 555-0199"
+                autoComplete="tel"
+              />
+            </label>
+          </div>
+          <div className="tide-field-row">
+            <label className="tide-field">
+              Preferred contact
+              <select
+                value={answers.preferredContact}
+                onChange={(event) => updateAnswer("preferredContact", event.target.value)}
+              >
+                <option>Phone call</option>
+                <option>Text first</option>
+                <option>Email first</option>
+              </select>
+            </label>
+            <label className="tide-field">
+              Best time
+              <select
+                value={answers.callbackWindow}
+                onChange={(event) => updateAnswer("callbackWindow", event.target.value)}
+              >
+                {tideContactWindows.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </>
+      );
+    }
+
     return (
       <>
-        <h3>Where should the real agent follow up?</h3>
-        <p>Tide sends this as a no-spam quote brief for licensed review.</p>
-        <label className="honeypot-field" aria-hidden="true">
-          Company website
-          <input
-            tabIndex={-1}
-            autoComplete="off"
-            value={answers.companyWebsite}
-            onChange={(event) => updateAnswer("companyWebsite", event.target.value)}
-          />
-        </label>
-        <label className="tide-field">
-          Full name
-          <input
-            value={answers.fullName}
-            onChange={(event) => updateAnswer("fullName", event.target.value)}
-            placeholder="Your name"
-            autoComplete="name"
-          />
-        </label>
-        <div className="tide-field-row">
-          <label className="tide-field">
-            Email
-            <input
-              type="email"
-              value={answers.email}
-              onChange={(event) => updateAnswer("email", event.target.value)}
-              placeholder="you@example.com"
-              autoComplete="email"
-            />
-          </label>
-          <label className="tide-field">
-            Phone
-            <input
-              type="tel"
-              value={answers.phone}
-              onChange={(event) => updateAnswer("phone", event.target.value)}
-              placeholder="(252) 555-0199"
-              autoComplete="tel"
-            />
-          </label>
-        </div>
-        <div className="tide-field-row">
-          <label className="tide-field">
-            Preferred contact
-            <select
-              value={answers.preferredContact}
-              onChange={(event) => updateAnswer("preferredContact", event.target.value)}
-            >
-              <option>Phone call</option>
-              <option>Text first</option>
-              <option>Email first</option>
-            </select>
-          </label>
-          <label className="tide-field">
-            Best time
-            <select
-              value={answers.callbackWindow}
-              onChange={(event) => updateAnswer("callbackWindow", event.target.value)}
-            >
-              {tideContactWindows.map((option) => (
-                <option key={option}>{option}</option>
-              ))}
-            </select>
-          </label>
+        <h3>Review your quote brief.</h3>
+        <p>These are the details Tide will send for licensed review. You can go back and edit anything before sending.</p>
+        <div className="tide-review-list">
+          {reviewRows.map((item) => (
+            <div key={item.label}>
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </div>
+          ))}
         </div>
       </>
     );
@@ -2735,51 +2917,75 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   return (
     <div className={isOpen ? "obx-chat tide-guide open" : "obx-chat tide-guide"}>
       {isOpen && (
-        <section className="tide-panel" ref={panelRef} aria-label="Tide OBX insurance quote guide">
+        <section
+          className="tide-panel"
+          data-step={submittedLead ? "submitted" : stepIndex}
+          ref={panelRef}
+          aria-label="Tide OBX insurance quote guide"
+        >
           <div className="tide-header">
-            <span className="tide-avatar" aria-hidden="true">
-              <Waves size={20} />
+            <span className="tide-crest" aria-hidden="true">
+              <Waves size={28} />
+              <Home size={16} />
             </span>
             <div>
               <strong>{tideAgent.title}</strong>
-              <small>Quote-prep help before licensed agent review</small>
+              <small>
+                <ShieldCheck size={17} aria-hidden="true" />
+                {tideAgent.promise}
+              </small>
             </div>
-            <button type="button" onClick={() => setIsOpen(false)} aria-label="Close Tide guide">
-              <X size={18} aria-hidden="true" />
-            </button>
-          </div>
-
-          <div className="tide-trust-row">
-            <ShieldCheck size={16} aria-hidden="true" />
-            <span>{tideAgent.promise}</span>
+            <div className="tide-window-actions">
+              <button type="button" onClick={() => setIsOpen(false)} aria-label="Minimize Tide guide">
+                <span aria-hidden="true">-</span>
+              </button>
+              <button type="button" onClick={() => setIsOpen(false)} aria-label="Close Tide guide">
+                <X size={25} aria-hidden="true" />
+              </button>
+            </div>
           </div>
 
           <div className="tide-progress" aria-label={`Tide progress ${progress}%`}>
-            <div>
-              <span>
-                Step {stepIndex + 1} of {tideSteps.length}
-              </span>
-              <strong>{tideSteps[stepIndex]}</strong>
-            </div>
-            <meter min="0" max="100" value={progress} />
+            {tideSteps.map((label, index) => (
+              <div
+                className={
+                  index < stepIndex ? "tide-progress-step complete" : index === stepIndex ? "tide-progress-step active" : "tide-progress-step"
+                }
+                key={label}
+              >
+                <span>{index + 1}</span>
+                <strong>{label}</strong>
+              </div>
+            ))}
           </div>
 
           <div className="tide-body">
-            <div className="tide-question-card">{renderStep()}</div>
-
-            {summaryItems.length > 0 && (
-              <aside className="tide-summary" aria-label="Tide quote brief summary">
-                <strong>Quote brief so far</strong>
-                <div>
-                  {summaryItems.map((item) => (
-                    <span key={item.label}>
-                      <small>{item.label}</small>
-                      {item.value}
-                    </span>
-                  ))}
-                </div>
-              </aside>
-            )}
+            <div className="tide-main">{renderStep()}</div>
+            <aside className="tide-summary" aria-label="Tide quote brief summary">
+              <div className="tide-summary-title">
+                <ClipboardCheck size={30} aria-hidden="true" />
+                <span>
+                  <strong>Your quote brief</strong>
+                  <small>We will capture what matters.</small>
+                </span>
+              </div>
+              <div className="tide-summary-list">
+                {briefRows.map((item) => (
+                  <div key={item.label}>
+                    <item.icon size={25} aria-hidden="true" />
+                    <span>{item.label}</span>
+                    <strong>{item.value || "Not set"}</strong>
+                  </div>
+                ))}
+              </div>
+              <div className="tide-promise-card">
+                <ShieldCheck size={30} aria-hidden="true" />
+                <span>
+                  <strong>Our promise</strong>
+                  <small>Your information is private, never sold, and never sent into a phone-call swarm.</small>
+                </span>
+              </div>
+            </aside>
           </div>
 
           {guideStatus.message && (
@@ -2799,13 +3005,21 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
 
           {!submittedLead && (
             <div className="tide-actions">
+              <p>
+                <ShieldCheck size={20} aria-hidden="true" />
+                No spam. No lead selling. No pressure parade. Just local guidance.
+              </p>
               <button type="button" className="tide-secondary-action" onClick={goBack} disabled={stepIndex === 0}>
                 Back
               </button>
-              {stepIndex < tideSteps.length - 1 ? (
+              {!isFinalStep ? (
                 <button type="button" className="tide-primary-action" onClick={goNext}>
-                  Continue
-                  <ArrowRight size={18} aria-hidden="true" />
+                  <Lock size={23} aria-hidden="true" />
+                  <span>
+                    {stepIndex === 0 ? "Build my quote brief" : "Continue"}
+                    <small>{stepIndex === 0 ? "Takes about 60 seconds" : `Next: ${tideSteps[stepIndex + 1]}`}</small>
+                  </span>
+                  <ArrowRight size={34} aria-hidden="true" />
                 </button>
               ) : (
                 <button
@@ -2814,14 +3028,30 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
                   onClick={submitTideBrief}
                   disabled={guideStatus.state === "submitting"}
                 >
-                  {guideStatus.state === "submitting" ? "Sending brief..." : "Send my quote brief"}
-                  <ArrowRight size={18} aria-hidden="true" />
+                  <Lock size={23} aria-hidden="true" />
+                  <span>
+                    {guideStatus.state === "submitting" ? "Sending brief..." : "Send my quote brief"}
+                    <small>For licensed review</small>
+                  </span>
+                  <ArrowRight size={34} aria-hidden="true" />
                 </button>
               )}
+              <button
+                type="button"
+                className="tide-full-form-link"
+                onClick={() => {
+                  onStartCheck?.();
+                  setIsOpen(false);
+                }}
+              >
+                Use the full form instead
+              </button>
+              <small>Ask Tide anything. When your brief is ready, a licensed Outer Banks insurance agent will be in touch.</small>
             </div>
           )}
 
-          <div className="tide-ask">
+          {askOpen && (
+            <div className="tide-ask">
             <div className="tide-message-list" ref={messageListRef} aria-live="polite">
               {guideMessages.map((message, index) => (
                 <p className={`tide-message ${message.role}`} key={`${message.role}-${index}`}>
@@ -2861,32 +3091,27 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
                 <Send size={17} aria-hidden="true" />
               </button>
             </form>
-          </div>
-
-          <div className="tide-footer">
-            <button
-              type="button"
-              onClick={() => {
-                onStartCheck?.();
-                setIsOpen(false);
-              }}
-            >
-              Use the full form instead
-            </button>
-            <span>Real quotes, advice, binding, and service come from a licensed North Carolina insurance agent.</span>
-          </div>
+            </div>
+          )}
         </section>
       )}
 
       <button
         className="chat-launcher tide-launcher"
         type="button"
-        onClick={() => setIsOpen((value) => !value)}
+        onClick={() => {
+          if (!isOpen) {
+            setIsOpen(true);
+            setAskOpen(false);
+            return;
+          }
+          setAskOpen((value) => !value);
+        }}
         aria-expanded={isOpen}
-        aria-label={isOpen ? "Close Tide OBX guide" : "Open Tide OBX guide"}
+        aria-label={isOpen ? "Ask Tide a question" : "Open Tide OBX guide"}
       >
-        {isOpen ? <X size={21} aria-hidden="true" /> : <MessageCircle size={23} aria-hidden="true" />}
-        <span>{isOpen ? "Close Tide" : "Ask Tide"}</span>
+        <MessageCircle size={31} aria-hidden="true" />
+        <span>Ask Tide</span>
       </button>
     </div>
   );
@@ -2902,7 +3127,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
           <a href="/outer-banks-insurance/">OBX insurance</a>
           <a href="/outer-banks-homeowners-insurance/">Homeowners</a>
           <a href="/#wind-flood">Wind & flood</a>
-          <a href="/#how-it-works">How it works</a>
+          <a href="/tide-obx-insurance-guide/">Ask Tide</a>
           <a href="/#service-area">OBX towns</a>
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
         </nav>
@@ -2931,6 +3156,9 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
           </a>
           <a href="/#wind-flood" onClick={() => setMobileNavOpen(false)}>
             Wind & flood
+          </a>
+          <a href="/tide-obx-insurance-guide/" onClick={() => setMobileNavOpen(false)}>
+            Ask Tide
           </a>
           <a href="/#how-it-works" onClick={() => setMobileNavOpen(false)}>
             How it works
@@ -2962,6 +3190,7 @@ function SiteFooter() {
         <a href="/outer-banks-property-insurance/">Property insurance</a>
         <a href="/north-carolina-vacation-home-insurance/">Vacation homes</a>
         <a href="/outer-banks-flood-insurance/">Flood insurance</a>
+        <a href="/tide-obx-insurance-guide/">Ask Tide</a>
         <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
         <a href="/obx-insurance-toolkit/">Toolkit</a>
         <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
@@ -3102,10 +3331,8 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
         <section className="seo-topic-section" aria-labelledby="seo-topic-title">
           <h2 id="seo-topic-title">Insurance help for this area</h2>
           <p>
-            Use this guide when you are trying to understand {page.eyebrow}.
-            Start with the property facts that can shape the review: address,
-            occupancy, rental use, roof age, wind exposure, flood questions,
-            current coverage, and timing.
+            {page.topicHelpText ||
+              `Use this guide when you are trying to understand ${page.eyebrow}. Start with the property facts that can shape the review: address, occupancy, rental use, roof age, wind exposure, flood questions, current coverage, and timing.`}
           </p>
         </section>
 
