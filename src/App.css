@@ -3025,28 +3025,98 @@ select {
   position: fixed;
   right: 28px;
   bottom: calc(28px + env(safe-area-inset-bottom));
-  display: inline-grid;
-  width: 66px;
-  height: 66px;
-  place-items: center;
-  border-radius: 999px;
-  background: #071842;
-  color: #fff;
-  box-shadow: 0 20px 46px rgba(7, 17, 43, 0.34);
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) 34px;
+  align-items: center;
+  gap: 11px;
+  width: 238px;
+  min-height: 74px;
+  padding: 9px 12px 9px 9px;
+  border: 1px solid rgba(7, 24, 66, 0.13);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, #ffffff 0%, #f8fcff 54%, #eaf9f8 100%);
+  color: var(--ink);
+  box-shadow: 0 20px 46px rgba(7, 17, 43, 0.22);
   cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
 }
 
-.chat-launcher span {
+.chat-launcher::before {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  background: linear-gradient(180deg, var(--teal) 0%, #071842 100%);
+  content: "";
+}
+
+.chat-launcher:hover {
+  border-color: rgba(0, 127, 131, 0.34);
+  box-shadow: 0 24px 54px rgba(7, 17, 43, 0.26);
+  transform: translateY(-2px);
 }
 
 .tide-launcher {
+  background:
+    linear-gradient(135deg, #ffffff 0%, #f8fcff 54%, #eaf9f8 100%);
+}
+
+.tide-launcher-face {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 54px;
+  height: 54px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: #edf7fb;
+  box-shadow:
+    0 0 0 1px rgba(7, 24, 66, 0.08),
+    0 8px 18px rgba(7, 17, 43, 0.13);
+  object-fit: cover;
+}
+
+.tide-launcher-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+  text-align: left;
+}
+
+.tide-launcher-copy strong {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.tide-launcher-copy small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 760;
+  line-height: 1.2;
+}
+
+.tide-launcher-wave {
+  position: relative;
+  z-index: 1;
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 10px;
   background: #071842;
+  color: #fff;
+  box-shadow: inset 0 -9px 0 rgba(0, 127, 131, 0.2);
 }
 
 .tide-panel {
@@ -3218,6 +3288,30 @@ select {
 
 .tide-progress-step.active::after {
   display: none;
+}
+
+.tide-research-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: -8px 76px 22px;
+  padding: 10px 13px;
+  border: 1px solid #dce9f1;
+  border-radius: 8px;
+  background: #f8fcfc;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.tide-research-note svg {
+  flex: 0 0 auto;
+  color: var(--teal);
+}
+
+.tide-research-note span {
+  min-width: 0;
 }
 
 .tide-body {
@@ -3602,6 +3696,10 @@ select {
   font-weight: 850;
   text-align: left;
   cursor: pointer;
+}
+
+.tide-ask-toggle {
+  display: none;
 }
 
 .tide-actions > small {
@@ -4700,14 +4798,32 @@ select {
   }
 
   .chat-launcher {
-    width: 54px;
-    min-width: 54px;
-    padding: 0;
+    grid-template-columns: 46px minmax(0, 1fr) 30px;
+    width: min(214px, calc(100vw - 28px));
+    min-width: 0;
+    min-height: 62px;
+    padding: 8px 10px 8px 8px;
+    border-radius: 15px;
     justify-self: end;
   }
 
-  .chat-launcher span {
-    display: none;
+  .tide-launcher-face {
+    width: 46px;
+    height: 46px;
+  }
+
+  .tide-launcher-copy strong {
+    font-size: 14px;
+  }
+
+  .tide-launcher-copy small {
+    font-size: 11px;
+  }
+
+  .tide-launcher-wave {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
   }
 
   .quick-call-sticky {
@@ -4845,13 +4961,9 @@ select {
   }
 
   .tide-window-actions button {
-    width: 42px;
-    height: 42px;
+    width: 38px;
+    height: 38px;
     border-radius: 10px;
-  }
-
-  .tide-window-actions button:first-child {
-    display: none;
   }
 
   .tide-progress {
@@ -4886,6 +4998,12 @@ select {
   .tide-progress-step.active::after {
     top: 20px;
     width: 34px;
+  }
+
+  .tide-research-note {
+    margin: -5px 14px 16px;
+    padding: 9px 11px;
+    font-size: 12px;
   }
 
   .tide-body {
@@ -5011,6 +5129,7 @@ select {
   .tide-actions > p,
   .tide-primary-action,
   .tide-secondary-action,
+  .tide-ask-toggle,
   .tide-full-form-link,
   .tide-actions > small {
     grid-column: 1;
@@ -5035,6 +5154,21 @@ select {
     width: 100%;
   }
 
+  .tide-ask-toggle {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid #cde2f7;
+    border-radius: 8px;
+    background: #f3f9ff;
+    color: var(--teal-dark);
+    font-size: 14px;
+    font-weight: 850;
+    cursor: pointer;
+  }
+
   .tide-full-form-link {
     width: 100%;
     text-align: center;
@@ -5048,10 +5182,15 @@ select {
   .chat-launcher {
     right: 14px;
     bottom: calc(14px + env(safe-area-inset-bottom));
-    width: 54px;
-    height: 54px;
-    min-width: 54px;
-    padding: 0;
+    grid-template-columns: 46px minmax(0, 1fr) 30px;
+    width: min(214px, calc(100vw - 28px));
+    min-width: 0;
+    min-height: 62px;
+    padding: 8px 10px 8px 8px;
+  }
+
+  .tide-guide.open .chat-launcher {
+    display: none;
   }
 }
 
@@ -5092,5 +5231,32 @@ select {
     grid-column: 2;
     max-width: none;
     text-align: left;
+  }
+
+  .chat-launcher {
+    right: 10px;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    grid-template-columns: 42px minmax(0, 1fr) 28px;
+    width: min(198px, calc(100vw - 20px));
+    min-height: 58px;
+    padding: 8px;
+  }
+
+  .tide-launcher-face {
+    width: 42px;
+    height: 42px;
+  }
+
+  .tide-launcher-copy strong {
+    font-size: 13px;
+  }
+
+  .tide-launcher-copy small {
+    font-size: 10px;
+  }
+
+  .tide-launcher-wave {
+    width: 28px;
+    height: 28px;
   }
 }

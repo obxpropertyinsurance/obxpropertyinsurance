@@ -16,7 +16,6 @@ import {
   Lock,
   MapPin,
   Menu,
-  MessageCircle,
   PhoneCall,
   SearchCheck,
   Send,
@@ -468,6 +467,25 @@ const tideAgent = {
   name: "Tide",
   title: "Tide, your OBX Insurance Advisor",
   promise: "Save time. Avoid costly surprises. No spam.",
+};
+
+const tideAutoOpenStorageKey = "obxncinsurance:tide-auto-opened";
+const tideDismissedStorageKey = "obxncinsurance:tide-dismissed";
+
+const getTideStorageValue = (key) => {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+
+const setTideStorageValue = (key, value) => {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Tide still works if a browser blocks localStorage.
+  }
 };
 
 const tideInitialAnswers = {
@@ -2493,7 +2511,7 @@ function LeadConfirmationModal({ lead, onClose, onStartAnother }) {
 }
 
 function ObxGuideChat({ onStartCheck, pageContext }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState(tideInitialAnswers);
   const [askOpen, setAskOpen] = useState(false);
@@ -2509,6 +2527,36 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   const [submittedLead, setSubmittedLead] = useState(null);
   const messageListRef = useRef(null);
   const panelRef = useRef(null);
+
+  const openTide = ({ automated = false } = {}) => {
+    setIsOpen(true);
+    setAskOpen(false);
+    if (!automated) {
+      setTideStorageValue(tideAutoOpenStorageKey, new Date().toISOString());
+    }
+  };
+
+  const tuckTideAway = () => {
+    setIsOpen(false);
+    setAskOpen(false);
+    setTideStorageValue(tideDismissedStorageKey, new Date().toISOString());
+  };
+
+  useEffect(() => {
+    if (getTideStorageValue(tideAutoOpenStorageKey) || getTideStorageValue(tideDismissedStorageKey)) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      if (getTideStorageValue(tideAutoOpenStorageKey) || getTideStorageValue(tideDismissedStorageKey)) {
+        return;
+      }
+      setTideStorageValue(tideAutoOpenStorageKey, new Date().toISOString());
+      openTide({ automated: true });
+    }, 10000);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     messageListRef.current?.scrollTo({
@@ -2723,7 +2771,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
             We received the details{submittedLead.address ? ` for ${submittedLead.address}` : ""}.
             A licensed Outer Banks insurance agent will be in touch about this request. No spam, no lead selling.
           </p>
-          <button type="button" className="tide-secondary-action" onClick={() => setIsOpen(false)}>
+          <button type="button" className="tide-secondary-action" onClick={tuckTideAway}>
             Done
           </button>
         </div>
@@ -2991,10 +3039,10 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               </small>
             </div>
             <div className="tide-window-actions">
-              <button type="button" onClick={() => setIsOpen(false)} aria-label="Minimize Tide guide">
+              <button type="button" onClick={tuckTideAway} aria-label="Minimize Tide and keep researching">
                 <span aria-hidden="true">-</span>
               </button>
-              <button type="button" onClick={() => setIsOpen(false)} aria-label="Close Tide guide">
+              <button type="button" onClick={tuckTideAway} aria-label="Close Tide and keep researching">
                 <X size={25} aria-hidden="true" />
               </button>
             </div>
@@ -3018,6 +3066,14 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               </div>
             ))}
           </div>
+
+          <p className="tide-research-note">
+            <Waves size={18} aria-hidden="true" />
+            <span>
+              Just researching? Use the top-right controls to tuck Tide away and keep reading.
+              Tide will wait in the corner when you want help.
+            </span>
+          </p>
 
           <div className="tide-body">
             <div className="tide-main">{renderStep()}</div>
@@ -3096,12 +3152,16 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
                   <ArrowRight size={34} aria-hidden="true" />
                 </button>
               )}
+              <button type="button" className="tide-ask-toggle" onClick={() => setAskOpen((value) => !value)}>
+                <Waves size={18} aria-hidden="true" />
+                {askOpen ? "Hide Tide questions" : "Ask Tide a question"}
+              </button>
               <button
                 type="button"
                 className="tide-full-form-link"
                 onClick={() => {
                   onStartCheck?.();
-                  setIsOpen(false);
+                  tuckTideAway();
                 }}
               >
                 Use the full form instead
@@ -3161,8 +3221,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
         type="button"
         onClick={() => {
           if (!isOpen) {
-            setIsOpen(true);
-            setAskOpen(false);
+            openTide();
             return;
           }
           setAskOpen((value) => !value);
@@ -3170,8 +3229,14 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
         aria-expanded={isOpen}
         aria-label={isOpen ? "Ask Tide a question" : "Open Tide OBX guide"}
       >
-        <MessageCircle size={31} aria-hidden="true" />
-        <span>Ask Tide</span>
+        <img className="tide-launcher-face" src="/tide-agent-headshot.png" alt="" />
+        <span className="tide-launcher-copy" aria-hidden="true">
+          <strong>Ask Tide</strong>
+          <small>OBX advisor. No spam.</small>
+        </span>
+        <span className="tide-launcher-wave" aria-hidden="true">
+          <Waves size={20} />
+        </span>
       </button>
     </div>
   );
