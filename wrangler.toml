@@ -1,0 +1,8 @@
+name = "obxncinsurance"
+compatibility_date = "2026-07-03"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "LEADS_DB"
+database_name = "obxncinsurance-leads"
+database_id = "47003163-48da-4a48-8384-a7b108f012ec"

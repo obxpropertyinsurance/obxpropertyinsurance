@@ -780,6 +780,12 @@ const submitLeadPayload = async (leadPayload) => {
       leadPayload,
       result.formSubmitEmail || leadRecipientEmail,
     );
+    if (fallback.ok) {
+      await markLeadDelivery({
+        leadId: result.leadId,
+        delivery: fallback.delivery === "formsubmit" ? "formsubmit-browser" : fallback.delivery,
+      });
+    }
     return {
       ...result,
       ok: fallback.ok,
@@ -926,6 +932,17 @@ const sendLeadWithFormSubmit = async (leadPayload, toEmail = leadRecipientEmail)
   }
 
   throw new Error(message || "Your request could not be emailed right now.");
+};
+
+const markLeadDelivery = async ({ leadId, delivery }) => {
+  if (!leadId || !delivery) return;
+  await fetch("/api/lead-delivery", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ leadId, delivery }),
+  }).catch(() => {});
 };
 
 function Logo() {
@@ -2507,8 +2524,46 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     });
   }, [stepIndex, submittedLead]);
 
-  const progress = Math.round(((stepIndex + 1) / tideSteps.length) * 100);
   const isFinalStep = stepIndex === tideSteps.length - 1;
+  const getCurrentStepCompletion = () => {
+    if (submittedLead || isFinalStep) return 1;
+    if (stepIndex === 0) return answers.propertyUse ? 1 : 0;
+    if (stepIndex === 1) {
+      const completed = [
+        answers.address.trim(),
+        answers.rentalUse && answers.rentalUse !== "Unsure",
+        answers.yearBuilt || answers.roofAge,
+        answers.floodZone !== "Needs review" || answers.elevationCertificate !== "Unsure",
+      ].filter(Boolean).length;
+      return completed / 4;
+    }
+    if (stepIndex === 2) {
+      const completed = [
+        answers.leadGoal,
+        answers.windExposure !== "Needs review",
+        answers.currentCarrier || answers.policyExpiration || answers.coverageNeededBy,
+        answers.notes,
+      ].filter(Boolean).length;
+      return completed / 4;
+    }
+    if (stepIndex === 3) {
+      const completed = [
+        answers.fullName.trim(),
+        isValidEmail(answers.email),
+        answers.phone.trim(),
+        answers.preferredContact,
+      ].filter(Boolean).length;
+      return completed / 4;
+    }
+    return 0;
+  };
+  const progress = submittedLead
+    ? 100
+    : Math.min(
+        100,
+        Math.round(((stepIndex + getCurrentStepCompletion()) / (tideSteps.length - 1)) * 100),
+      );
+  const progressTrackWidth = `${progress * 0.8}%`;
 
   const updateAnswer = (field, value) => {
     setAnswers((current) => ({
@@ -2945,7 +3000,12 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
             </div>
           </div>
 
-          <div className="tide-progress" aria-label={`Tide progress ${progress}%`}>
+          <div
+            className="tide-progress"
+            style={{ "--tide-progress-width": progressTrackWidth }}
+            aria-label={`Tide progress ${progress}%`}
+          >
+            <span className="tide-progress-fill" aria-hidden="true" />
             {tideSteps.map((label, index) => (
               <div
                 className={

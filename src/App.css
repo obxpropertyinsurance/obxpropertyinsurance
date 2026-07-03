@@ -3168,6 +3168,18 @@ select {
   content: "";
 }
 
+.tide-progress-fill {
+  position: absolute;
+  z-index: 0;
+  top: 27px;
+  left: 10%;
+  width: var(--tide-progress-width, 0%);
+  height: 3px;
+  border-radius: 999px;
+  background: var(--teal);
+  transition: width 260ms ease;
+}
+
 .tide-progress-step {
   position: relative;
   z-index: 1;
@@ -3205,15 +3217,7 @@ select {
 }
 
 .tide-progress-step.active::after {
-  position: absolute;
-  top: 26px;
-  left: 50%;
-  width: 70px;
-  height: 4px;
-  border-radius: 999px;
-  background: var(--teal);
-  content: "";
-  transform: translateX(-4px);
+  display: none;
 }
 
 .tide-body {
@@ -3784,6 +3788,10 @@ select {
   }
 
   .tide-progress::before {
+    top: 25px;
+  }
+
+  .tide-progress-fill {
     top: 25px;
   }
 
@@ -4853,8 +4861,12 @@ select {
 
   .tide-progress::before {
     top: 21px;
-    right: 9%;
-    left: 9%;
+    right: 10%;
+    left: 10%;
+  }
+
+  .tide-progress-fill {
+    top: 21px;
   }
 
   .tide-progress-step {
