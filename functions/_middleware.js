@@ -102,6 +102,13 @@ export async function onRequest({ request, next }) {
     return next();
   }
 
+  const legacyReviewSlug = url.searchParams.get("review");
+  if (url.pathname === "/" && legacyReviewSlug && allowedSlugs.has(legacyReviewSlug)) {
+    url.search = "";
+    url.hash = `quote-${legacyReviewSlug}`;
+    return Response.redirect(url.toString(), 301);
+  }
+
   if (
     passthroughFiles.has(url.pathname) ||
     passthroughPrefixes.some((prefix) => url.pathname.startsWith(prefix)) ||

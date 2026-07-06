@@ -432,9 +432,10 @@ const serviceAreas = [
 ];
 
 const leadRecipientEmail = "obxpropertyinsurance@proton.me";
+const quoteReviewHashPrefix = "#quote-";
 
 const getQuoteReviewHref = (page) =>
-  page ? `/?review=${encodeURIComponent(page.slug)}#quote` : "/#quote";
+  page ? `/${quoteReviewHashPrefix}${encodeURIComponent(page.slug)}` : "/#quote";
 
 const getReviewOptionForPage = (page) => {
   const slug = page?.slug || "";
@@ -456,9 +457,18 @@ const getLeadGoalForPage = (page) => {
   return "Buying / closing soon";
 };
 
-const getReviewPageFromSearch = () => {
+const getReviewPageFromUrl = () => {
   const reviewSlug = new URLSearchParams(window.location.search).get("review");
-  return reviewSlug ? getSeoPageBySlug(reviewSlug) : null;
+  if (reviewSlug) return getSeoPageBySlug(reviewSlug);
+
+  const hash = window.location.hash || "";
+  if (!hash.startsWith(quoteReviewHashPrefix)) return null;
+
+  try {
+    return getSeoPageBySlug(decodeURIComponent(hash.slice(quoteReviewHashPrefix.length)));
+  } catch {
+    return null;
+  }
 };
 
 const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
@@ -1010,18 +1020,18 @@ function App() {
     companyWebsite: "",
   });
   const activeSeoPage = getSeoPageByPath(window.location.pathname);
-  const reviewSeoPage = useMemo(getReviewPageFromSearch, []);
+  const reviewSeoPage = useMemo(getReviewPageFromUrl, []);
   const selectedToolkit =
     obxResourceTools.find((tool) => tool.title === selectedToolkitTitle) || obxResourceTools[0];
 
   useEffect(() => {
     if (!activeSeoPage) {
-      document.title = "Outer Banks Homeowners Insurance | OBXNCInsurance.com";
+      document.title = "OBXNCInsurance.com | Outer Banks Insurance Review";
       document
         .querySelector('meta[name="description"]')
         ?.setAttribute(
           "content",
-          "Create a free Outer Banks homeowners and property insurance brief for coastal homes, wind, flood, second homes, vacation rentals, and local licensed review.",
+          "Create a free Outer Banks insurance brief for coastal homes, property coverage, wind, flood, second homes, vacation rentals, and local licensed review.",
         );
       document
         .querySelector('link[rel="canonical"]')
@@ -1046,6 +1056,12 @@ function App() {
       ...current,
       leadGoal: getLeadGoalForPage(reviewSeoPage),
     }));
+
+    if (window.location.hash.startsWith(quoteReviewHashPrefix)) {
+      window.setTimeout(() => {
+        document.getElementById("quote")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 0);
+    }
   }, [reviewSeoPage]);
 
   const localReadiness = useMemo(() => {
@@ -1203,7 +1219,7 @@ function App() {
 
   const quoteTitle = reviewSeoPage
     ? `Create your ${reviewSeoPage.eyebrow} brief`
-    : "Create your Outer Banks homeowners insurance brief";
+    : "Create your Outer Banks insurance brief";
   const quoteIntro = reviewSeoPage
     ? `You came from our ${reviewSeoPage.eyebrow} guide. Send the property details below and we will preserve that context for local Outer Banks, NC licensed agent review.`
     : "Send the essentials first. We will prepare a no-spam coverage brief for review by a local Outer Banks, NC licensed agent.";
@@ -1280,7 +1296,7 @@ function App() {
           <div className="hero-copy">
             <h1 id="hero-title">
               <span>Outer Banks</span>
-              <span>homeowners insurance</span>
+              <span>insurance review</span>
               <span>for coastal homes</span>
             </h1>
             <p>

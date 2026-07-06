@@ -14,7 +14,7 @@ const escapeHtml = (value) =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
 
-const quoteHrefForPage = (page) => `/?review=${encodeURIComponent(page.slug)}#quote`;
+const quoteHrefForPage = (page) => `/#quote-${encodeURIComponent(page.slug)}`;
 
 const updateMeta = (html, page) => {
   const canonical = `${siteUrl}/${page.slug}/`;
@@ -239,9 +239,9 @@ const template = await readFile(templatePath, "utf8");
 const homepageStaticBody = `
       <main class="seo-static-fallback">
         <section>
-          <p>Outer Banks homeowners insurance</p>
-          <h1>Outer Banks homeowners insurance for coastal homes</h1>
-          <p>Create a free Outer Banks homeowners and property insurance brief for coastal homes, wind and hail, flood, second homes, vacation rentals, condos, landlord properties, and local licensed agent review. No spam.</p>
+          <p>Outer Banks insurance review</p>
+          <h1>Outer Banks insurance review for coastal homes</h1>
+          <p>Create a free Outer Banks insurance brief for homeowners, property coverage, wind and hail, flood, second homes, vacation rentals, condos, landlord properties, and local licensed agent review. No spam.</p>
           <a href="/#quote">Create my free coverage brief</a>
         </section>
         <section>

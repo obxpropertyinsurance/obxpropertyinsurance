@@ -354,6 +354,7 @@ const coreSeoPages = [
     ],
     relatedSlugs: [
       "outer-banks-homeowners-insurance",
+      "outer-banks-shore-home-insurance-coverage",
       "outer-banks-property-insurance",
       "outer-banks-home-insurance",
       "obx-wind-hail-insurance",
@@ -434,6 +435,7 @@ const coreSeoPages = [
     ],
     relatedSlugs: [
       "outer-banks-insurance",
+      "outer-banks-shore-home-insurance-coverage",
       "obx-homeowners-insurance",
       "outer-banks-property-insurance",
       "outer-banks-beach-house-insurance",
@@ -1556,6 +1558,7 @@ const atlasSeoPages = [
       },
     ],
     relatedSlugs: [
+      "outer-banks-shore-home-insurance-coverage",
       "outer-banks-oceanfront-home-insurance",
       "outer-banks-soundside-home-insurance",
       "outer-banks-canalfront-home-insurance",
@@ -1992,6 +1995,104 @@ const clusterSeoPages = [
       "obx-roof-age-insurance",
       "obx-vacation-rental-insurance",
       "outer-banks-property-insurance",
+    ],
+  },
+  {
+    slug: "outer-banks-shore-home-insurance-coverage",
+    title: "Outer Banks Shore Home Insurance Coverage | OBX Policy Review",
+    description:
+      "Review Outer Banks shore home insurance coverage for homeowners policies, property insurance, vacation homes, liability, wind, flood, and OBX towns.",
+    eyebrow: "Outer Banks shore home insurance coverage",
+    h1: "Outer Banks shore home insurance coverage for coastal property owners",
+    intro:
+      "Searches like north shore home insurance coverage, south shore homeowners coverage, shore property insurance, and shore homeowners policy can point to many coastal regions. This guide is specifically for Outer Banks, North Carolina property owners who need homeowners coverage, wind, flood, liability, vacation home, or rental-use questions organized before licensed review.",
+    support:
+      "Use this page when your search language is broader than a town name: north shore, south shore, coastal home insurance coverage, homeowners insurance policy, vacation home insurance, property insurance, or liability insurance for an OBX home.",
+    intent: "For OBX owners who search by shore, coverage, policy, or vacation-home language instead of a specific town.",
+    sections: [
+      {
+        heading: "North shore and south shore can mean different places",
+        body:
+          "This page uses north shore and south shore language only to help Outer Banks searchers who are thinking about the northern beaches, central beaches, Hatteras Island, or Ocracoke. If your property is outside the Outer Banks, use a licensed local agent for that region.",
+      },
+      {
+        heading: "Match shore searches to the right OBX town",
+        body:
+          "Northern Outer Banks searches may point to Carova, Corolla, Duck, Southern Shores, or Kitty Hawk. Central beach searches may point to Kill Devil Hills or Nags Head. Southern shore and island searches may point to Rodanthe, Waves, Salvo, Avon, Buxton, Frisco, Hatteras, or Ocracoke.",
+      },
+      {
+        heading: "Coverage and policy searches need the same property facts",
+        body:
+          "Whether the query says homeowners coverage, home insurance coverage, homeowners policy, property insurance, liability insurance, or vacation home insurance, the review still starts with address, occupancy, roof age, year built, wind exposure, flood zone, elevation details, current carrier, and timing.",
+      },
+      {
+        heading: "Vacation homes and rentals add another layer",
+        body:
+          "A shore vacation home or weekly rental can raise questions about guest use, furnished contents, property manager details, pools, hot tubs, elevators, decks, liability, loss of rent, wind, flood, and replacement cost.",
+      },
+      {
+        heading: "Do not separate wind and flood from the policy review",
+        body:
+          "Outer Banks shore homes often need homeowners coverage, wind and hail, flood insurance, and liability reviewed together. Looking at only one layer can miss the coastal detail that changes the next question.",
+      },
+    ],
+    sources: [officialSourceLinks[0], officialSourceLinks[1], officialSourceLinks[2], officialSourceLinks[3]],
+    keywords: [
+      "north shore home insurance coverage",
+      "north shore homeowners coverage",
+      "south shore homeowners coverage",
+      "south shore homeowners insurance policy",
+      "south shore homeowners policy",
+      "south shore homeowners liability insurance",
+      "south shore vacation home insurance",
+      "south shore property insurance",
+      "Outer Banks shore home insurance coverage",
+      "OBX homeowners coverage",
+      "Outer Banks homeowners policy",
+      "Outer Banks vacation home insurance",
+      "Outer Banks property insurance",
+    ],
+    localInsights: [
+      "Search language is shifting toward coverage, policy, liability, and vacation-home terms, not only quote terms.",
+      "Use the exact town page when you know the town; use this shore coverage guide when the search starts broader than a town.",
+      "If the property is rented or used seasonally, include guest use, property manager, amenities, and loss-of-rent questions in the first brief.",
+      "A licensed review should connect homeowners coverage, wind and hail, flood insurance, liability, and property use before options are compared.",
+    ],
+    checklist: [
+      "Shore coverage search terms",
+      "Homeowners policy questions",
+      "Property and liability review",
+      "Vacation home or rental use",
+      "Wind and flood context",
+    ],
+    faqs: [
+      {
+        question: "Is this page for South Shore insurance outside North Carolina?",
+        answer:
+          "No. This guide is for Outer Banks, North Carolina property owners. South Shore can mean other coastal regions, so owners outside the OBX should work with a licensed local agent for that area.",
+      },
+      {
+        question: "What if I searched north shore home insurance coverage?",
+        answer:
+          "If you meant a northern Outer Banks property, start with the town page for Carova, Corolla, Duck, Southern Shores, or Kitty Hawk, then prepare the same coverage facts: address, use, wind, flood, roof age, and timing.",
+      },
+      {
+        question: "Does homeowners coverage include liability, wind, and flood?",
+        answer:
+          "Those questions should be reviewed together, but they may not all be handled the same way. A local Outer Banks, NC licensed agent can explain how homeowners, liability, wind, and flood options fit a specific property.",
+      },
+    ],
+    relatedSlugs: [
+      "outer-banks-insurance-atlas",
+      "outer-banks-homeowners-insurance",
+      "outer-banks-property-insurance",
+      "obx-vacation-rental-insurance",
+      "outer-banks-flood-insurance",
+      "obx-wind-hail-insurance",
+      "southern-shores-home-insurance",
+      "kitty-hawk-home-insurance",
+      "hatteras-home-insurance",
+      "ocracoke-home-insurance",
     ],
   },
   {
@@ -2767,6 +2868,54 @@ const townSeoProfiles = [
     localNeeds:
       "remote island access, flood and wind review, rental use, roof age, elevation, and replacement cost questions",
   },
+  {
+    town: "Colington Island",
+    slug: "colington-island-home-insurance",
+    title: "Colington Island Home Insurance | OBX Review",
+    descriptor: "Colington Island homes, Colington Harbour properties, soundside homes, and rental or year-round residences",
+    county: "Dare County",
+    nearby: "Kill Devil Hills and the central Outer Banks",
+    search:
+      "Colington Island homeowners insurance, Colington home insurance, Colington Harbour property insurance, or soundside OBX insurance review",
+    localNeeds:
+      "soundside exposure, flood questions, wind and hail review, roof age, docks or outbuildings, primary or second home use, and renewal timing",
+  },
+  {
+    town: "Manns Harbor",
+    slug: "manns-harbor-home-insurance",
+    title: "Manns Harbor Home Insurance | Dare County Review",
+    descriptor: "Dare County mainland homes, soundside property, fishing-community residences, and nearby coastal accounts",
+    county: "Dare County",
+    nearby: "Manteo, Wanchese, and Roanoke Island",
+    search:
+      "Manns Harbor homeowners insurance, Manns Harbor home insurance, Dare County property insurance, or soundside home insurance",
+    localNeeds:
+      "soundside wind exposure, flood questions, outbuildings, docks, roof age, primary home use, and current policy review",
+  },
+  {
+    town: "Stumpy Point",
+    slug: "stumpy-point-home-insurance",
+    title: "Stumpy Point Home Insurance | Dare County Review",
+    descriptor: "Dare County mainland homes, soundside property, working waterfront residences, and local coastal accounts",
+    county: "Dare County",
+    nearby: "Manns Harbor, Manteo, and the southern Outer Banks",
+    search:
+      "Stumpy Point homeowners insurance, Stumpy Point home insurance, Dare County property insurance, or coastal flood and wind review",
+    localNeeds:
+      "flood questions, soundside exposure, roof age, outbuildings, waterfront details, primary residence use, and renewal timing",
+  },
+  {
+    town: "East Lake",
+    slug: "east-lake-home-insurance",
+    title: "East Lake Home Insurance | Dare County Review",
+    descriptor: "Dare County mainland homes, rural properties, soundside-area residences, and local coastal accounts",
+    county: "Dare County",
+    nearby: "Manns Harbor, Stumpy Point, and Roanoke Island",
+    search:
+      "East Lake homeowners insurance, East Lake NC home insurance, Dare County property insurance, or coastal home insurance review",
+    localNeeds:
+      "rural property details, roof age, outbuildings, flood questions, wind exposure, primary home use, and current policy review",
+  },
 ];
 
 const townSeoPages = townSeoProfiles.map((profile) => ({
@@ -2868,6 +3017,10 @@ const imageBySlug = {
   "buxton-home-insurance": localImages.buxton,
   "frisco-home-insurance": localImages.frisco,
   "ocracoke-home-insurance": localImages.ocracoke,
+  "colington-island-home-insurance": localImages.killDevilHills,
+  "manns-harbor-home-insurance": localImages.manteo,
+  "stumpy-point-home-insurance": localImages.manteo,
+  "east-lake-home-insurance": localImages.outerBanks,
 };
 
 const titleBySlug = {
@@ -2973,13 +3126,294 @@ const localInsightBySlug = {
   ],
 };
 
+const townSearchProfiles = [
+  {
+    town: "Carova",
+    slug: "carova-home-insurance",
+    county: "Currituck County",
+    region: "Northern Outer Banks",
+    aliases: ["Carova NC", "Carova Beach", "Swan Beach", "North Swan Beach", "Ocean Beach", "4x4 Carova", "4x4 beach"],
+  },
+  {
+    town: "Corolla",
+    slug: "corolla-home-insurance",
+    county: "Currituck County",
+    region: "Northern Outer Banks",
+    aliases: ["Corolla NC", "Whalehead", "Whalehead Beach", "Ocean Sands", "Pine Island", "Corolla Light", "Currituck Club"],
+  },
+  {
+    town: "Duck",
+    slug: "duck-nc-home-insurance",
+    county: "Dare County",
+    region: "Northern Outer Banks",
+    aliases: ["Duck NC", "Town of Duck"],
+  },
+  {
+    town: "Southern Shores",
+    slug: "southern-shores-home-insurance",
+    county: "Dare County",
+    region: "Northern Outer Banks",
+    aliases: ["Southern Shores NC", "south shore", "southern shore"],
+    clarification:
+      "If you typed south shore while looking for Southern Shores, North Carolina, this guide is the local Outer Banks starting point. If you meant a different South Shore region outside the OBX, work with a licensed agent for that region.",
+  },
+  {
+    town: "Kitty Hawk",
+    slug: "kitty-hawk-home-insurance",
+    county: "Dare County",
+    region: "Northern Outer Banks",
+    aliases: ["Kitty Hawk NC", "Kitty Hawk beach"],
+  },
+  {
+    town: "Kill Devil Hills",
+    slug: "kill-devil-hills-home-insurance",
+    county: "Dare County",
+    region: "Central Outer Banks",
+    aliases: ["Kill Devil Hills NC", "KDH", "Colington", "Colington Harbour"],
+  },
+  {
+    town: "Nags Head",
+    slug: "nags-head-home-insurance",
+    county: "Dare County",
+    region: "Central Outer Banks",
+    aliases: ["Nags Head NC", "South Nags Head", "Old Nags Head"],
+  },
+  {
+    town: "Manteo",
+    slug: "manteo-home-insurance",
+    county: "Dare County",
+    region: "Roanoke Island",
+    aliases: ["Manteo NC", "Roanoke Island"],
+  },
+  {
+    town: "Wanchese",
+    slug: "wanchese-home-insurance",
+    county: "Dare County",
+    region: "Roanoke Island",
+    aliases: ["Wanchese NC", "Roanoke Island"],
+  },
+  {
+    town: "Rodanthe",
+    slug: "rodanthe-home-insurance",
+    county: "Dare County",
+    region: "Hatteras Island",
+    aliases: ["Rodanthe NC", "Tri-Villages", "Tri Villages", "Hatteras Island"],
+  },
+  {
+    town: "Waves",
+    slug: "waves-nc-home-insurance",
+    county: "Dare County",
+    region: "Hatteras Island",
+    aliases: ["Waves NC", "Tri-Villages", "Tri Villages", "Hatteras Island"],
+  },
+  {
+    town: "Salvo",
+    slug: "salvo-home-insurance",
+    county: "Dare County",
+    region: "Hatteras Island",
+    aliases: ["Salvo NC", "Tri-Villages", "Tri Villages", "Hatteras Island"],
+  },
+  {
+    town: "Avon",
+    slug: "avon-nc-home-insurance",
+    county: "Dare County",
+    region: "Hatteras Island",
+    aliases: ["Avon NC", "Hatteras Island"],
+  },
+  {
+    town: "Buxton",
+    slug: "buxton-home-insurance",
+    county: "Dare County",
+    region: "Hatteras Island",
+    aliases: ["Buxton NC", "Cape Hatteras", "Hatteras Island"],
+  },
+  {
+    town: "Frisco",
+    slug: "frisco-home-insurance",
+    county: "Dare County",
+    region: "Hatteras Island",
+    aliases: ["Frisco NC", "Hatteras Island"],
+  },
+  {
+    town: "Hatteras",
+    slug: "hatteras-home-insurance",
+    county: "Dare County",
+    region: "Hatteras Island",
+    aliases: ["Hatteras NC", "Hatteras Village", "Hatteras Island"],
+  },
+  {
+    town: "Ocracoke",
+    slug: "ocracoke-home-insurance",
+    county: "Hyde County",
+    region: "Ocracoke Island",
+    aliases: ["Ocracoke NC", "Ocracoke Island"],
+  },
+  {
+    town: "Colington Island",
+    slug: "colington-island-home-insurance",
+    county: "Dare County",
+    region: "Central Outer Banks",
+    aliases: ["Colington", "Colington Harbour", "Colington Harbor", "Colington NC", "Kill Devil Hills Colington"],
+  },
+  {
+    town: "Manns Harbor",
+    slug: "manns-harbor-home-insurance",
+    county: "Dare County",
+    region: "Dare County mainland",
+    aliases: ["Manns Harbor NC", "Manns Harbour"],
+  },
+  {
+    town: "Stumpy Point",
+    slug: "stumpy-point-home-insurance",
+    county: "Dare County",
+    region: "Dare County mainland",
+    aliases: ["Stumpy Point NC"],
+  },
+  {
+    town: "East Lake",
+    slug: "east-lake-home-insurance",
+    county: "Dare County",
+    region: "Dare County mainland",
+    aliases: ["East Lake NC"],
+  },
+];
+
+const townSearchProfileBySlug = Object.fromEntries(
+  townSearchProfiles.map((profile) => [profile.slug, profile]),
+);
+
+const buildTownQueryVariants = (profile) => {
+  const names = [profile.town, ...(profile.aliases || [])];
+  const placeGroups = [
+    ...names,
+    profile.county,
+    profile.region,
+  ].filter(Boolean);
+  return Array.from(
+    new Set(
+      placeGroups.flatMap((name) => [
+        `${name} home insurance`,
+        `${name} homeowners insurance`,
+        `home insurance in ${name}`,
+        `homeowners insurance in ${name}`,
+        `${name} property insurance`,
+        `${name} homeowners coverage`,
+        `${name} home insurance coverage`,
+        `${name} homeowners policy`,
+        `${name} homeowners insurance policy`,
+        `${name} homeowners liability insurance`,
+        `${name} vacation home insurance`,
+        `${name} vacation rental insurance`,
+        `${name} second home insurance`,
+        `${name} beach house insurance`,
+        `${name} rental property insurance`,
+        `${name} landlord insurance`,
+        `${name} condo insurance`,
+        `${name} dwelling fire insurance`,
+        `${name} home insurance quotes`,
+        `${name} homeowners insurance quotes`,
+        `${name} home insurance rates`,
+        `${name} homeowners insurance rates`,
+        `${name} insurance agent`,
+        `${name} insurance agency`,
+        `${name} home insurance near me`,
+        `${name} homeowners insurance near me`,
+        `${name} flood insurance`,
+        `${name} flood zone insurance`,
+        `${name} elevation certificate insurance`,
+        `${name} wind insurance`,
+        `${name} wind and hail insurance`,
+        `${name} hurricane insurance`,
+        `${name} roof age insurance`,
+      ]),
+    ),
+  );
+};
+
+const buildTownSearchSections = (profile) => {
+  const variants = buildTownQueryVariants(profile);
+  const aliasText = (profile.aliases || []).slice(0, 6).join(", ");
+  const coreExamples = variants
+    .filter((variant) =>
+      [
+        `${profile.town} home insurance`,
+        `${profile.town} homeowners insurance`,
+        `home insurance in ${profile.town}`,
+        `homeowners insurance in ${profile.town}`,
+        `${profile.town} property insurance`,
+        `${profile.town} homeowners coverage`,
+        `${profile.town} homeowners policy`,
+      ].includes(variant),
+    )
+    .join(", ");
+
+  return [
+    {
+      heading: `Common ways ${profile.town} owners search for help`,
+      body: `Owners do not all search the same way. This guide is built to answer ${coreExamples}, and related searches about coverage, policy language, liability, wind, flood, vacation homes, and rental use in one practical local guide.`,
+    },
+    ...(aliasText
+      ? [
+          {
+            heading: `${profile.town} local names and nearby search phrases`,
+            body: `Searchers may also use local names such as ${aliasText}. This page connects those phrases back to the same property-specific review for ${profile.county || "the Outer Banks"} and ${profile.region || "the surrounding OBX area"}.`,
+          },
+        ]
+      : []),
+    {
+      heading: `${profile.town} quotes, rates, agents, and near me searches`,
+      body: `Queries such as ${profile.town} home insurance quotes, ${profile.town} homeowners insurance rates, ${profile.town} insurance agent, ${profile.town} insurance agency, and ${profile.town} home insurance near me usually need more than a price form. A useful review starts with the property address, use, roof age, current carrier, timing, and the coastal coverage layers that may apply.`,
+    },
+    {
+      heading: `${profile.town} coverage, policy, and liability questions`,
+      body: `A homeowners policy review for ${profile.town} should connect dwelling coverage, other structures, belongings, liability insurance, loss of use, wind and hail, flood insurance, roof age, occupancy, current carrier, and renewal or closing timing.`,
+    },
+    {
+      heading: `${profile.town} vacation home and rental searches`,
+      body: `Searches for ${profile.town} vacation home insurance, ${profile.town} second home insurance, ${profile.town} beach house insurance, ${profile.town} vacation rental insurance, ${profile.town} rental property insurance, and ${profile.town} property insurance usually need the same first facts: how the home is used, whether guests stay there, who manages the property, amenities, flood details, and wind exposure.`,
+    },
+    {
+      heading: `${profile.town} flood, wind, hurricane, and roof-age searches`,
+      body: `Outer Banks search demand also includes ${profile.town} flood insurance, ${profile.town} flood zone insurance, ${profile.town} elevation certificate insurance, ${profile.town} wind insurance, ${profile.town} wind and hail insurance, ${profile.town} hurricane insurance, and ${profile.town} roof age insurance. Those topics should be reviewed with the homeowners policy, not after the fact.`,
+    },
+    ...(profile.clarification
+      ? [
+          {
+            heading: "A note about south shore searches",
+            body: profile.clarification,
+          },
+        ]
+      : []),
+  ];
+};
+
+const buildTownSearchFaqs = (profile) => [
+  {
+    question: `Does this help with ${profile.town} homeowners coverage and policy questions?`,
+    answer: `Yes. Use this page for ${profile.town} homeowners coverage, home insurance coverage, homeowners policy, property insurance, liability, wind, flood, second home, vacation home, and rental-use questions.`,
+  },
+  {
+    question: `What ${profile.town} insurance search terms does this guide support?`,
+    answer: `It supports phrases such as ${profile.town} home insurance, ${profile.town} homeowners insurance, home insurance in ${profile.town}, homeowners insurance in ${profile.town}, ${profile.town} property insurance, and ${profile.town} vacation home insurance.`,
+  },
+  {
+    question: `Can I use this for ${profile.town} quotes, rates, agents, or near me searches?`,
+    answer: `Yes. Those searches usually point to the same need: a local review of the property, current coverage, timing, wind, flood, roof age, occupancy, and whether the home is a primary home, second home, vacation home, condo, or rental.`,
+  },
+  {
+    question: `Does this cover ${profile.town} flood, wind, hurricane, and roof-age questions?`,
+    answer: `Yes. Flood zone, elevation certificate, wind and hail, hurricane deductible, and roof-age details should be reviewed alongside the homeowners or property policy for a ${profile.town} home.`,
+  },
+];
+
 const titleCase = (value) =>
   value.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1));
 
-const townSeoSlugs = new Set(townSeoProfiles.map((profile) => profile.slug));
+const townSeoSlugs = new Set(townSearchProfiles.map((profile) => profile.slug));
 
 const townNameFromPage = (page) =>
-  titleCase(page.eyebrow.replace(/\s+home insurance$/i, ""));
+  townSearchProfileBySlug[page.slug]?.town ||
+  titleCase(page.eyebrow.replace(/\s+(homeowners|home)\s+insurance$/i, ""));
 
 const buildKeywords = (page) => {
   const isTownPage = townSeoSlugs.has(page.slug);
@@ -2987,9 +3421,11 @@ const buildKeywords = (page) => {
     Array.from(new Set(items.filter(Boolean)));
 
   if (isTownPage) {
-    const town = townNameFromPage(page);
+    const profile = townSearchProfileBySlug[page.slug] || { town: townNameFromPage(page) };
+    const town = profile.town;
     return uniqueKeywords([
       ...(page.keywords || []),
+      ...buildTownQueryVariants(profile),
       `${town} home insurance`,
       `${town} homeowners insurance`,
       `${town} flood insurance`,
@@ -3015,7 +3451,22 @@ const buildKeywords = (page) => {
 
 const enhanceSeoPage = (page) => {
   const isTownPage = townSeoSlugs.has(page.slug);
+  const townProfile = townSearchProfileBySlug[page.slug] || null;
   const town = isTownPage ? townNameFromPage(page) : "";
+  const townSections = townProfile ? buildTownSearchSections(townProfile) : [];
+  const townFaqs = townProfile ? buildTownSearchFaqs(townProfile) : [];
+  const townRelatedSlugs = townProfile
+    ? [
+        ...(page.relatedSlugs || []),
+        "outer-banks-shore-home-insurance-coverage",
+        "outer-banks-homeowners-insurance",
+        "outer-banks-property-insurance",
+        "obx-vacation-rental-insurance",
+        "outer-banks-flood-insurance",
+        "obx-wind-hail-insurance",
+      ]
+    : page.relatedSlugs;
+  const localInsights = localInsightBySlug[page.slug] || page.localInsights || [];
 
   return {
     ...page,
@@ -3029,7 +3480,15 @@ const enhanceSeoPage = (page) => {
       `Compare ${town} home insurance in the Outer Banks, NC for homeowners, wind and hail, flood, second homes, vacation rentals, and local Outer Banks, NC licensed agent review.`,
     image: imageBySlug[page.slug] || localImages.outerBanks,
     keywords: buildKeywords(page),
-    localInsights: localInsightBySlug[page.slug] || page.localInsights || [],
+    sections: [...(page.sections || []), ...townSections],
+    localInsights: townProfile
+      ? [
+          ...localInsights,
+          `${townProfile.town} search demand includes homeowners coverage, homeowners policy, property insurance, vacation home insurance, and liability language, not only quote wording.`,
+        ]
+      : localInsights,
+    faqs: [...(page.faqs || []), ...townFaqs],
+    relatedSlugs: townRelatedSlugs ? Array.from(new Set(townRelatedSlugs)) : undefined,
     sources: page.sources || officialSourceLinks.slice(0, 3),
     lastReviewed: page.lastReviewed || "2026-07-02",
   };
