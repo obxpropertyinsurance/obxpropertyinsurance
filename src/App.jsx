@@ -30,7 +30,8 @@ import {
 import { PrivacyLinks } from "./PrivacyControls.jsx";
 import { trackEvent, trackStep, trackLead } from "./analytics.mjs";
 import useAccessibleDialog from "./useAccessibleDialog.js";
-import homeImage from "./assets/obx-coastal-home-1280.jpg";
+import homeImage from "./assets/piper/coastal-house.jpg";
+import piperIcon from "./assets/piper/piper-icon.png";
 import {
   getSeoPageByPath,
   getSeoPageBySlug,
@@ -1341,7 +1342,7 @@ function App() {
             </div>
           </div>
 
-          <div className="hero-visual" aria-label="OBX property insurance brief preview">
+          <div className="hero-visual" role="group" aria-label="OBX property insurance brief preview">
             <img src={homeImage} alt="Outer Banks beach house elevated on pilings near dunes" />
             <form className="hero-quote-panel" onSubmit={continueToQuoteForm}>
               <div className="panel-step">
@@ -1528,7 +1529,7 @@ function App() {
               </div>
             </div>
 
-            <div className="rate-chart-card" aria-label="Outer Banks homeowners insurance base-rate change chart">
+            <div className="rate-chart-card" role="group" aria-label="Outer Banks homeowners insurance base-rate change chart">
               <div className="rate-chart-header">
                 <div>
                   <strong>NC homeowners base-rate changes</strong>
@@ -1639,7 +1640,7 @@ function App() {
             </div>
           </aside>
 
-          <div className="rate-source-links" aria-label="Rate change sources">
+          <div className="rate-source-links" role="group" aria-label="Rate change sources">
             {rateSourceLinks.map((source) => (
               <a href={source.url} key={source.name} target="_blank" rel="noreferrer">
                 <span>
@@ -1701,7 +1702,7 @@ function App() {
             </div>
           </div>
 
-          <div className="coverage-map-panel" aria-label="Three layers of OBX insurance review">
+          <div className="coverage-map-panel" role="group" aria-label="Three layers of OBX insurance review">
             <div className="coverage-map-topline">
               <Layers3 size={24} aria-hidden="true" />
               <strong>The OBX 3-layer coverage map</strong>
@@ -2107,7 +2108,7 @@ function App() {
               />
             </label>
 
-            <div className="quote-progress" aria-label="Lead form progress">
+            <div className="quote-progress" role="group" aria-label="Lead form progress">
               <span className={quoteStep === 1 ? "active" : "complete"}>1. Brief basics</span>
               <span className={quoteStep === 2 ? "active" : ""}>2. Optional OBX details</span>
             </div>
@@ -2462,7 +2463,7 @@ function CoverageConsole({
         </label>
       </div>
 
-      <div className="readiness-meter" aria-label={`Coverage readiness ${readiness}%`}>
+      <div className="readiness-meter" role="group" aria-label={`Coverage readiness ${readiness}%`}>
         <div>
           <span>Coverage readiness</span>
           <strong>{readiness}%</strong>
@@ -2827,7 +2828,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
         <>
           <div className="tide-agent-note">
             <span className="tide-agent-photo" aria-hidden="true">
-              <img className="tide-agent-face" src="/tide-agent-headshot.png" alt="" />
+              <img className="tide-agent-face" src={piperIcon} alt="" />
             </span>
             <div>
               <p>
@@ -2860,6 +2861,9 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               onChange={(event) => updateAnswer("address", event.target.value)}
               placeholder="123 Ocean Trail, Corolla or Nags Head"
               autoComplete="street-address"
+              aria-required="true"
+              aria-invalid={(guideStatus.state === "error" && !answers.address.trim()) || undefined}
+              aria-describedby={guideStatus.state === "error" && !answers.address.trim() ? "tide-step-status" : undefined}
             />
           </label>
           <div className="tide-chip-grid" role="group" aria-label="Rental use">
@@ -3106,7 +3110,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
           </div>
 
           <div
-            className="tide-progress"
+            className="tide-progress" role="group"
             style={{ "--tide-progress-width": progressTrackWidth }}
             aria-label={`Tide progress ${progress}%`}
           >
@@ -3242,7 +3246,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
                 </p>
               ))}
             </div>
-            <div className="tide-quick-questions" aria-label="Ask Tide quick questions">
+            <div className="tide-quick-questions" role="group" aria-label="Ask Tide quick questions">
               {tideQuickQuestions.map((question) => (
                 <button
                   type="button"
@@ -3292,7 +3296,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
         aria-expanded={isOpen}
         aria-label={isOpen ? "Ask Tide a question" : "Open Tide OBX guide"}
       >
-        <img className="tide-launcher-face" src="/tide-agent-headshot.png" alt="" />
+        <img className="tide-launcher-face" src={piperIcon} alt="" />
         <span className="tide-launcher-copy" aria-hidden="true">
           <strong>Ask Tide</strong>
           <small>OBX advisor. No spam.</small>
@@ -3468,7 +3472,7 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
               <h2 id="seo-data-title">{page.dataTable.title}</h2>
               <p>{page.dataTable.intro}</p>
             </div>
-            <div className="seo-data-table-wrap">
+            <div className="seo-data-table-wrap" role="region" aria-label="Scrollable rate comparison table" tabIndex={0}>
               <table>
                 <thead>
                   <tr>

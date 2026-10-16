@@ -316,7 +316,6 @@ await Promise.all(
 const sitemapUrls = [
   { loc: `${siteUrl}/`, priority: "1.0" },
   ...seoPages.map((page) => ({ loc: `${siteUrl}/${page.slug}/`, priority: "0.8" })),
-  ...policyPages.map((page) => ({ loc: `${siteUrl}/${page.slug}/`, priority: "0.3" })),
 ];
 
 for (const page of policyPages) {

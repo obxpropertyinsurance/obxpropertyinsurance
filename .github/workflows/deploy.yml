@@ -33,3 +33,5 @@ jobs:
         run: python3 -m unittest discover -s lead-desk -p 'test_*.py'
       - name: Build
         run: npm run build
+      - name: Verify visual rollout preserves SEO and lead flow
+        run: node scripts/verify-piper-rollout.mjs

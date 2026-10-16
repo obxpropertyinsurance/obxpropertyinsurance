@@ -1,0 +1,2532 @@
+{
+  "testedAt": "2026-10-15",
+  "standard": "WCAG 2.2 AA automated checks plus best practices",
+  "finalRouteScans": [
+    {
+      "url": "/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(1) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(2) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(3) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(1) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(2) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(3) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".readiness-meter > div > span"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".readiness-meter > div > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": 53
+    },
+    {
+      "url": "/outer-banks-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-homeowners-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-property-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-homeowners-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-wind-hail-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-flood-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-vacation-rental-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/north-carolina-vacation-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/nags-head-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/duck-nc-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/corolla-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/kitty-hawk-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/kill-devil-hills-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/manteo-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/hatteras-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/tide-obx-insurance-guide/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-insurance-atlas/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-oceanfront-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-soundside-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-canalfront-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-4x4-access-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-named-storm-deductible-guide/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-insurance-nonrenewal-carrier-change/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-insurance-toolkit/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-insurance-trust-and-source-standards/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-property-insurance-rates/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 46
+    },
+    {
+      "url": "/outer-banks-shore-home-insurance-coverage/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-insurance-renewal-review/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-multiple-property-insurance-review/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-second-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-beach-house-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-home-buyer-insurance-checklist/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-roof-age-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/nc-coastal-property-insurance-pool-obx/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-flood-zone-elevation-certificate/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-condo-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-landlord-dwelling-fire-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/carova-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/southern-shores-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/wanchese-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/rodanthe-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/waves-nc-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/salvo-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/avon-nc-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/buxton-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/frisco-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/ocracoke-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/colington-island-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/manns-harbor-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/stumpy-point-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/east-lake-home-insurance/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/privacy-policy/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 26
+    },
+    {
+      "url": "/accessibility/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 26
+    },
+    {
+      "url": "/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(1) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(2) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(3) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(1) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(2) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(3) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".readiness-meter > div > span"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".readiness-meter > div > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": 53
+    },
+    {
+      "url": "/outer-banks-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-homeowners-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-property-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/obx-homeowners-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/obx-wind-hail-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-flood-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-vacation-rental-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/north-carolina-vacation-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/nags-head-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/duck-nc-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/corolla-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/kitty-hawk-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/kill-devil-hills-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/manteo-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/hatteras-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/tide-obx-insurance-guide/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-insurance-atlas/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-oceanfront-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-soundside-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-canalfront-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-4x4-access-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-named-storm-deductible-guide/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-insurance-nonrenewal-carrier-change/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/obx-insurance-toolkit/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/obx-insurance-trust-and-source-standards/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-property-insurance-rates/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 47
+    },
+    {
+      "url": "/outer-banks-shore-home-insurance-coverage/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-insurance-renewal-review/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/obx-multiple-property-insurance-review/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/obx-second-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-beach-house-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-home-buyer-insurance-checklist/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/obx-roof-age-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 38
+    },
+    {
+      "url": "/nc-coastal-property-insurance-pool-obx/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-flood-zone-elevation-certificate/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/outer-banks-condo-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/obx-landlord-dwelling-fire-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/carova-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/southern-shores-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/wanchese-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/rodanthe-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/waves-nc-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/salvo-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/avon-nc-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/buxton-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/frisco-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/ocracoke-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/colington-island-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/manns-harbor-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/stumpy-point-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/east-lake-home-insurance/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38
+    },
+    {
+      "url": "/privacy-policy/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 26
+    },
+    {
+      "url": "/accessibility/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 26
+    },
+    {
+      "state": "mobile-quote-step-2",
+      "url": "/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(1) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(2) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(3) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(1) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(2) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(3) > .rate-bar-track > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "target": [
+                ".readiness-meter > div > span"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".readiness-meter > div > strong"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".tide-launcher-copy > small"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "passes": 53
+    }
+  ],
+  "guideStates": [
+    {
+      "state": "guide-review",
+      "url": "/",
+      "viewport": [
+        1280,
+        720
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 11
+        }
+      ],
+      "passes": 34
+    },
+    {
+      "url": "/",
+      "viewport": [
+        390,
+        844
+      ],
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 10
+        }
+      ],
+      "passes": 33,
+      "state": "mobile-guide"
+    }
+  ],
+  "narrowReflowInitial": [
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-homeowners-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-property-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/obx-homeowners-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/obx-wind-hail-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-flood-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/obx-vacation-rental-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/north-carolina-vacation-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/nags-head-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/duck-nc-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/corolla-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/kitty-hawk-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/kill-devil-hills-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/manteo-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/hatteras-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/tide-obx-insurance-guide/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-insurance-atlas/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-oceanfront-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-soundside-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-canalfront-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-4x4-access-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-named-storm-deductible-guide/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-insurance-nonrenewal-carrier-change/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/obx-insurance-toolkit/",
+      "width": 320
+    },
+    {
+      "clipped": [
+        {
+          "class": "",
+          "tag": "H3"
+        },
+        {
+          "class": "",
+          "tag": "P"
+        },
+        {
+          "class": "",
+          "tag": "H3"
+        },
+        {
+          "class": "",
+          "tag": "P"
+        }
+      ],
+      "pageWidth": 320,
+      "url": "/obx-insurance-trust-and-source-standards/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-property-insurance-rates/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-shore-home-insurance-coverage/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-insurance-renewal-review/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/obx-multiple-property-insurance-review/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/obx-second-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-beach-house-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-home-buyer-insurance-checklist/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/obx-roof-age-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [
+        {
+          "class": "",
+          "tag": "H3"
+        },
+        {
+          "class": "",
+          "tag": "P"
+        },
+        {
+          "class": "",
+          "tag": "H3"
+        },
+        {
+          "class": "",
+          "tag": "P"
+        },
+        {
+          "class": "",
+          "tag": "H3"
+        },
+        {
+          "class": "",
+          "tag": "P"
+        }
+      ],
+      "pageWidth": 320,
+      "url": "/nc-coastal-property-insurance-pool-obx/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-flood-zone-elevation-certificate/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/outer-banks-condo-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/obx-landlord-dwelling-fire-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/carova-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/southern-shores-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/wanchese-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/rodanthe-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/waves-nc-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/salvo-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/avon-nc-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/buxton-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/frisco-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/ocracoke-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/colington-island-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/manns-harbor-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/stumpy-point-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/east-lake-home-insurance/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/privacy-policy/",
+      "width": 320
+    },
+    {
+      "clipped": [],
+      "pageWidth": 320,
+      "url": "/accessibility/",
+      "width": 320
+    }
+  ],
+  "narrowReflowRechecks": [
+    {
+      "url": "/obx-insurance-trust-and-source-standards/",
+      "viewport": [
+        320,
+        800
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38,
+      "state": "after-reflow-fix",
+      "layout": {
+        "clipped": [],
+        "pageWidth": 320
+      }
+    },
+    {
+      "url": "/nc-coastal-property-insurance-pool-obx/",
+      "viewport": [
+        320,
+        800
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 38,
+      "state": "after-reflow-fix",
+      "layout": {
+        "clipped": [],
+        "pageWidth": 320
+      }
+    },
+    {
+      "url": "/outer-banks-property-insurance-rates/",
+      "viewport": [
+        320,
+        800
+      ],
+      "violations": [],
+      "incomplete": [],
+      "passes": 47,
+      "state": "after-reflow-fix",
+      "layout": {
+        "clipped": [],
+        "pageWidth": 320
+      }
+    }
+  ],
+  "limitations": [
+    "No screen-reader speech or third-party handoff audit",
+    "No live submission test; delivery handlers unchanged"
+  ]
+}
