@@ -29,5 +29,7 @@ jobs:
         run: npm ci
       - name: Test analytics consent and events
         run: npm test
+      - name: Test private lead desk storage and access controls
+        run: python3 -m unittest discover -s lead-desk -p 'test_*.py'
       - name: Build
         run: npm run build

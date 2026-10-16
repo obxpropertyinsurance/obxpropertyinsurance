@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>OBX Lead Desk</title>
+    <link rel="icon" href="/piper.png" />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#workspace">Skip to leads</a>
+    <header>
+      <a class="brand" href="/"
+        ><img src="/piper.png" alt="Piper" width="58" height="68" /><span
+          >OBX<span class="brand-sub">Lead desk</span></span
+        ></a
+      >
+      <div class="header-actions">
+        <span class="private">Private · on this Mac</span
+        ><button id="refresh" class="quiet">Refresh leads</button>
+      </div>
+    </header>
+    <main id="workspace">
+      <section class="intro">
+        <div>
+          <p id="today" class="muted"></p>
+          <h1>A little follow-up.<br />A lot of peace of mind.</h1>
+          <p>Every inquiry, a clear next step. Keep the conversation moving.</p>
+        </div>
+        <img
+          class="piper"
+          src="/piper.png"
+          alt="Piper, your friendly shorebird"
+          width="150"
+          height="180"
+        />
+      </section>
+      <div id="stats" class="stats" aria-label="Lead overview"></div>
+      <p id="sync" class="sync" role="status">
+        Loading your private lead records…
+      </p>
+      <div class="workspace">
+        <section class="queue" aria-labelledby="queue-heading">
+          <div class="queue-heading">
+            <h2 id="queue-heading">Your follow-up list</h2>
+            <span id="count"></span>
+          </div>
+          <label class="search-label" for="search">Find a lead</label
+          ><input
+            id="search"
+            type="search"
+            placeholder="Name, town, email or question"
+            autocomplete="off"
+          />
+          <div id="filters" class="filters" aria-label="Filter leads">
+            <button data-filter="open" aria-pressed="true">Open</button
+            ><button data-filter="due" aria-pressed="false">Due now</button
+            ><button data-filter="all" aria-pressed="false">All</button>
+          </div>
+          <div id="lead-list" class="lead-list"></div>
+        </section>
+        <section id="detail" class="detail" aria-label="Selected lead">
+          <div class="empty">
+            <h2>Choose a conversation</h2>
+            <p>
+              The details, next step and a suggested reply will appear here.
+            </p>
+          </div>
+        </section>
+      </div>
+      <footer>
+        Customer details stay on this Mac. No analytics, third-party scripts or
+        automatic messages.<br />FormSubmit email delivery stays active. This
+        desk records follow-up; it does not quote or bind insurance.
+      </footer>
+    </main>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
