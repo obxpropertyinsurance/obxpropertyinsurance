@@ -1,6 +1,6 @@
 # Piper visual rollout and privacy/accessibility review
 
-Reviewed October 15, 2026. This is a prepared source release, not a claim that the live website has been updated or legally certified.
+Reviewed October 15, 2026; deployed and verified October 16, 2026. The visual release, privacy/accessibility pages and consent-aware GA4 are live. This review does not legally certify the website.
 
 ## Scope and content protection
 
@@ -54,7 +54,11 @@ Evidence: `cta-desktop.png`, `cta-mobile.png`, `cta-accessibility.json` in the s
 
 ## Deployment and analytics status
 
-GA4 account/property/stream and consent-aware tracking are configured. The live site still serves the earlier `index-D1ihOHiJ.js` bundle. The signed-in Cloudflare domain account has no Workers & Pages project; the existing domain points to the original Pages project in another, currently inaccessible account. No DNS, hosting migration or lead endpoint change was made. This prevents publication of the visual release, privacy notice and analytics code until the original deployment path is recovered. Source builds and GitHub build checks alone are not deployment evidence.
+The release was deployed on October 16, 2026 to the existing Cloudflare Pages project in Teagan@courtsideviewapp.com's account. The domain's DNS remains in the separate obxpropertyinsurance@proton.me account. The existing production D1 binding was verified and preserved; no DNS, database schema, hosting migration or lead endpoint change was made.
+
+Production deployment `48f251f2-4793-4975-994c-90bd3dc0bf81` serves `index-DXX1hwnt.js`. All 55 public HTML pages match the approved build exactly, and the live 53-URL sitemap remains byte-for-byte identical. Live canonical/trailing-slash redirects, unknown-route 404s, API OPTIONS and empty-payload lead validation passed. No valid test lead or synthetic conversion was submitted.
+
+GA4 `G-9WE296206T` is live: the OBX property's Realtime report showed the consented verification visit, CTA/UI clicks, `funnel_start`, `funnel_step_view` and `funnel_step_complete`. Live checks confirmed no Google analytics script before consent or after declining, loading of the correct measurement tag after grant, and no tag after withdrawing consent and navigating to another page. Piper's original human advisor portrait loaded successfully. See [the deployment record](deployment-record-2026-10-16.md) for account identifiers, rollback reference and evidence.
 
 ## Primary references checked
 

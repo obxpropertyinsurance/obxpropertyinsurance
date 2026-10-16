@@ -1,0 +1,37 @@
+[
+  {
+    "url": "https://www.obxncinsurance.com/api/lead",
+    "method": "POST",
+    "status": "400",
+    "redirect": "",
+    "body": "{\"ok\":false,\"message\":\"Please add property address, full name, valid email, phone number before sending your request.\"}"
+  },
+  {
+    "url": "https://www.obxncinsurance.com/api/lead",
+    "method": "OPTIONS",
+    "status": "204",
+    "redirect": "",
+    "body": null
+  },
+  {
+    "url": "https://www.obxncinsurance.com/outer-banks-homeowners-insurance",
+    "method": "GET",
+    "status": "301",
+    "redirect": "https://www.obxncinsurance.com/outer-banks-homeowners-insurance/",
+    "body": null
+  },
+  {
+    "url": "https://obxncinsurance.com/",
+    "method": "GET",
+    "status": "301",
+    "redirect": "https://www.obxncinsurance.com/",
+    "body": null
+  },
+  {
+    "url": "https://www.obxncinsurance.com/this-path-does-not-exist/",
+    "method": "GET",
+    "status": "404",
+    "redirect": "",
+    "body": null
+  }
+]
