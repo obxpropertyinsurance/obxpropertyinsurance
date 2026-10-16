@@ -159,6 +159,8 @@ body { font-size: 18px; line-height: 1.6; overflow-x: visible; }
 .chat-launcher,.tide-launcher { background: var(--paper); border: 1px solid var(--ink); border-radius: 40px; box-shadow: 0 6px 24px #082d4215; }
 .chat-launcher::before { content: none; }
 .tide-launcher-face,.tide-agent-photo,.tide-agent-face { border: 0; border-radius: 0; background: transparent; object-fit: contain; box-shadow: none; }
+.tide-agent-photo { border-radius: 50%; overflow: hidden; }
+.tide-agent-face { width: 100%; height: 100%; object-fit: cover; }
 .tide-launcher-copy strong { font-weight: 650; font-size: 18px; }
 .tide-launcher-copy small { font-size: 12px; font-weight: 450; }
 .tide-launcher-wave { border-radius: 50%; background: var(--ink); box-shadow: none; }
