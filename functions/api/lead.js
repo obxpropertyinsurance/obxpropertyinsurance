@@ -51,7 +51,7 @@ const normalizeLead = (payload) => ({
   coverage: clean(payload.coverage),
   deductible: clean(payload.deductible),
   selectedCoverage: clean(payload.selectedCoverage),
-  sourcePath: clean(payload.sourcePath || "/"),
+  sourcePath: clean(payload.sourcePath || "/").split(/[?#]/)[0],
   submittedAt: clean(payload.submittedAt || new Date().toISOString()),
   companyWebsite: clean(payload.companyWebsite),
 });

@@ -27,6 +27,9 @@ import {
   Wind,
   X,
 } from "lucide-react";
+import { PrivacyLinks } from "./PrivacyControls.jsx";
+import { trackEvent, trackStep, trackLead } from "./analytics.mjs";
+import useAccessibleDialog from "./useAccessibleDialog.js";
 import homeImage from "./assets/obx-coastal-home-1280.jpg";
 import {
   getSeoPageByPath,
@@ -640,7 +643,7 @@ const getTideSelectedCoverage = (answers) => {
   return "Homeowners + wind review";
 };
 
-const getTideSourcePath = () => `${window.location.pathname}${window.location.search}`;
+const getTideSourcePath = () => window.location.pathname;
 
 const tideStopWords = new Set([
   "about",
@@ -952,10 +955,10 @@ const sendLeadWithFormSubmit = async (leadPayload, toEmail = leadRecipientEmail)
   const result = await response.json().catch(() => ({}));
   const message = String(result.message || "");
 
-  if (response.ok && (result.success === "true" || /activation/i.test(message))) {
+  if (response.ok && String(result.success) === "true" && !/activation/i.test(message)) {
     return {
       ok: true,
-      delivery: /activation/i.test(message) ? "formsubmit-activation" : "formsubmit",
+      delivery: "formsubmit",
     };
   }
 
@@ -1112,6 +1115,7 @@ function App() {
   };
 
   const updateQuoteField = (field) => (event) => {
+    trackStep("quote", quoteStep === 1 ? "contact" : "details", quoteStep);
     setQuoteForm((current) => ({
       ...current,
       [field]: event.target.value,
@@ -1132,11 +1136,13 @@ function App() {
   const continueToOptionalDetails = (event) => {
     event.preventDefault();
     if (!event.currentTarget.reportValidity()) {
+      trackEvent("funnel_validation_error", { funnel: "quote", step_id: quoteStep === 1 ? "contact" : "details", reason: "invalid_input" });
       return;
     }
 
     const missing = getStepOneMissing();
     if (missing.length) {
+      trackEvent("funnel_validation_error", { funnel: "quote", step_id: "contact", reason: "required_fields" });
       setLeadStatus({
         state: "error",
         message: `Please add ${missing.join(", ")} before continuing.`,
@@ -1147,6 +1153,8 @@ function App() {
     }
 
     setLeadStatus({ state: "idle", message: "" });
+    trackEvent("funnel_step_complete", { funnel: "quote", step_id: "contact", step_index: 1 });
+    trackStep("quote", "details", 2);
     setQuoteStep(2);
     window.setTimeout(() => document.getElementById("year-built")?.focus(), 120);
   };
@@ -1156,6 +1164,7 @@ function App() {
 
     const missing = getStepOneMissing();
     if (missing.length) {
+      trackEvent("funnel_validation_error", { funnel: "quote", step_id: "contact", reason: "required_fields" });
       setLeadStatus({
         state: "error",
         message: `Please add ${missing.join(", ")} before sending your request.`,
@@ -1166,12 +1175,13 @@ function App() {
     }
 
     if (!event.currentTarget.reportValidity()) {
+      trackEvent("funnel_validation_error", { funnel: "quote", step_id: quoteStep === 1 ? "contact" : "details", reason: "invalid_input" });
       return;
     }
 
     const sourcePath = reviewSeoPage
       ? `/${reviewSeoPage.slug}/`
-      : `${window.location.pathname}${window.location.search}`;
+      : window.location.pathname;
     const leadPayload = {
       ...quoteForm,
       coverage,
@@ -1183,12 +1193,14 @@ function App() {
       submittedAt: new Date().toISOString(),
     };
 
-    setLeadStatus({ state: "submitting", message: "Sending your OBX coverage brief..." });
+    trackEvent("lead_submit_attempt", { funnel: "quote" });
+    setLeadStatus({ state: "submitting", message: "Sending your request..." });
 
     try {
       const result = await submitLeadPayload(leadPayload);
 
-      window.localStorage.setItem("obxncinsurance:lastLead", JSON.stringify(leadPayload));
+      // Submitted personal details stay out of persistent browser storage.
+      trackLead("quote");
       setQuoteStarted(true);
       setLeadStatus({
         state: "success",
@@ -1200,6 +1212,7 @@ function App() {
         delivery: result.delivery || "email",
       });
     } catch (error) {
+      trackEvent("lead_submit_error", { funnel: "quote", reason: "delivery_error" });
       setQuoteStarted(false);
       setLeadStatus({
         state: "error",
@@ -1212,6 +1225,7 @@ function App() {
   };
 
   const focusQuoteForm = () => {
+    trackStep("quote", "contact", 1);
     setQuoteStep(1);
     document.getElementById("quote")?.scrollIntoView({ behavior: "smooth", block: "start" });
     window.setTimeout(() => document.getElementById("property-address")?.focus(), 450);
@@ -1249,7 +1263,7 @@ function App() {
         </nav>
 
         <a className="header-cta" href="#quote">
-          Get my OBX brief
+          Request a quote
         </a>
 
         <button
@@ -1286,12 +1300,12 @@ function App() {
             Insurance atlas
           </a>
           <a className="mobile-nav-cta" href="#quote" onClick={() => setMobileNavOpen(false)}>
-            Get my OBX brief
+            Request a quote
           </a>
         </nav>
       )}
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="hero-section" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">
@@ -1309,11 +1323,11 @@ function App() {
 
             <div className="hero-actions">
               <a className="primary-button" href="#quote">
-                Create my free coverage brief
+                Request an insurance quote
                 <ArrowRight size={19} aria-hidden="true" />
               </a>
               <a className="text-button" href="#how-it-works">
-                See what is included
+                How it works
                 <ArrowRight size={18} aria-hidden="true" />
               </a>
             </div>
@@ -1335,6 +1349,7 @@ function App() {
                 <strong>Where is the property?</strong>
               </div>
               <label className="address-field" htmlFor="hero-property-address">
+                <span className="sr-only">OBX property address</span>
                 <MapPin size={18} aria-hidden="true" />
                 <input
                   id="hero-property-address"
@@ -1416,7 +1431,7 @@ function App() {
                 ))}
               </div>
               <button className="view-options" type="submit">
-                Create my coverage brief <ArrowRight size={15} aria-hidden="true" />
+                Request a quote <ArrowRight size={15} aria-hidden="true" />
               </button>
             </form>
           </div>
@@ -1719,14 +1734,13 @@ function App() {
                 details that help a licensed review start cleaner.
               </p>
             </div>
-            <div className="toolkit-selector" role="tablist" aria-label="OBX insurance prep tools">
+            <div className="toolkit-selector" role="group" aria-label="OBX insurance prep tools">
               {obxResourceTools.map((tool) => {
                 const isSelected = selectedToolkit.title === tool.title;
                 return (
                   <button
                     type="button"
-                    role="tab"
-                    aria-selected={isSelected}
+                    aria-pressed={isSelected}
                     className={isSelected ? "selected" : ""}
                     key={tool.title}
                     onClick={() => setSelectedToolkitTitle(tool.title)}
@@ -1756,7 +1770,7 @@ function App() {
             </ul>
             <div className="toolkit-actions">
               <a className="primary-button" href="#quote">
-                Start my coverage brief
+                Request an insurance quote
                 <ArrowRight size={19} aria-hidden="true" />
               </a>
               <a className="text-button" href={`/${selectedToolkit.slug}/`}>
@@ -2080,6 +2094,7 @@ function App() {
           )}
           <form
             className="quote-form quote-review-form"
+            onInvalid={() => trackEvent("funnel_validation_error", { funnel: "quote", step_id: quoteStep === 1 ? "contact" : "details", reason: "invalid_input" })}
             onSubmit={quoteStep === 1 ? continueToOptionalDetails : startQuote}
           >
             <label className="honeypot-field" aria-hidden="true">
@@ -2306,6 +2321,7 @@ function App() {
                 <a href={`mailto:${leadRecipientEmail}`}>{leadRecipientEmail}</a>.
               </p>
             )}
+            <p className="form-privacy-note">By sending your request, you ask us to contact you about your insurance needs. <a href="/privacy-policy/">How we use your information</a>.</p>
             <div className="quote-form-actions">
               {quoteStep === 2 && (
                 <button className="secondary-button" type="button" onClick={() => setQuoteStep(1)}>
@@ -2314,10 +2330,10 @@ function App() {
               )}
               <button className="primary-button" type="submit" disabled={leadStatus.state === "submitting"}>
                 {leadStatus.state === "submitting"
-                  ? "Sending your OBX brief..."
+                  ? "Sending your request..."
                   : quoteStep === 1
                     ? "Continue to optional details"
-                    : "Send my coverage brief"}
+                    : "Send my quote request"}
                 <ArrowRight size={20} aria-hidden="true" />
               </button>
             </div>
@@ -2364,7 +2380,7 @@ function App() {
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
           <a href="/obx-insurance-toolkit/">Toolkit</a>
           <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
-          <a href="#quote">Privacy</a>
+          <PrivacyLinks />
           <a href="#local-agents">Licensing</a>
         </nav>
         <p>
@@ -2380,11 +2396,11 @@ function App() {
 
 function QuickCallBar({ href }) {
   return (
-    <aside className="quick-call-sticky" aria-label="Quick OBX expert review request">
-      <a href={href} aria-label="Request a quick OBX expert review">
+    <aside className="quick-call-sticky" aria-label="Insurance quote request">
+      <a href={href} aria-label="Request an insurance quote">
         <PhoneCall size={18} aria-hidden="true" />
         <span>
-          <strong>Quick OBX review</strong>
+          <strong>Request a quote</strong>
           <small>Free coverage brief. No spam.</small>
         </span>
         <ArrowRight size={17} aria-hidden="true" />
@@ -2451,7 +2467,7 @@ function CoverageConsole({
           <span>Coverage readiness</span>
           <strong>{readiness}%</strong>
         </div>
-        <meter min="0" max="100" value={readiness} />
+        <meter min="0" max="100" value={readiness} aria-label="Coverage readiness" />
       </div>
 
       <div className="quote-list">
@@ -2461,6 +2477,7 @@ function CoverageConsole({
             <button
               type="button"
               className={selected ? "quote-option selected" : "quote-option"}
+              aria-pressed={selected}
               key={option.title}
               onClick={() => onSelectOption(option.title)}
             >
@@ -2477,7 +2494,7 @@ function CoverageConsole({
 
       <div className="console-footer">
         <span>Ready for a licensed OBX insurance review.</span>
-        <button type="button" onClick={onContinue}>Save & continue</button>
+        <button type="button" onClick={onContinue}>Continue to my quote request</button>
       </div>
       <p>No policy is quoted or placed until our local Outer Banks, NC licensed agent reviews eligibility.</p>
     </aside>
@@ -2485,10 +2502,13 @@ function CoverageConsole({
 }
 
 function LeadConfirmationModal({ lead, onClose, onStartAnother }) {
+  const dialogRef = useRef(null);
+  useAccessibleDialog(dialogRef, true, onClose);
   return (
     <div className="confirmation-overlay" role="presentation">
       <section
         className="confirmation-modal"
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="confirmation-title"
@@ -2545,6 +2565,8 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   const panelRef = useRef(null);
 
   const openTide = ({ automated = false } = {}) => {
+    trackEvent("cta_click", { cta_id: "guide_open", placement: "guide" });
+    trackEvent("guide_interaction", { action: "open" });
     setIsOpen(true);
     setAskOpen(false);
     if (!automated) {
@@ -2553,26 +2575,17 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   };
 
   const tuckTideAway = () => {
+    trackEvent("guide_interaction", { action: "close" });
     setIsOpen(false);
     setAskOpen(false);
     setTideStorageValue(tideDismissedStorageKey, new Date().toISOString());
   };
 
+  useAccessibleDialog(panelRef, isOpen, tuckTideAway);
+  const guideStepIds = ["property", "details", "needs", "contact", "review"];
   useEffect(() => {
-    if (getTideStorageValue(tideAutoOpenStorageKey) || getTideStorageValue(tideDismissedStorageKey)) {
-      return undefined;
-    }
-
-    const timer = window.setTimeout(() => {
-      if (getTideStorageValue(tideAutoOpenStorageKey) || getTideStorageValue(tideDismissedStorageKey)) {
-        return;
-      }
-      setTideStorageValue(tideAutoOpenStorageKey, new Date().toISOString());
-      openTide({ automated: true });
-    }, 10000);
-
-    return () => window.clearTimeout(timer);
-  }, []);
+    if (isOpen && !submittedLead) trackStep("guide", guideStepIds[stepIndex], stepIndex + 1);
+  }, [isOpen, stepIndex, submittedLead]);
 
   useEffect(() => {
     messageListRef.current?.scrollTo({
@@ -2586,6 +2599,10 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
       top: 0,
       behavior: "smooth",
     });
+    if (isOpen) {
+      const heading = panelRef.current?.querySelector(".tide-main h3");
+      if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
+    }
   }, [stepIndex, submittedLead]);
 
   const isFinalStep = stepIndex === tideSteps.length - 1;
@@ -2645,6 +2662,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     }));
     setGuideStatus({ state: "idle", message: "" });
     if (stepIndex < tideSteps.length - 1) {
+      trackEvent("funnel_step_complete", { funnel: "guide", step_id: guideStepIds[stepIndex], step_index: stepIndex + 1 });
       setStepIndex((current) => current + 1);
     }
   };
@@ -2666,13 +2684,19 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     return "";
   };
 
+  useEffect(() => {
+    if (guideStatus.state === "error") panelRef.current?.querySelector('[aria-invalid="true"]')?.focus();
+  }, [guideStatus]);
+
   const goNext = () => {
     const error = getStepError();
     if (error) {
+      trackEvent("funnel_validation_error", { funnel: "guide", step_id: guideStepIds[stepIndex], reason: "required_fields" });
       setGuideStatus({ state: "error", message: error });
       return;
     }
     setGuideStatus({ state: "idle", message: "" });
+    trackEvent("funnel_step_complete", { funnel: "guide", step_id: guideStepIds[stepIndex], step_index: stepIndex + 1 });
     setStepIndex((current) => Math.min(tideSteps.length - 1, current + 1));
   };
 
@@ -2697,16 +2721,19 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   const submitTideBrief = async () => {
     const error = getStepError();
     if (error) {
+      trackEvent("funnel_validation_error", { funnel: "guide", step_id: guideStepIds[stepIndex], reason: "required_fields" });
       setGuideStatus({ state: "error", message: error });
       return;
     }
 
+    trackEvent("lead_submit_attempt", { funnel: "guide" });
     const leadPayload = buildTideLeadPayload({ answers, pageContext });
     setGuideStatus({ state: "submitting", message: "Sending your OBX quote brief to the review team..." });
 
     try {
       const result = await submitLeadPayload(leadPayload);
-      window.localStorage.setItem("obxncinsurance:lastTideLead", JSON.stringify(leadPayload));
+      // Submitted personal details stay out of persistent browser storage.
+      trackLead("guide");
       setSubmittedLead({
         address: answers.address,
         name: answers.fullName,
@@ -2717,6 +2744,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
         message: "Tide sent your brief. A real licensed North Carolina insurance agent can review the details.",
       });
     } catch (error) {
+      trackEvent("lead_submit_error", { funnel: "guide", reason: "delivery_error" });
       setGuideStatus({
         state: "error",
         message:
@@ -2838,6 +2866,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
             {tideRentalOptions.map((option) => (
               <button
                 type="button"
+                aria-pressed={answers.rentalUse === option}
                 className={answers.rentalUse === option ? "selected" : ""}
                 key={option}
                 onClick={() => updateAnswer("rentalUse", option)}
@@ -2948,6 +2977,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
       return (
         <>
           <h3>Where should the real agent follow up?</h3>
+          <p>Name, email and phone are required.</p>
           <p>Tide sends this as a no-spam quote brief for licensed review.</p>
           <label className="honeypot-field" aria-hidden="true">
             Company website
@@ -2961,6 +2991,9 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
           <label className="tide-field">
             Full name
             <input
+              aria-required="true"
+              aria-invalid={(guideStatus.state === "error" && !answers.fullName.trim()) || undefined}
+              aria-describedby={guideStatus.state === "error" && !answers.fullName.trim() ? "tide-step-status" : undefined}
               value={answers.fullName}
               onChange={(event) => updateAnswer("fullName", event.target.value)}
               placeholder="Your name"
@@ -2972,6 +3005,9 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               Email
               <input
                 type="email"
+                aria-required="true"
+                aria-invalid={(guideStatus.state === "error" && !isValidEmail(answers.email)) || undefined}
+                aria-describedby={guideStatus.state === "error" && !isValidEmail(answers.email) ? "tide-step-status" : undefined}
                 value={answers.email}
                 onChange={(event) => updateAnswer("email", event.target.value)}
                 placeholder="you@example.com"
@@ -2982,6 +3018,9 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               Phone
               <input
                 type="tel"
+                aria-required="true"
+                aria-invalid={(guideStatus.state === "error" && !answers.phone.trim()) || undefined}
+                aria-describedby={guideStatus.state === "error" && !answers.phone.trim() ? "tide-step-status" : undefined}
                 value={answers.phone}
                 onChange={(event) => updateAnswer("phone", event.target.value)}
                 placeholder="(252) 555-0199"
@@ -3040,6 +3079,8 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
           className="tide-panel"
           data-step={submittedLead ? "submitted" : stepIndex}
           ref={panelRef}
+          role="dialog"
+          aria-modal="true"
           aria-label="Tide OBX insurance quote guide"
         >
           <div className="tide-header">
@@ -3129,6 +3170,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
                     ? "tide-status success"
                     : "tide-status"
               }
+              id="tide-step-status"
               role={guideStatus.state === "error" ? "alert" : "status"}
             >
               {guideStatus.message}
@@ -3137,6 +3179,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
 
           {!submittedLead && (
             <div className="tide-actions">
+              <a href="/privacy-policy/">How we use your information</a>
               <p>
                 <ShieldCheck size={20} aria-hidden="true" />
                 No spam. No lead selling. No pressure parade. Just local guidance.
@@ -3152,7 +3195,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
                 <button type="button" className="tide-primary-action" onClick={goNext}>
                   <Lock size={23} aria-hidden="true" />
                   <span>
-                    {stepIndex === 0 ? "Build my quote brief" : "Continue"}
+                    {stepIndex === 0 ? "Start my quote request" : "Continue"}
                     <small>{stepIndex === 0 ? "Takes about 60 seconds" : `Next: ${tideSteps[stepIndex + 1]}`}</small>
                   </span>
                   <ArrowRight size={34} aria-hidden="true" />
@@ -3166,7 +3209,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
                 >
                   <Lock size={23} aria-hidden="true" />
                   <span>
-                    {guideStatus.state === "submitting" ? "Sending brief..." : "Send my quote brief"}
+                    {guideStatus.state === "submitting" ? "Sending your request..." : "Send my quote request"}
                     <small>For licensed review</small>
                   </span>
                   <ArrowRight size={34} aria-hidden="true" />
@@ -3278,7 +3321,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
         </nav>
 
         <a className="header-cta" href={quoteHref}>
-          Get my OBX brief
+          Request a quote
         </a>
 
         <button
@@ -3315,7 +3358,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
             Insurance atlas
           </a>
           <a className="mobile-nav-cta" href={quoteHref} onClick={() => setMobileNavOpen(false)}>
-            Get my OBX brief
+            Request a quote
           </a>
         </nav>
       )}
@@ -3327,6 +3370,7 @@ function SiteFooter() {
   return (
     <footer className="site-footer">
       <Logo />
+      <PrivacyLinks />
       <nav aria-label="Footer navigation">
         <a href="/outer-banks-insurance/">Outer Banks insurance</a>
         <a href="/outer-banks-homeowners-insurance/">Homeowners insurance</a>
@@ -3369,7 +3413,7 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
         setMobileNavOpen={setMobileNavOpen}
         quoteHref={quoteHref}
       />
-      <main className="seo-page">
+      <main className="seo-page" id="main-content" tabIndex={-1}>
         <section className="seo-hero" aria-labelledby="seo-title">
           <div>
             <span className="seo-eyebrow">{page.eyebrow}</span>
