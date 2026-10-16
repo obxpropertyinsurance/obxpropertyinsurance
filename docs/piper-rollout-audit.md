@@ -4,7 +4,7 @@ Reviewed October 15, 2026. This is a prepared source release, not a claim that t
 
 ## Scope and content protection
 
-The production React application uses Piper's approved Fraunces typeface, navy/cream palette, painted house, rounded controls and mascot. The same stylesheet covers the homepage, all 52 insurance/guide pages, the existing guided intake, quote form, confirmation dialog and two policy pages. Uppercase styling is removed. The user subsequently approved renaming Tide to Piper. Visible copy, accessible names, guide metadata and the intake note label now use Piper; the existing guide URL, storage keys and event identifiers remain unchanged.
+The production React application uses Piper's approved Fraunces typeface, navy/cream palette, painted house, rounded controls and mascot. The same stylesheet covers the homepage, all 52 insurance/guide pages, the existing guided intake, quote form, confirmation dialog and two policy pages. Uppercase styling is removed. At the user’s request, Piper’s bird remains on the launcher while the original human advisor portrait is retained inside the open guide. The user subsequently approved renaming Tide to Piper. Visible copy, accessible names, guide metadata and the intake note label now use Piper; the existing guide URL, storage keys and event identifiers remain unchanged.
 
 No sections, question steps, form fields, answers, CTA destinations, submission handlers, FormSubmit fallback, database binding or delivery recipients were replaced. Changes to App markup are image references, accessibility annotations and the approved name substitution only. The protected-source comparison enforces this boundary.
 

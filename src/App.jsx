@@ -2828,7 +2828,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
         <>
           <div className="tide-agent-note">
             <span className="tide-agent-photo" aria-hidden="true">
-              <img className="tide-agent-face" src={piperIcon} alt="" />
+              <img className="tide-agent-face" src="/tide-agent-headshot.png" alt="" />
             </span>
             <div>
               <p>
