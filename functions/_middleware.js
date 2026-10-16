@@ -1,8 +1,9 @@
 import { seoPages } from "../src/seoPages.js";
+import { policyPages } from "../src/policyContent.mjs";
 
 const canonicalHost = "www.obxncinsurance.com";
 const redirectHosts = new Set(["obxncinsurance.com", "obxncinsurance.pages.dev"]);
-const allowedSlugs = new Set(seoPages.map((page) => page.slug));
+const allowedSlugs = new Set([...seoPages, ...policyPages].map((page) => page.slug));
 const passthroughPrefixes = ["/api/", "/assets/", "/.well-known/"];
 const passthroughFiles = new Set([
   "/favicon.svg",

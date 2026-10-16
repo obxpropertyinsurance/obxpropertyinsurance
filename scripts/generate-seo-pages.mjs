@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import { obxResourceTools, officialSourceLinks, seoPages } from "../src/seoPages.js";
+import { policyPages } from "../src/policyContent.mjs";
 
 const siteUrl = "https://www.obxncinsurance.com";
 const distDir = fileURLToPath(new URL("../dist/", import.meta.url));
@@ -315,7 +316,24 @@ await Promise.all(
 const sitemapUrls = [
   { loc: `${siteUrl}/`, priority: "1.0" },
   ...seoPages.map((page) => ({ loc: `${siteUrl}/${page.slug}/`, priority: "0.8" })),
+  ...policyPages.map((page) => ({ loc: `${siteUrl}/${page.slug}/`, priority: "0.3" })),
 ];
+
+for (const page of policyPages) {
+  const canonical = `${siteUrl}/${page.slug}/`;
+  const body = `<header><a href="/">OBXNCInsurance.com</a></header><main id="main-content"><h1>${escapeHtml(page.heading)}</h1>${page.sections.map(section => `<section><h2>${escapeHtml(section.heading)}</h2>${section.paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('')}</section>`).join('')}<p><a href="mailto:obxpropertyinsurance@proton.me">Contact us about privacy or accessibility</a></p></main><footer><a href="/privacy-policy/">Privacy policy</a> <a href="/accessibility/">Accessibility</a></footer>`;
+  const html = template
+    .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(page.title)}</title>`)
+    .replace(/(<meta\s+name="description"\s+content=")[^"]*("\s*\/?>)/, `$1${escapeHtml(page.description)}$2`)
+    .replace(/(<link\s+rel="canonical"\s+href=")[^"]*("\s*\/?>)/, `$1${canonical}$2`)
+    .replace(/(<meta\s+property="og:url"\s+content=")[^"]*("\s*\/?>)/, `$1${canonical}$2`)
+    .replace(/(<meta\s+(?:property="og:title"|name="twitter:title")\s+content=")[^"]*("\s*\/?>)/g, `$1${escapeHtml(page.title)}$2`)
+    .replace(/(<meta\s+(?:property="og:description"|name="twitter:description")\s+content=")[^"]*("\s*\/?>)/g, `$1${escapeHtml(page.description)}$2`)
+    .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, `<script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@type':'WebPage',url:canonical,name:page.title})}</script>`)
+    .replace('<div id="root"></div>', `<div id="root">${body}</div>`);
+  await mkdir(join(distDir, page.slug), { recursive: true });
+  await writeFile(join(distDir, page.slug, 'index.html'), html);
+}
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
