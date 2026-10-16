@@ -4,16 +4,16 @@ Reviewed October 15, 2026. This is a prepared source release, not a claim that t
 
 ## Scope and content protection
 
-The production React application uses Piper's approved Fraunces typeface, navy/cream palette, painted house, rounded controls and mascot. The same stylesheet covers the homepage, all 52 insurance/guide pages, the existing Tide intake, quote form, confirmation dialog and two policy pages. Uppercase styling is removed. The existing Tide wording and URL remain because this release preserves production copy and flow.
+The production React application uses Piper's approved Fraunces typeface, navy/cream palette, painted house, rounded controls and mascot. The same stylesheet covers the homepage, all 52 insurance/guide pages, the existing guided intake, quote form, confirmation dialog and two policy pages. Uppercase styling is removed. The user subsequently approved renaming Tide to Piper. Visible copy, accessible names, guide metadata and the intake note label now use Piper; the existing guide URL, storage keys and event identifiers remain unchanged.
 
-No sections, question steps, form fields, answers, CTA destinations, submission handlers, FormSubmit fallback, database binding or delivery recipients were replaced. Changes to App markup are image references and accessibility annotations only. The protected-source comparison enforces this boundary.
+No sections, question steps, form fields, answers, CTA destinations, submission handlers, FormSubmit fallback, database binding or delivery recipients were replaced. Changes to App markup are image references, accessibility annotations and the approved name substitution only. The protected-source comparison enforces this boundary.
 
 `node scripts/verify-piper-rollout.mjs` checks:
 
-- All 53 pre-existing generated HTML pages have exactly the same content after normalizing versioned asset filenames. This includes their titles, descriptions, canonical links, structured data, headings and static body.
+- All 53 pre-existing generated HTML pages have exactly the same content after normalizing versioned asset filenames and the approved Tide-to-Piper name substitution. This includes their titles, descriptions, canonical links, structured data, headings and static body.
 - SEO data, robots, middleware, lead handlers and deployment binding remain locked.
 - The built sitemap is byte-for-byte identical to the live site's 53-URL sitemap retrieved on October 15. The earlier undeployed release had included two policy URLs; those pending sitemap additions were removed to honor the current instruction. Policy pages remain reachable from footer and form links.
-- App source changes are limited to the explicitly allowed image and accessibility substitutions.
+- App source changes are limited to the explicitly allowed image, accessibility and name substitutions.
 
 CI runs the guard after the production build. The lock is specific to this visual rollout; future intentional content or workflow changes need a separately reviewed update.
 
@@ -43,6 +43,14 @@ Target: WCAG 2.2 Level AA, using axe-core 4.14 WCAG 2.0/2.1/2.2 A/AA tags and be
 Automated results include incomplete contrast checks around chart/progress pseudo-elements, gradients and floating overlaps; these are not passes. The progress foreground/background combinations were calculated manually. Remaining assistive-technology and browser coverage must include actual VoiceOver/NVDA speech, text-only enlargement, forced-colors behavior, complete submission/confirmation and third-party delivery failure states. A clean scan cannot certify ADA compliance. No new live lead was submitted during QA; the unchanged delivery code is protected by the source guard.
 
 Evidence: `docs/audit-evidence/piper-rollout/accessibility.json`, `home-desktop.png`, `home-mobile.png`, `privacy-mobile.png`. Earlier failing/recheck entries are labeled separately in the JSON; final route results are under `finalRouteScans`.
+
+## CTA spacing and name follow-up
+
+The quote-card CTA inherited zero horizontal padding from its original text-link rule. The shared button treatment now includes 28 px side padding on desktop, 24 px on narrow screens, a 12 px icon gap and a minimum 54 px height. Navigation and guide buttons retain purpose-specific sizing. Long labels wrap; SVG arrows do not shrink; action groups have a 16 px gap. The mobile quote-card CTA and form actions use the available width.
+
+Verified the homepage, homeowners landing-page CTAs and Piper guide at desktop and 320/390 px mobile widths: no CTA horizontal overflow. The build and seven analytics tests pass. The protected source/HTML/sitemap guard passes while allowing only the approved brand-name substitution. Fresh 320 px homepage and open-guide axe checks report zero violations, with pre-existing contrast items still needing manual review. No production test lead was sent.
+
+Evidence: `cta-desktop.png`, `cta-mobile.png`, `cta-accessibility.json` in the same evidence directory.
 
 ## Deployment and analytics status
 

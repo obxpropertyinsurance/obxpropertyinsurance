@@ -17,7 +17,7 @@ export const policyPages = [
         heading: 'Information you provide',
         paragraphs: [
           'When you send a review request, we receive the contact and property details you enter. These may include your name, email address, phone number, preferred contact method, property address and use, insurance timing, current carrier, policy expiration, roof and building details, coverage interests, and notes. Required fields are identified on the form.',
-          'Please do not include Social Security numbers, payment information, medical information, passwords, or documents containing sensitive information in the notes field. Tide’s current preparation guidance uses prepared website content; it does not send your conversation to an external generative AI service.',
+          'Please do not include Social Security numbers, payment information, medical information, passwords, or documents containing sensitive information in the notes field. Piper’s current preparation guidance uses prepared website content; it does not send your conversation to an external generative AI service.',
         ],
       },
       {
@@ -33,7 +33,7 @@ export const policyPages = [
       {
         heading: 'Browser storage and optional analytics',
         paragraphs: [
-          'The website uses browser storage to remember your analytics choice and whether you have opened or dismissed Tide. Information entered into the current guide or form stays in the page until you submit it or leave or reload the page. You can remove browser-stored preferences through your browser’s site-data controls.',
+          'The website uses browser storage to remember your analytics choice and whether you have opened or dismissed Piper. Information entered into the current guide or form stays in the page until you submit it or leave or reload the page. You can remove browser-stored preferences through your browser’s site-data controls.',
           'Earlier versions may have saved submitted form details in your browser. The updated website no longer creates those copies. You can remove older copies using Clear older saved form details in Analytics choices. This does not delete requests already received by the website or email services.',
           'Optional Google Analytics is off unless it has been enabled for the website and you choose Allow analytics. Declining is available alongside accepting and does not prevent you from using the website or sending a request. Google Analytics does not load before you accept. The property is configured to retain event and user data for 14 months without extending user retention on each return visit; aggregate reports may remain available longer. You can revisit your choice through Analytics choices. A browser Global Privacy Control signal keeps optional analytics off.',
           'If you accept enabled analytics, Google receives technical usage information and cookies may distinguish visits. We measure fixed website actions such as opening the guide, viewing a form step, clicking a link, and completing a request. Our analytics events exclude names, email addresses, phone numbers, property addresses, notes, conversation text, and other freeform answers. Analytics page information excludes URL query strings and fragments. Advertising storage and personalization are not enabled by this website’s analytics configuration.',
