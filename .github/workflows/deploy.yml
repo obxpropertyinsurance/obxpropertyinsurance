@@ -27,11 +27,11 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Test analytics consent and events
+      - name: Test analytics, confirmation copy and lead notification delivery
         run: npm test
       - name: Test private lead desk storage and access controls
         run: python3 -m unittest discover -s lead-desk -p 'test_*.py'
       - name: Build
         run: npm run build
-      - name: Verify visual rollout preserves SEO and lead flow
+      - name: Verify approved rollout preserves SEO and intake flow
         run: node scripts/verify-piper-rollout.mjs

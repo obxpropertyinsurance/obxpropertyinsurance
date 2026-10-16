@@ -345,9 +345,65 @@ input[type="search"] {
   margin: 16px 0 8px;
   overflow-wrap: anywhere;
 }
-.contact a {
+.contact span {
   min-height: 28px;
   font-size: 15px;
+}
+.requested-followup {
+  margin: 24px 0;
+  padding: 22px;
+  border: 1px solid #8aa2a8;
+  border-radius: 16px;
+  background: var(--mist);
+  overflow-wrap: anywhere;
+}
+.requested-followup h3 {
+  margin: 0 0 14px;
+}
+.plan-flags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.plan-flags .pill {
+  background: #fffdf8;
+}
+.plan-flags .priority-urgent,
+.plan-flags .priority-review {
+  color: #7b2f17;
+  background: #fff0df;
+}
+.plan-details {
+  grid-template-columns: minmax(100px, 0.55fr) minmax(0, 1fr);
+  margin: 20px 0 14px;
+}
+.plan-reasons {
+  padding-left: 20px;
+  font-size: 14px;
+}
+.plan-reasons li + li {
+  margin-top: 7px;
+}
+.contact-hold {
+  padding: 12px 14px;
+  border-left: 3px solid #923b1d;
+  background: #fff9ef;
+  font-size: 14px;
+}
+.response-draft {
+  margin-top: 18px;
+}
+.response-draft textarea {
+  font-family: system-ui, sans-serif;
+  font-size: 15px;
+}
+.draft-subject {
+  font-size: 14px;
+  margin-top: 20px;
+}
+.saved-draft {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
 }
 .detail-heading .muted {
   font-size: 13px;
@@ -606,6 +662,12 @@ footer {
   .summary {
     padding: 18px;
     gap: 18px;
+  }
+  .requested-followup {
+    padding: 18px 15px;
+  }
+  .plan-details {
+    grid-template-columns: 1fr;
   }
   .form-grid {
     grid-template-columns: 1fr;

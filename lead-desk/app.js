@@ -1,3 +1,5 @@
+import { buildLeadResponse } from "/lead-response.mjs";
+
 const $ = (selector) => document.querySelector(selector);
 let leads = [],
   csrf = "",
@@ -5,7 +7,7 @@ let leads = [],
   selected = null,
   filter = "open",
   dirty = false;
-const closed = (l) => ["Closed", "Test / duplicate"].includes(l.status);
+const closed = (l) => ["Bound", "Closed", "Test / duplicate"].includes(l.status);
 const today = () => {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -45,6 +47,91 @@ const link = (text, url, cls = "") => {
   return a;
 };
 
+// Imported mailbox records retain their original field names. Derive a plan
+// without changing the customer's submission or the operator's saved work.
+const responseFor = (lead) => {
+  const fields = Object.fromEntries(
+    Object.entries(lead.fields).map(([key, value]) => [
+      key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase()),
+      value,
+    ]),
+  );
+  return buildLeadResponse({
+    ...fields,
+    fullName: lead.fields.name,
+    address: lead.fields.property_address,
+    selectedCoverage: lead.fields.selected_review,
+    policyExpiration: lead.fields.current_policy_expiration,
+  });
+};
+
+function requestedFollowup(lead, plan) {
+  const section = el("section", undefined, "requested-followup");
+  section.setAttribute("aria-labelledby", "requested-followup-title");
+  const heading = el("h3", "Requested follow-up");
+  heading.id = "requested-followup-title";
+  const flags = el("div", undefined, "plan-flags");
+  flags.append(
+    el("span", plan.channelLabel, "pill"),
+    el("span", plan.priorityLabel, "pill priority-" + plan.priority),
+  );
+  section.append(heading, flags);
+  const details = el("dl", undefined, "plan-details");
+  [
+    ["Recorded preference", lead.fields.preferred_contact || "Not provided"],
+    ["Requested time", lead.fields.callback_window || "Not provided"],
+    ["Next action", closed(lead) ? "This record is closed. No follow-up action is offered." : plan.nextAction],
+  ].forEach(([label, value]) => details.append(el("dt", label), el("dd", value)));
+  section.append(details);
+  if (plan.reasons.length) {
+    const reasons = el("ul", undefined, "plan-reasons");
+    plan.reasons.forEach((reason) => reasons.append(el("li", reason)));
+    section.append(reasons);
+  }
+  const blocked = closed(lead) || plan.holdForDocuments || plan.requiresReview || plan.channel === "review";
+  if (blocked) {
+    section.append(el("p", "Contact actions are paused. Review the request and resolve the hold before contacting the customer.", "contact-hold"));
+    return section;
+  }
+  if (plan.channel !== "email") {
+    section.append(el("p", plan.channel === "phone"
+      ? "Phone follow-up is pending a staffed callback team. The customer's call preference is preserved; do not substitute an email."
+      : "Text follow-up is pending a monitored texting service and permission check. The customer's text preference is preserved; do not substitute an email.", "contact-hold"));
+    return section;
+  }
+
+  const draftText = plan.drafts.email.body;
+  if (!draftText) {
+    section.append(el("p", "No channel-specific draft is available. Review this request before contacting the customer.", "contact-hold"));
+    return section;
+  }
+  const draftLabel = el("label", undefined, "field response-draft");
+  const draft = el("textarea");
+  draft.readOnly = true;
+  draft.rows = 9;
+  draft.value = draftText;
+  draftLabel.append(el("span", "Email draft"), draft);
+  section.append(el("p", "Subject: " + plan.drafts.email.subject, "draft-subject"));
+  section.append(draftLabel);
+  const actions = el("div", undefined, "draft-actions");
+  actions.append(button("Copy email draft", async () => {
+    const copy = `Subject: ${plan.drafts.email.subject}\n\n${draftText}`;
+    try {
+      await navigator.clipboard.writeText(copy);
+      toast("Copied. Nothing was sent or marked as contacted.");
+    } catch {
+      draft.focus();
+      draft.select();
+      toast("Select and copy the draft. Nothing has been sent.");
+    }
+  }, "quiet"));
+  if (lead.mail_url) {
+    actions.append(link("Open email thread ↗", lead.mail_url, "quiet"));
+  }
+  section.append(actions, el("p", "Prepared from the submitted request. Check the latest conversation and requested time before using it. This desk does not send messages, schedule calls, or mark contact automatically.", "muted small"));
+  return section;
+}
+
 function mayLeave() {
   return (
     !dirty || confirm("You have unsaved changes. Leave without saving them?")
@@ -83,7 +170,7 @@ function renderStats() {
       open.filter((l) => l.status !== "Needs reply").length,
       "progress",
     ],
-    ["Closed", leads.filter((l) => l.status === "Closed").length, "closed"],
+    ["Closed", leads.filter((l) => ["Closed","Bound"].includes(l.status)).length, "closed"],
   ];
   $("#stats").replaceChildren(
     ...values.map(([label, value, f]) => {
@@ -107,7 +194,7 @@ function renderList() {
     if (filter === "reply" && l.status !== "Needs reply") return false;
     if (filter === "progress" && (closed(l) || l.status === "Needs reply"))
       return false;
-    if (filter === "closed" && l.status !== "Closed") return false;
+    if (filter === "closed" && !["Closed","Bound"].includes(l.status)) return false;
     return (
       !q ||
       Object.values(l.fields)
@@ -220,8 +307,8 @@ function renderDetail() {
   );
   const contact = el("div", undefined, "contact");
   contact.append(
-    link(lead.fields.email, "mailto:" + encodeURIComponent(lead.fields.email)),
-    link(lead.fields.phone, "tel:" + lead.fields.phone.replace(/[^+\d]/g, "")),
+    el("span", lead.fields.email || "Email not provided"),
+    el("span", lead.fields.phone || "Phone not provided"),
   );
   heading.append(
     contact,
@@ -232,8 +319,10 @@ function renderDetail() {
     ),
   );
   if (lead.mail_url)
-    heading.append(link("Open original email ↗", lead.mail_url, "source"));
+    heading.append(link("View original submission ↗", lead.mail_url, "source"));
   root.append(heading);
+  const plan = responseFor(lead);
+  root.append(requestedFollowup(lead, plan));
   const summary = el("div", undefined, "summary");
   [
     ["Their request", lead.fields.lead_goal || lead.fields.selected_review],
@@ -288,42 +377,24 @@ function renderDetail() {
   notes.input.placeholder = "Calls, replies, handoffs and next steps";
   form.append(notes.wrap);
   const draft = field(
-    "Suggested follow-up email",
+    "Saved working draft",
     "textarea",
     lead.draft,
     null,
     "draft",
   );
   draft.input.rows = 10;
-  form.append(
+  const savedDraft = el("details", undefined, "saved-draft");
+  savedDraft.append(
+    el("summary", "Saved working draft and previous reply text"),
     draft.wrap,
     el(
       "p",
-      "Draft only. Opening email or copying this text does not mark the lead as contacted.",
+      "Saved text is preserved as written. It may predate this request’s contact plan. Check the requested channel and latest conversation before reusing it.",
       "muted small",
     ),
   );
-  const tools = el("div", undefined, "draft-actions");
-  tools.append(
-    button(
-      "Copy reply",
-      async () => {
-        try {
-          await navigator.clipboard.writeText(draft.input.value);
-          toast(
-            "Reply copied. Send it from your OBX mailbox, then update the status.",
-          );
-        } catch {
-          draft.input.select();
-          toast("Select and copy the reply text.");
-        }
-      },
-      "quiet",
-    ),
-  );
-  if (lead.mail_url)
-    tools.append(link("Reply in Proton ↗", lead.mail_url, "quiet"));
-  form.append(tools);
+  form.append(savedDraft);
   const save = el("div", undefined, "save-bar");
   const saveButton = el("button", "Save follow-up", "primary");
   saveButton.type = "submit";

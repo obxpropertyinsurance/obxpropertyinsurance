@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build && node scripts/generate-seo-pages.mjs",
     "preview": "vite preview",
-    "test": "node --test src/analytics.test.mjs"
+    "test": "node --test src/analytics.test.mjs src/leadResponse.test.mjs src/leadNotification.test.mjs src/submissionIdentity.test.mjs functions/_lib/customerEmail.test.mjs functions/_lib/customerEmail.integration.test.mjs functions/_lib/customerEmailHTML.test.mjs src/acquisition.test.mjs src/breadcrumbs.test.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.475.0",

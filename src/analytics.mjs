@@ -1,5 +1,7 @@
+import { createAcquisition, setAcquisitionTracker } from './acquisition.mjs';
 // Only fixed UI identifiers cross this boundary. Never pass form values or user text.
 export const CONSENT_KEY = 'obx:analytics-consent:v1';
+export const INTERNAL_KEY = 'obx:internal-traffic:v1';
 const consentAge = 180 * 24 * 60 * 60 * 1000;
 const enums = {
   funnel: ['quote', 'guide', 'prototype'],
@@ -42,7 +44,12 @@ export function safeEvent(name, params = {}, knownPaths = new Set(['/'])) {
 
 export function createAnalytics({ measurementId = '', enabled = false, routes = {}, siteUrl = 'https://www.obxncinsurance.com', win, doc }) {
   const paths = new Set(['/', ...Object.keys(routes)]);
-  const configured = enabled && /^G-[A-Z0-9]+$/.test(measurementId) && ['www.obxncinsurance.com', 'obxncinsurance.com'].includes(win.location.hostname);
+  let internal = new URLSearchParams(win.location.search).get('obx_internal') === '1';
+  try {
+    if (internal) win.localStorage.setItem(INTERNAL_KEY, '1');
+    internal ||= win.localStorage.getItem(INTERNAL_KEY) === '1';
+  } catch { /* Current-visit exclusion still applies when storage is blocked. */ }
+  const configured = !internal && enabled && /^G-[A-Z0-9]+$/.test(measurementId) && ['www.obxncinsurance.com', 'obxncinsurance.com'].includes(win.location.hostname);
   const listeners = new Set();
   let consent = null, loaded = false, activeFunnel = null, viewed = new Set();
   const gpc = () => win.navigator.globalPrivacyControl === true;
@@ -52,14 +59,17 @@ export function createAnalytics({ measurementId = '', enabled = false, routes = 
   } catch { /* Storage may be unavailable. */ }
   if (gpc()) consent = 'denied';
 
+  const acquisition = createAcquisition({ win, doc, paths, consent: () => internal ? 'denied' : consent });
+  setAcquisitionTracker(acquisition);
   const referral = () => { try { const url = new URL(doc.referrer); return ['http:', 'https:'].includes(url.protocol) ? url.origin + '/' : ''; } catch { return ''; } };
   const page = () => {
     const path = paths.has(win.location.pathname) ? win.location.pathname : '/other/';
-    return { page_location: siteUrl + path, page_title: routes[path] || (path === '/' ? 'OBXNCInsurance.com | Outer Banks Insurance Review' : 'OBXNCInsurance.com'), page_referrer: referral() };
+    const context = acquisition.context();
+    return { acquisition_source: context.acquisitionSource || 'unattributed', original_landing_path: context.originalLandingPath || path, request_path: path, page_location: siteUrl + path, page_title: routes[path] || (path === '/' ? 'Outer Banks Home Insurance Help | OBXNCInsurance.com' : 'OBXNCInsurance.com'), page_referrer: referral() };
   };
   const allowed = () => configured && consent === 'granted' && !gpc();
   function command() { win.dataLayer.push(arguments); }
-  const snapshot = () => ({ configured, consent, gpc: gpc() });
+  const snapshot = () => ({ configured, consent, gpc: gpc(), internal });
 
   function load() {
     if (!allowed() || loaded) return;
@@ -101,6 +111,7 @@ export function createAnalytics({ measurementId = '', enabled = false, routes = 
       win[`ga-disable-${measurementId}`] = false;
       command('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     } else load();
+    acquisition.context();
     listeners.forEach(fn => fn(snapshot()));
   }
 

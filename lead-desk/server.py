@@ -13,12 +13,13 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_DATA = Path.home() / 'Library/Application Support/OBX Lead Desk'
-STATUSES = ('Needs reply', 'Waiting for customer', 'Ready for agent', 'With agent', 'Closed', 'Test / duplicate')
+STATUSES = ('Needs reply', 'Waiting for customer', 'Contacted', 'Qualified', 'Ready for agent', 'With agent', 'Quoted', 'Bound', 'Closed', 'Test / duplicate')
 ALLOWED_FIELDS = ('name', 'email', 'phone', 'preferred_contact', 'callback_window', 'property_address',
                   'search_intent', 'landing_page', 'lead_goal', 'coverage_needed_by', 'current_carrier',
                   'current_policy_expiration', 'elevation_certificate', 'property_use', 'rental_use',
                   'wind_exposure', 'flood_zone', 'year_built', 'roof_age', 'selected_review',
-                  'dwelling_coverage', 'wind_deductible', 'notes', 'source', 'submitted_at')
+                  'dwelling_coverage', 'wind_deductible', 'notes', 'source', 'submitted_at',
+                  'acquisition_source', 'original_landing_path', 'request_path')
 
 
 def now():
@@ -54,23 +55,6 @@ def safe_mail_url(value):
     return value if parsed.scheme == 'https' and parsed.netloc == 'mail.proton.me' and parsed.path.startswith('/u/') else ''
 
 
-def followup_draft(fields):
-    first = fields['name'].split()[0] if fields.get('name') else 'there'
-    goal = fields.get('lead_goal', '').lower()
-    question = 'Are you still looking for help with your Outer Banks insurance?'
-    if 'renewal' in goal:
-        question = 'Are you still looking for help with your insurance renewal?'
-    elif 'buying' in goal:
-        question = 'Are you still looking for insurance for your property purchase, or have you already arranged coverage?'
-    elif 'research' in goal:
-        question = 'Are you still exploring insurance options for your Outer Banks property?'
-    return (f'Hi {first},\n\nThank you for reaching out through OBXNCInsurance.com. '
-            'I’m sorry we didn’t get back to you sooner.\n\n' + question +
-            ' If you still need help, please reply with your current timeline and the main question you’d like us to help with. '
-            'If you’re all set, just let us know and we’ll close your request.\n\n'
-            'Thank you,\nThe OBXNCInsurance.com team')
-
-
 def import_records(db, records):
     if not isinstance(records, list) or len(records) > 500:
         raise ValueError('Import must be a list of no more than 500 records.')
@@ -103,7 +87,7 @@ def import_records(db, records):
           VALUES (?,?,?,?,?,?,?,?,?,?)''', (lead_id,json.dumps(fields),str(record.get('subject',''))[:500],
           safe_mail_url(str(record.get('mailUrl',''))), fields['submitted_at'],now(),status,
           'Confirm whether help is still needed' if not is_test else '', due,
-          followup_draft(fields) if not is_test else ''))
+          ''))  # Channel-specific suggestions are derived in the UI, not saved as sent or overdue replies.
         if result.rowcount:
             added += 1
             db.execute('INSERT INTO activity(lead_id,at,description) VALUES (?,?,?)',
@@ -145,7 +129,7 @@ def update_lead(db, lead_id, payload):
             raise ValueError('Use a valid follow-up date.') from None
     if any(len(value) > (12000 if key in ('notes', 'draft') else 250) for key, value in values.items()):
         raise ValueError('One of the fields is too long.')
-    if values['status'] not in ('Closed', 'Test / duplicate') and not values['due_date']:
+    if values['status'] not in ('Bound', 'Closed', 'Test / duplicate') and not values['due_date']:
         raise ValueError('Open leads need a follow-up date.')
     changed = [key for key in allowed if values[key] != row[key]]
     if not changed:
@@ -207,6 +191,7 @@ def make_handler(data_dir, port, csrf):
                     self.respond({'leads':list_leads(db), 'metadata':meta, 'csrf':csrf, 'statuses':STATUSES})
                 return
             assets = {'/':('index.html','text/html; charset=utf-8'), '/app.js':('app.js','text/javascript'),
+                      '/lead-response.mjs':('../src/leadResponse.mjs','text/javascript'),
                       '/style.css':('style.css','text/css'), '/piper.png':('assets/piper.png','image/png'),
                       '/fraunces.ttf':('assets/fraunces.ttf','font/ttf')}
             if path not in assets:
@@ -259,9 +244,11 @@ def main():
         if args.summary:
             leads = list_leads(db)
             today = datetime.now().astimezone().date().isoformat()
-            open_leads = [l for l in leads if l['status'] not in ('Closed','Test / duplicate')]
+            open_leads = [l for l in leads if l['status'] not in ('Bound','Closed','Test / duplicate')]
             print(json.dumps({'open':len(open_leads),'needs_reply':sum(l['status']=='Needs reply' for l in open_leads),
                               'due':sum(l['due_date'] <= today for l in open_leads),
+                              'current_outcomes':{stage:sum(l['status']==stage for l in leads) for stage in ('Contacted','Qualified','Quoted','Bound')},
+                              'saved_customer_requests':sum(l['status']!='Test / duplicate' for l in leads),
                               'last_import':dict(db.execute('SELECT key,value FROM metadata')).get('last_import')}))
             return
     server = ThreadingHTTPServer(('127.0.0.1',args.port),make_handler(args.data_dir,args.port,secrets.token_urlsafe(32)))
