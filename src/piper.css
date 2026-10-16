@@ -103,18 +103,28 @@ body { font-size: 18px; line-height: 1.6; overflow-x: visible; }
 .hero-actions { gap: 16px 26px; margin-top: 28px; }
 .broker-note { margin-top: 32px; gap: 14px; }
 .broker-note span { font-size: 15px; line-height: 1.6; color: var(--muted); }
-.hero-visual { min-height: 0; border-radius: 24px; background: var(--cream); padding: 0 18px 18px; }
-.hero-visual > img { position: static; width: calc(100% + 36px); max-width: none; margin-left: -18px; height: auto; aspect-ratio: 2048/689; border-radius: 24px 24px 0 0; object-fit: cover; }
+.hero-visual { display: block; min-width: 0; min-height: 0; border-radius: 24px; background: var(--cream); padding: 0; overflow: hidden; }
+.hero-visual > img { display: block; position: static; width: 100%; max-width: 100%; margin: 0; height: auto; aspect-ratio: 1280/431; border-radius: 0; object-fit: cover; }
 .hero-visual::before { content: none; }
-.hero-quote-panel { position: relative; inset: auto; width: 100%; margin-top: 8px; padding: 24px; background: var(--paper); border: 0; border-radius: 20px; box-shadow: none; }
-.panel-step { font-size: 17px; margin-bottom: 10px; }
-.address-field { border-radius: 12px; background: #fffdf8; }
-.coastal-check-row { gap: 12px; }
-.coastal-check-row select { max-width: 100%; min-height: 44px; padding: 6px 10px; font-size: 15px; }
-.hero-rate-row { border-radius: 12px; background: var(--paper); }
+.hero-quote-panel { position: relative; inset: auto; width: 100%; margin: 0; padding: 24px; background: var(--cream); border: 0; border-radius: 0; box-shadow: none; }
+.panel-step { align-items: baseline; gap: 8px; font-size: 17px; line-height: 1.4; margin-bottom: 12px; }
+.address-field { min-height: 54px; margin-bottom: 24px; border-radius: 12px; background: #fffdf8; }
+.address-field input { min-height: 50px; font-size: 16px; }
+.coastal-check-list { margin-bottom: 24px; border-radius: 12px; background: var(--paper); }
+.coastal-check-row { grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); gap: 12px; min-height: 52px; padding: 8px 12px; font-size: 15px; }
+.coastal-check-row select { width: 100%; min-width: 0; max-width: 100%; min-height: 44px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fffdf8; font-size: 15px; font-weight: 550; text-align: left; }
+.coastal-check-row strong { font-size: 14px; line-height: 1.4; }
+.hero-rate-list { gap: 10px; border: 0; border-radius: 0; overflow: visible; }
+.hero-rate-row { grid-template-columns: minmax(0,1fr) auto; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+.hero-rate-row:last-child { border-bottom: 1px solid var(--line); }
+.hero-rate-row div { min-width: 0; gap: 5px; }
+.hero-rate-row strong { font-size: 16px; line-height: 1.35; }
+.hero-rate-row div > span { font-size: 13px; line-height: 1.5; }
+.hero-rate-row > span { max-width: 105px; font-size: 12px; line-height: 1.4; white-space: normal; }
 .hero-rate-row.selected { background: var(--soft); border-color: var(--teal); }
 .hero-rate-row p { line-height: 1.5; }
 .view-options { min-height: 54px; border-radius: 28px; background: var(--ink); color: var(--paper); margin-top: 16px; }
+.hero-quote-panel .view-options { width: 100%; margin-top: 20px; }
 
 /* The original section sequence and columns remain; the surfaces and type change. */
 :is(.expert-standard-section,.atlas-section,.homeowner-toolkit-section,.expertise-section,.local-image-section,.seo-links-section,.seo-page) { background: var(--paper); }
@@ -238,9 +248,7 @@ body { font-size: 18px; line-height: 1.6; overflow-x: visible; }
   .hero-copy { padding-top: 0; }
   .hero-copy h1 { font-size: clamp(38px,7vw,56px); }
   .hero-copy > p { font-size: 19px; }
-  .hero-visual { padding: 0 14px 14px; }
-  .hero-visual > img { width: calc(100% + 28px); margin-left: -14px; }
-  .hero-quote-panel { inset: auto; width: 100%; margin-top: 8px; }
+  .hero-quote-panel { inset: auto; width: 100%; margin: 0; }
   .seo-hero { grid-template-columns: 1fr; gap: 28px; padding-top: 26px; }
   .seo-hero h1 { font-size: 43px; }
   .seo-content-grid { grid-template-columns: 1fr; }
@@ -270,10 +278,11 @@ body { font-size: 18px; line-height: 1.6; overflow-x: visible; }
   .confirmation-actions .primary-button,.mobile-nav .mobile-nav-cta { padding: 16px 24px; }
   .hero-copy h1 { font-size: 39px; }
   .seo-hero h1 { font-size: 38px; }
-  .hero-quote-panel { padding: 18px 14px; }
+  .hero-quote-panel { padding: 20px 16px; }
   .coastal-check-row { grid-template-columns: 1fr; }
   .coastal-check-row select { width: 100%; }
-  .hero-rate-row { text-align: left; }
+  .hero-rate-row { grid-template-columns: 1fr; gap: 8px; text-align: left; }
+  .hero-rate-row > span { max-width: none; }
   .tide-launcher-copy strong { font-size: 16px; }
   .tide-launcher-copy small { font-size: 11px; }
   .tide-header { grid-template-columns: minmax(0,1fr) auto; }
