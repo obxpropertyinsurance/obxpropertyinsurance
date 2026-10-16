@@ -48,6 +48,7 @@ test('all 21 current place pages have explicit, correctly qualified labels', () 
 test('guide labels use initial capitals while retaining acronyms, geography and 4x4', () => {
   const expected = {
     'obx-wind-hail-insurance': 'OBX Wind And Hail Insurance',
+    'outer-banks-wind-flood-insurance': 'Outer Banks Wind And Flood Insurance',
     'nc-coastal-property-insurance-pool-obx': 'NC Coastal Property Insurance Pool OBX',
     'outer-banks-4x4-access-home-insurance': 'Outer Banks 4x4 Access Home Insurance',
     'north-carolina-vacation-home-insurance': 'North Carolina Vacation Home Insurance',

@@ -16,6 +16,11 @@ export const pageSeeds = [
     "imageKey": "outerBanks"
   },
   {
+    "slug": "outer-banks-wind-flood-insurance",
+    "eyebrow": "Outer Banks wind and flood insurance",
+    "imageKey": "outerBanks"
+  },
+  {
     "slug": "obx-wind-hail-insurance",
     "eyebrow": "OBX wind and hail insurance",
     "imageKey": "kittyHawk"

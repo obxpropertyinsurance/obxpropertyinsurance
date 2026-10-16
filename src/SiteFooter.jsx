@@ -19,7 +19,7 @@ export default function SiteFooter({ image = null }) {
             <a href="/outer-banks-insurance/">Outer Banks insurance</a>
             <a href="/outer-banks-homeowners-insurance/">Homeowners insurance</a>
             <a href="/#coverage">Home coverage</a>
-            <a href="/#wind-flood">Wind &amp; flood</a>
+            <a href="/outer-banks-wind-flood-insurance/">Wind &amp; flood</a>
             <a href="/outer-banks-flood-insurance/">Flood insurance</a>
           </nav>
           <nav aria-label="Footer properties">

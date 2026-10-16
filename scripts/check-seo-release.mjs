@@ -8,7 +8,7 @@ import { onRequest } from '../functions/_middleware.js';
 
 const site='https://www.obxncinsurance.com';
 const all=[{...homeMetadata,slug:'',faqs:homeFaqs},...seoPages,...policyPages];
-assert.equal(seoPages.length,50); assert.equal(seoPages.filter(p=>p.category==='town').length,21);
+assert.equal(seoPages.length,51); assert.equal(seoPages.filter(p=>p.category==='town').length,21);
 const paths=new Set(all.map(p=>p.slug?`/${p.slug}/`:'/'));
 const seenTitles=new Set(); const incoming=new Map([...paths].map(p=>[p,0]));
 const sitemap=await readFile('dist/sitemap.xml','utf8');
@@ -18,6 +18,9 @@ for(const page of all) {
   assert.equal((html.match(/<h1\b/g)||[]).length,1,path+' single H1');
   assert.ok(html.includes(`<link rel="canonical" href="${site+path}"`),path+' canonical');
   assert.ok(sitemap.includes(`<loc>${site+path}</loc>`),path+' sitemap');
+  const windFloodLinks = [...html.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>Wind &amp; flood<\/a>/g)];
+  assert.ok(windFloodLinks.length >= (policyPages.some(p=>p.slug===page.slug)?1:2),path+' shared Wind & flood navigation');
+  assert.ok(windFloodLinks.every(match => match[1] === '/outer-banks-wind-flood-insurance/'),path+' dedicated Wind & flood destination');
   assert.ok(!seenTitles.has(page.title),path+' distinct title');seenTitles.add(page.title);
   assert.ok(!/search terms|search demand|queries such as|coverage readiness|our licensed review team|SearchAction/i.test(html),path+' approved copy');
   for(const image of html.matchAll(/<img\b[^>]*>/g))assert.match(image[0],/\balt="[^"]*"/,path+' image alt');
@@ -38,6 +41,14 @@ for(const page of all) {
   if(page.slug)assert.equal(graph.filter(n=>n['@type']==='BreadcrumbList').length,1);
 }
 for(const[path,count]of incoming)assert.ok(count>0,path+' has static incoming links');
+const windFloodHtml=await readFile('dist/outer-banks-wind-flood-insurance/index.html','utf8');
+for(const slug of ['obx-wind-hail-insurance','outer-banks-flood-insurance']) {
+  assert.ok(paths.has(`/${slug}/`),'separate coverage guide retained');
+  assert.ok(windFloodHtml.includes(`href="/${slug}/"`),'combined guide links to '+slug);
+}
+assert.ok(!/<meta[^>]+name="robots"[^>]+content="[^"]*noindex/.test(windFloodHtml),'new guide is indexable');
+const windFloodResponse=await onRequest({request:new Request(site+'/outer-banks-wind-flood-insurance/'),next:async()=>new Response(windFloodHtml,{headers:{'content-type':'text/html'}})});
+assert.equal(windFloodResponse.status,200,'dedicated Wind & flood route is served');
 for(const[from,to]of Object.entries(seoRedirects)) {
   assert.ok(!sitemap.includes(`<loc>${site}/${from}/</loc>`));
   for(const suffix of ['', '/']) {

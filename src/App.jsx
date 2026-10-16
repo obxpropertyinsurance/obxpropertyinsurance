@@ -867,7 +867,7 @@ function App({ pathname = typeof window === "undefined" ? "/" : window.location.
         <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="/outer-banks-insurance/">OBX insurance</a>
           <a href="/outer-banks-homeowners-insurance/">Homeowners</a>
-          <a href="/obx-wind-hail-insurance/">Wind & flood</a>
+          <a href="/outer-banks-wind-flood-insurance/">Wind & flood</a>
           <a href="/tide-obx-insurance-guide/">Ask Piper</a>
           <a href="#service-area">OBX towns</a>
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
@@ -895,7 +895,7 @@ function App({ pathname = typeof window === "undefined" ? "/" : window.location.
           <a href="/outer-banks-homeowners-insurance/" onClick={() => setMobileNavOpen(false)}>
             Homeowners
           </a>
-          <a href="/#wind-flood" onClick={() => setMobileNavOpen(false)}>
+          <a href="/outer-banks-wind-flood-insurance/" onClick={() => setMobileNavOpen(false)}>
             Wind & flood
           </a>
           <a href="/tide-obx-insurance-guide/" onClick={() => setMobileNavOpen(false)}>
@@ -2172,7 +2172,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
         <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="/outer-banks-insurance/">OBX insurance</a>
           <a href="/outer-banks-homeowners-insurance/">Homeowners</a>
-          <a href="/#wind-flood">Wind & flood</a>
+          <a href="/outer-banks-wind-flood-insurance/">Wind & flood</a>
           <a href="/tide-obx-insurance-guide/">Ask Piper</a>
           <a href="/#service-area">OBX towns</a>
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
@@ -2200,7 +2200,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
           <a href="/outer-banks-homeowners-insurance/" onClick={() => setMobileNavOpen(false)}>
             Homeowners
           </a>
-          <a href="/#wind-flood" onClick={() => setMobileNavOpen(false)}>
+          <a href="/outer-banks-wind-flood-insurance/" onClick={() => setMobileNavOpen(false)}>
             Wind & flood
           </a>
           <a href="/tide-obx-insurance-guide/" onClick={() => setMobileNavOpen(false)}>

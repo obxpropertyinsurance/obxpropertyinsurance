@@ -14,6 +14,7 @@ export function HomeCoverage() {
     <section id="coverage" className="search-intent-section" aria-labelledby="coverage-title">
       <div className="search-intent-copy"><h2 id="coverage-title">Understand your Outer Banks home insurance options</h2><p>Compare the coverage your property needs, then prepare the questions you want a licensed agent to answer.</p></div>
       <div id="wind-flood" className="need-grid">{coverageLinks.map(([slug, Icon, title, text]) => <a className="coverage-guide-card" href={`/${slug}/`} key={slug}><Icon size={28} aria-hidden="true"/><h3>{title}</h3><p>{text}</p><span>Read the coverage guide <ArrowRight size={16} aria-hidden="true"/></span></a>)}</div>
+      <p className="rate-summary"><a href="/outer-banks-wind-flood-insurance/">Review wind and flood insurance together</a> to organize separate policies, deductibles and closing dates for one coastal home.</p>
     </section>
     <section className="alert-center-section" aria-labelledby="next-step-title">
       <div className="alert-center-copy"><h2 id="next-step-title">Start with what is changing for your home</h2><p>Buying, renewing or renting out a property raises different insurance questions.</p></div>

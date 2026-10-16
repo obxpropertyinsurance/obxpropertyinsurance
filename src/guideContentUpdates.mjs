@@ -5,6 +5,7 @@ const source = (name, url, text) => ({ name, url, text });
 const sources = {
   home: source('NC DOI homeowners insurance', 'https://www.ncdoi.gov/consumers/homeowners-insurance', 'Coverage categories and questions to discuss with your insurer.'),
   wind: source('NC DOI windstorm and hail', 'https://www.ncdoi.gov/consumers/homeowners-insurance/windstorm-and-hail', 'Separate wind policies, deductible definitions and coastal eligibility.'),
+  ncFlood: source('NC DOI flood insurance', 'https://www.ncdoi.gov/consumers/homeowners-insurance/flood-insurance', 'Why flood needs separate coverage and why location alone does not rule out flood risk.'),
   dwelling: source('NC DOI dwelling policies', 'https://www.ncdoi.gov/consumers/homeowners-insurance/dwelling-policies', 'Dwelling policy forms, rental uses and liability limitations.'),
   flood: source('FloodSmart: buying flood insurance', 'https://www.floodsmart.gov/get-insured/buy-a-policy', 'NFIP building and contents coverage, exclusions and waiting periods.'),
   elevation: source('FloodSmart elevation certificates', 'https://www.floodsmart.gov/get-insured/elevation-certificates', 'What an elevation certificate records and how to locate one.'),
@@ -35,6 +36,32 @@ const N = 'outer-banks-insurance-nonrenewal-carrier-change';
 const T = 'obx-insurance-trust-and-source-standards';
 
 const updates = {
+  'outer-banks-wind-flood-insurance': {
+    title: 'Outer Banks Wind & Flood Insurance | Coverage Guide',
+    h1: 'Outer Banks wind and flood insurance, explained together',
+    description: 'Review Outer Banks wind and flood insurance together. Understand separate policies, deductibles and closing deadlines, then prepare your property request.',
+    intro: 'One coastal home. Different kinds of storm damage. Outer Banks wind and flood insurance need to be reviewed together, even when they come from separate insurers. Start here to organize the questions, documents and dates for your property.',
+    support: 'Buying a home, renewing or reviewing a second home? Bring the home, wind and flood details into one request. A licensed North Carolina insurance professional must confirm the coverage and effective dates.',
+    intent: 'A clearer picture of wind and flood for your coastal home.',
+    sections: [
+      section('Wind and flood answer different coverage questions', 'Wind and hail may be included in a homeowners policy or excluded and insured separately. Standard homeowners insurance does not cover flood damage. A storm can raise both questions, so ask where each protection appears in your actual policy documents. The guides below explain each coverage in more detail.', link(W, 'Explore wind and hail insurance'), link(F, 'Explore flood insurance')),
+      section('Put the policies side by side', 'Gather the declarations pages for your home, any separate wind policy and any flood policy. Check that the address, named insured, occupancy and effective dates reflect the same property and situation. Note any missing document or unclear exclusion for review. You can begin a request even if you do not have every answer.', link(H, 'Review the homeowners policy')),
+      section('Compare deductibles before comparing the total price', 'Ask which deductible applies to wind, hail and a named storm, and have any percentage translated into dollars using the policy’s insured amount. Review flood deductibles separately: NFIP building and contents coverage have separate deductibles. Keep those amounts beside the premiums so you can discuss the potential out-of-pocket cost.', link(D, 'Understand named storm deductibles')),
+      section('Closing soon? Start with the dates', 'Share your closing date and the lender’s written insurance requirements early. Ask when each proposed policy can take effect. NFIP flood coverage generally has a 30-day waiting period, with exceptions; confirm whether an exception applies before relying on it. Sending a request here does not put coverage in force.', link(B, 'Prepare for your home purchase')),
+      section('Include how the home is really used', 'Tell the reviewer whether this is your year-round home, an owner-used second home or a vacation rental. List rental weeks, recent renovations, roof records and any documents supplied by the seller. Keep the property facts together so you do not have to reconstruct them for each coverage conversation.', link(R, 'Review vacation rental questions'), link('obx-second-home-insurance', 'Review second-home questions')),
+      section('Turn the unknowns into a useful request', 'Write down which policies you already have, what you want explained and when you need a response. Piper can help gather those details for your request. Keep policy numbers and documents available for the follow-up conversation; you do not need to paste sensitive documents into the guide.', link('outer-banks-flood-zone-elevation-certificate', 'Find flood-zone and elevation information')),
+    ],
+    checklist: ['Property address and personal or rental use', 'Home, wind and flood declarations, if available', 'Wind exclusions and deductible endorsements', 'Flood building and contents limits and deductibles', 'Roof records and seller-provided property documents', 'Closing or renewal date and lender requirements'],
+    faqs: [
+      faq('Is wind and flood insurance one policy?', 'Do not assume so. Wind may be included in your homeowners policy or insured separately, while flood requires its own coverage. Ask the agent or insurer to identify the relevant policies and explain how their terms fit together.'),
+      faq('Does homeowners insurance cover storm surge or flooding?', 'Standard homeowners insurance does not cover flood damage. Review a separate flood policy and ask the insurer how its terms apply to the water damage you are concerned about.'),
+      faq('Should I consider flood insurance if my lender does not require it?', 'A lender’s requirement does not describe every flood risk. Properties outside mapped high-risk areas can still flood. Discuss the address, available flood information and policy options with a licensed professional.'),
+      faq('Can I start without my current policy documents?', 'Yes. Begin with the address, how the home is used and your closing or renewal date. Mark unknown details as unknown. The documents can help the later review, but a request alone does not confirm coverage or an effective date.'),
+    ],
+    relatedSlugs: [W, F, H, D, B, E],
+    sourceKeys: ['wind', 'ncFlood', 'flood'],
+    nextStep: 'Gather the home, wind and flood questions in one place, with your property address and deadline. Piper can help you prepare the request.',
+  },
   'outer-banks-insurance': {
     title: 'Outer Banks Insurance: Home, Wind & Flood Guide',
     h1: 'Outer Banks insurance for your home and how you use it',
