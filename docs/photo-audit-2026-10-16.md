@@ -43,4 +43,6 @@ All 66 tests, production build, 54-page SEO check and 50-source release guard pa
 
 Photo licenses and sources: public/images/places/credits.json. Photos retain their individual licenses; no generative edits were made. Local audit evidence: docs/audit-evidence/photo-release/.
 
-Deployment pending final production verification. Rollback: f19fd541-1772-40c0-b16b-04a16be34550. Archive: 8,922,023 bytes; SHA-256 28e758d18e724f3c48a74c4a12da2f573e7d55da08805f242b56cca53a841758. No database, account, DNS or credential changes.
+Live deployment: **79302ddd-27f9-4a42-a1a7-3674785dc388**, source commit **37a3bdf**. All 54 canonical pages plus 38 image/shared/support files (92 resources) matched the reviewed build byte-for-byte over HTTPS. Rollback: f19fd541-1772-40c0-b16b-04a16be34550. Archive: 8,922,023 bytes; SHA-256 28e758d18e724f3c48a74c4a12da2f573e7d55da08805f242b56cca53a841758. No database, account, DNS or credential changes.
+
+Independent production verification also passed: 263 image placements, all 33 unique displayed image URLs including responsive sizes and portrait, and all SEO/content preservation checks. GitHub build check passed for source commit 37a3bdf. Production photo assets and license records total 3,556,567 bytes in public/images/places/.
