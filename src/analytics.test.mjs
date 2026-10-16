@@ -1,11 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createAnalytics, safeEvent, CONSENT_KEY } from './analytics.mjs';
+import { createAnalytics, safeEvent, CONSENT_KEY, INTERNAL_KEY } from './analytics.mjs';
 
-function environment({ stored, gpc = false, hostname = 'www.obxncinsurance.com' } = {}) {
+function environment({ stored, gpc = false, hostname = 'www.obxncinsurance.com', search = '?email=private@example.com', internal = false } = {}) {
   const storage = new Map(stored ? [[CONSENT_KEY, JSON.stringify(stored)]] : []);
+  if (internal) storage.set(INTERNAL_KEY, '1');
   const scripts = [], events = {};
-  const win = { location: { hostname, pathname: '/', search: '?email=private@example.com', hash: '#private-address' }, navigator: { globalPrivacyControl: gpc }, localStorage: { getItem: key => storage.get(key), setItem: (key, val) => storage.set(key, val) }, addEventListener: (key, fn) => events[key] = fn, removeEventListener: key => delete events[key] };
+  const win = { location: { hostname, pathname: '/', search, hash: '#private-address' }, navigator: { globalPrivacyControl: gpc }, localStorage: { getItem: key => storage.get(key), setItem: (key, val) => storage.set(key, val) }, addEventListener: (key, fn) => events[key] = fn, removeEventListener: key => delete events[key] };
   const doc = { cookie: '', referrer: 'https://www.google.com/search?q=private-address', createElement: () => ({}), head: { appendChild: script => scripts.push(script) } };
   const tracker = createAnalytics({ measurementId: 'G-TEST123', enabled: true, win, doc });
   return { tracker, win, scripts, events, doc };
@@ -70,4 +71,15 @@ test('funnel steps deduplicate and only accepted success produces a conversion',
   tracker.complete('quote'); events.pagehide();
   assert.equal(win.dataLayer.filter(row => row[1] === 'generate_lead').length, 1);
   assert.equal(win.dataLayer.filter(row => row[1] === 'funnel_exit').length, 1);
+});
+
+test('admin marker excludes the current and subsequent visits even after analytics consent', () => {
+  for (const options of [{ search: '?obx_internal=1' }, { internal: true }]) {
+    const { tracker, scripts, win } = environment(options);
+    tracker.setConsent('granted');
+    assert.equal(tracker.track('generate_lead', { funnel: 'quote' }), false);
+    assert.equal(scripts.length, 0);
+    assert.equal(win.dataLayer, undefined);
+    assert.equal(win.localStorage.getItem(INTERNAL_KEY), '1');
+  }
 });

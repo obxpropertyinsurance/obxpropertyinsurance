@@ -8,6 +8,9 @@ export const leadNotificationFooter = 'Read the visitor’s full instructions be
 export function leadRoutingRows(lead, options = {}) {
   const response = buildLeadResponse(lead, options);
   return [
+    ['Acquisition source', lead.acquisitionSource || ''],
+    ['Original landing path', lead.originalLandingPath || ''],
+    ['Request path', lead.requestPath || ''],
     ['Requested contact', response.channelLabel],
     ['Requested contact time', lead.callbackWindow || 'Not specified'],
     ['Timing priority', response.priorityLabel],

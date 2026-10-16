@@ -7,7 +7,7 @@ let leads = [],
   selected = null,
   filter = "open",
   dirty = false;
-const closed = (l) => ["Closed", "Test / duplicate"].includes(l.status);
+const closed = (l) => ["Bound", "Closed", "Test / duplicate"].includes(l.status);
 const today = () => {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -170,7 +170,7 @@ function renderStats() {
       open.filter((l) => l.status !== "Needs reply").length,
       "progress",
     ],
-    ["Closed", leads.filter((l) => l.status === "Closed").length, "closed"],
+    ["Closed", leads.filter((l) => ["Closed","Bound"].includes(l.status)).length, "closed"],
   ];
   $("#stats").replaceChildren(
     ...values.map(([label, value, f]) => {
@@ -194,7 +194,7 @@ function renderList() {
     if (filter === "reply" && l.status !== "Needs reply") return false;
     if (filter === "progress" && (closed(l) || l.status === "Needs reply"))
       return false;
-    if (filter === "closed" && l.status !== "Closed") return false;
+    if (filter === "closed" && !["Closed","Bound"].includes(l.status)) return false;
     return (
       !q ||
       Object.values(l.fields)

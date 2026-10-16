@@ -13,12 +13,13 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_DATA = Path.home() / 'Library/Application Support/OBX Lead Desk'
-STATUSES = ('Needs reply', 'Waiting for customer', 'Ready for agent', 'With agent', 'Closed', 'Test / duplicate')
+STATUSES = ('Needs reply', 'Waiting for customer', 'Contacted', 'Qualified', 'Ready for agent', 'With agent', 'Quoted', 'Bound', 'Closed', 'Test / duplicate')
 ALLOWED_FIELDS = ('name', 'email', 'phone', 'preferred_contact', 'callback_window', 'property_address',
                   'search_intent', 'landing_page', 'lead_goal', 'coverage_needed_by', 'current_carrier',
                   'current_policy_expiration', 'elevation_certificate', 'property_use', 'rental_use',
                   'wind_exposure', 'flood_zone', 'year_built', 'roof_age', 'selected_review',
-                  'dwelling_coverage', 'wind_deductible', 'notes', 'source', 'submitted_at')
+                  'dwelling_coverage', 'wind_deductible', 'notes', 'source', 'submitted_at',
+                  'acquisition_source', 'original_landing_path', 'request_path')
 
 
 def now():
@@ -128,7 +129,7 @@ def update_lead(db, lead_id, payload):
             raise ValueError('Use a valid follow-up date.') from None
     if any(len(value) > (12000 if key in ('notes', 'draft') else 250) for key, value in values.items()):
         raise ValueError('One of the fields is too long.')
-    if values['status'] not in ('Closed', 'Test / duplicate') and not values['due_date']:
+    if values['status'] not in ('Bound', 'Closed', 'Test / duplicate') and not values['due_date']:
         raise ValueError('Open leads need a follow-up date.')
     changed = [key for key in allowed if values[key] != row[key]]
     if not changed:
@@ -243,9 +244,11 @@ def main():
         if args.summary:
             leads = list_leads(db)
             today = datetime.now().astimezone().date().isoformat()
-            open_leads = [l for l in leads if l['status'] not in ('Closed','Test / duplicate')]
+            open_leads = [l for l in leads if l['status'] not in ('Bound','Closed','Test / duplicate')]
             print(json.dumps({'open':len(open_leads),'needs_reply':sum(l['status']=='Needs reply' for l in open_leads),
                               'due':sum(l['due_date'] <= today for l in open_leads),
+                              'current_outcomes':{stage:sum(l['status']==stage for l in leads) for stage in ('Contacted','Qualified','Quoted','Bound')},
+                              'saved_customer_requests':sum(l['status']!='Test / duplicate' for l in leads),
                               'last_import':dict(db.execute('SELECT key,value FROM metadata')).get('last_import')}))
             return
     server = ThreadingHTTPServer(('127.0.0.1',args.port),make_handler(args.data_dir,args.port,secrets.token_urlsafe(32)))

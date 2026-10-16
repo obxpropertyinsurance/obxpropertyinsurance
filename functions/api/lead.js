@@ -1,3 +1,7 @@
+import { validateContact } from '../../src/intakeValidation.mjs';
+import { normalizeAcquisition } from '../../src/acquisition.mjs';
+import { pageSeeds as seoPages } from '../../src/pageSeeds.mjs';
+const acquisitionPaths = new Set(['/', ...seoPages.map(page => `/${page.slug}/`)]);
 import { leadRoutingRows, leadNotificationSubject, leadNotificationFooter } from "../../src/leadNotification.mjs";
 import { customerEmailRequestHash, enqueueCustomerAcknowledgment, dispatchCustomerAcknowledgment } from "../_lib/customerEmail.mjs";
 
@@ -31,6 +35,7 @@ const createLeadId = () =>
   globalThis.crypto?.randomUUID?.() || `lead_${Date.now()}_${Math.random().toString(36).slice(2)}`;
 
 const normalizeLead = (payload) => ({
+  ...normalizeAcquisition(payload, acquisitionPaths),
   address: clean(payload.address),
   fullName: clean(payload.fullName),
   email: clean(payload.email).toLowerCase(),
@@ -60,14 +65,7 @@ const normalizeLead = (payload) => ({
   companyWebsite: clean(payload.companyWebsite),
 });
 
-const validateLead = (lead) => {
-  const missing = [];
-  if (!lead.address) missing.push("property address");
-  if (!lead.fullName) missing.push("full name");
-  if (!lead.email || !isEmail(lead.email)) missing.push("valid email");
-  if (!lead.phone) missing.push("phone number");
-  return missing;
-};
+const validateLead = validateContact;
 
 const leadRows = (lead, request, leadRecord = {}) => [
   ...leadRoutingRows(lead),

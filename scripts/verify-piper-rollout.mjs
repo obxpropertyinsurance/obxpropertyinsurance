@@ -1,52 +1,19 @@
-// A release guard for the approved brand and response rollout. Run after npm run build.
-// Intentional future content/flow changes require a separately reviewed lock update.
+// Approved SEO + brand release guard. Update the lock only after separately reviewing a new release.
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import './check-seo-release.mjs';
 
 const lock = JSON.parse(await readFile(new URL('./piper-content-lock.json', import.meta.url)));
 const hash = value => createHash('sha256').update(value).digest('hex');
 for (const [file, expected] of Object.entries(lock.protectedFiles)) {
-  const source = await readFile(file, 'utf8');
-  // User-approved rename only; routes and all other SEO content remain locked.
-  const normalized = file === 'src/seoPages.js' ? source.replace(/\bPiper\b/g, 'Tide') : source;
-  assert.equal(hash(normalized), expected, `Protected release file changed: ${file}`);
+  assert.equal(hash(await readFile(file)), expected, `Reviewed release source changed: ${file}`);
 }
-assert.equal(hash(await readFile('dist/sitemap.xml')), lock.liveSitemapHash, 'Generated sitemap differs from the live production sitemap');
-const app = (await readFile('src/App.jsx', 'utf8'))
-  // User-confirmed Allen introduction; the synthetic placeholder is explicitly labeled.
-  .replace(`            <figure className="tide-reviewer-portrait">
-              <span className="tide-agent-photo">
-                <img className="tide-agent-face" src="/allen-illustrative-portrait.png" alt="AI-generated illustrative portrait, not a photograph of Allen" width="420" height="420" />
-              </span>
-              <figcaption>Illustrative portrait</figcaption>
-            </figure>`, `            <span className="tide-agent-photo">
-              <img className="tide-agent-face" src="/tide-agent-headshot.png" alt="Your human insurance reviewer" width="420" height="420" />
-            </span>`)
-  .replace(`<strong>Hi, I'm Allen. Your local Outer Banks insurance guide!</strong>`, '<strong>Piper helps you get started. A real person reviews your request.</strong>')
-  .replace(`                I live in this area so helping you get the best insurance is personal to me.
-              </p>
-              <p>
-                Piper helps gather the details. I'll review your property information, questions,
-                and timing with care.`, `                Piper is our bird guide, here to gather the details. The reviewer pictured here will
-                look at your property information, questions, and timing with care.`)
-  .replace(/\bPiper\b/g, 'Tide')
-  .replace('import homeImage from "./assets/piper/coastal-house.jpg";\nimport piperIcon from "./assets/piper/piper-icon.png";', 'import homeImage from "./assets/obx-coastal-home-1280.jpg";')
-  .replaceAll('src={piperIcon}', 'src="/tide-agent-headshot.png"')
-  .replace(/className="(hero-visual|rate-chart-card|rate-source-links|coverage-map-panel|quote-progress|readiness-meter|tide-progress|tide-quick-questions)" role="group"/g, 'className="$1"')
-  .replace('<div className="seo-data-table-wrap" role="region" aria-label="Scrollable rate comparison table" tabIndex={0}>', '<div className="seo-data-table-wrap">')
-  // Accessibility annotations do not change structure, answers, handlers or copy.
-  .replace('              aria-required="true"\n              aria-invalid={(guideStatus.state === "error" && !answers.address.trim()) || undefined}\n              aria-describedby={guideStatus.state === "error" && !answers.address.trim() ? "tide-step-status" : undefined}\n', '');
-assert.equal(hash(app), lock.appHash, 'App changed beyond the reviewed presentation, accessibility, human introduction, receipt and submission-ID edits');
-
-const files = (await readdir('dist', { recursive: true })).filter(file => file.endsWith('.html') && !['privacy-policy/index.html', 'accessibility/index.html'].includes(file)).sort();
-assert.deepEqual(files, Object.keys(lock.pages).sort(), 'Generated page inventory changed');
-for (const file of files) {
-  const html = (await readFile(`dist/${file}`, 'utf8')).replace(/\/assets\/[^"\s<>]+/g, '/assets/BUILD_ASSET').replace(/\bPiper\b/g, 'Tide');
-  assert.equal(hash(html), lock.pages[file], `Rendered SEO content changed: ${file}`);
+assert.equal(hash(await readFile('dist/sitemap.xml')), lock.liveSitemapHash, 'Reviewed sitemap changed');
+const files=(await readdir('dist',{recursive:true})).filter(file=>file.endsWith('.html')).sort();
+assert.deepEqual(files,Object.keys(lock.pages).sort(),'Generated page inventory changed');
+for(const file of files) {
+  const html=(await readFile(`dist/${file}`,'utf8')).replace(/\/assets\/[^"\s<>]+/g,'/assets/BUILD_ASSET');
+  assert.equal(hash(html),lock.pages[file],`Reviewed HTML changed: ${file}`);
 }
-for (const route of ['privacy-policy', 'accessibility']) {
-  const html = await readFile(`dist/${route}/index.html`, 'utf8');
-  assert.ok(html.includes('obxpropertyinsurance@proton.me'), `${route} needs a contact route`);
-}
-console.log(`Verified ${files.length} existing HTML pages, sitemap, metadata, redirects and reviewed intake/response sources. Approved changes include the human introduction, personalized receipts, submission IDs, gated customer acknowledgment and provider privacy notice. This source guard does not determine production activation or email delivery.`);
+console.log(`Reviewed release preserved: ${files.length} HTML documents, ${Object.keys(lock.protectedFiles).length} sources, intake/outbox and approved SEO/brand scope. Production delivery is verified separately.`);

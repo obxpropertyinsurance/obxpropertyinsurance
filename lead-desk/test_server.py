@@ -41,6 +41,14 @@ class LeadDeskTests(unittest.TestCase):
         import_records(self.db,[self.record])
         self.assertEqual(list_leads(self.db)[0]['draft'],'An operator-prepared reply')
 
+    def test_confirmed_outcomes_require_explicit_updates_and_survive_import(self):
+        self.assertEqual(self.lead['status'], 'Needs reply')
+        for index, stage in enumerate(('Contacted', 'Qualified', 'Quoted', 'Bound'), 1):
+            update_lead(self.db, self.lead['id'], {'revision':index, 'status':stage, 'due_date':'' if stage=='Bound' else '2026-10-19'})
+            import_records(self.db, [self.record])
+            self.assertEqual(list_leads(self.db)[0]['status'], stage)
+        self.assertEqual(list_leads(self.db)[0]['revision'], 5)
+
     def test_invalid_import_cannot_partially_add_records(self):
         valid={'fields':{**self.record['fields'],'email':'second@example.com'}}
         invalid={'fields':{**self.record['fields'],'submitted_at':'not a date'}}

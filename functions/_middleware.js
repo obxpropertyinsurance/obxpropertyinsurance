@@ -1,5 +1,6 @@
-import { seoPages } from "../src/seoPages.js";
+import { pageSeeds as seoPages } from "../src/pageSeeds.mjs";
 import { policyPages } from "../src/policyContent.mjs";
+import { seoRedirects } from "../src/redirects.mjs";
 
 const canonicalHost = "www.obxncinsurance.com";
 const redirectHosts = new Set(["obxncinsurance.com", "obxncinsurance.pages.dev"]);
@@ -94,6 +95,13 @@ const notFoundHtml = `<!doctype html>
 export async function onRequest({ request, next }) {
   const url = new URL(request.url);
 
+  const requestedSlug = url.pathname.replace(/^\/+|\/+$/g, "");
+  if (Object.hasOwn(seoRedirects, requestedSlug)) {
+    url.pathname = `/${seoRedirects[requestedSlug]}/`;
+    if (redirectHosts.has(url.hostname)) url.hostname = canonicalHost;
+    return Response.redirect(url.toString(), 301);
+  }
+
   if (redirectHosts.has(url.hostname)) {
     url.hostname = canonicalHost;
     return Response.redirect(url.toString(), 301);
@@ -115,7 +123,16 @@ export async function onRequest({ request, next }) {
     passthroughPrefixes.some((prefix) => url.pathname.startsWith(prefix)) ||
     hasFileExtension(url.pathname)
   ) {
-    return next();
+    const response = await next();
+    const isHtml = response.headers.get('content-type')?.includes('text/html');
+    const htmlSlug = url.pathname.replace(/^\/+|\/index\.html$/g, '');
+    const isKnownHtml = url.pathname === '/index.html' || (url.pathname.endsWith('/index.html') && allowedSlugs.has(htmlSlug));
+    if (!isHtml || isKnownHtml || url.pathname.startsWith('/api/')) return response;
+    // A missing .json/image/file must never masquerade as the homepage.
+    return new Response(request.method === 'HEAD' ? null : notFoundHtml, {
+      status: 404,
+      headers: { 'content-type': 'text/html; charset=utf-8', 'x-robots-tag': 'noindex' },
+    });
   }
 
   if (url.pathname !== "/" && url.pathname.includes("//")) {

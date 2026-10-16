@@ -71,7 +71,7 @@ export function renderCustomerAcknowledgmentHTML(lead, { now = new Date() } = {}
           <table role="presentation" cellspacing="0" cellpadding="0" style="margin:0 auto;">
             <tr>
               <td width="74" style="width:74px;padding-right:12px;"><img class="brand-bird" src="${ASSETS}piper-v1.png" width="74" height="74" alt="Piper, our bird guide" style="display:block;width:74px;height:74px;border:0;"></td>
-              <td class="brand-name" style="font-family:${FONT};font-size:28px;line-height:1.15;font-weight:650;color:#082d42;">OBXNC <span style="font-weight:500;color:#a34424;">Insurance</span></td>
+              <td class="brand-name" style="font-family:${FONT};font-size:28px;line-height:1.15;font-weight:650;color:#082d42;">OBXNC <span style="font-weight:500;color:#cc6140;">Insurance</span></td>
             </tr>
           </table>
         </td></tr>

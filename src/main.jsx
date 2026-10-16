@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./App.css";
 import "./privacy.css";
@@ -18,10 +18,16 @@ initializeAnalytics({
 const policy = policyPages.find(page => window.location.pathname.replace(/\/$/, '') === `/${page.slug}`);
 if (import.meta.env.DEV && new URLSearchParams(window.location.search).get('audit') === '1') import('./devAudit.mjs');
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <a className="skip-link" href="#main-content">Skip to main content</a>
-    {policy ? <PolicyPage page={policy} /> : <App />}
-    <PrivacyControls />
-  </StrictMode>,
-);
+const content = <StrictMode>
+  <a className="skip-link" href="#main-content">Skip to main content</a>
+  {policy ? <PolicyPage page={policy} /> : <App />}
+</StrictMode>;
+const root = document.getElementById("root");
+// Preserve the static content while attaching handlers; development starts empty.
+if (root.hasChildNodes()) hydrateRoot(root, content);
+else createRoot(root).render(content);
+// Consent depends on browser preferences, so it has a separate client-only root.
+const privacyRoot = document.createElement('div');
+privacyRoot.id = 'privacy-root';
+document.body.appendChild(privacyRoot);
+createRoot(privacyRoot).render(<StrictMode><PrivacyControls /></StrictMode>);
