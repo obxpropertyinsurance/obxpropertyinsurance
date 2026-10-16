@@ -80,6 +80,11 @@ body { font-size: 18px; line-height: 1.6; overflow-x: visible; }
   align-items: center;
 }
 .quote-review-form .primary-button { min-width: 0; }
+.confirmation-actions .primary-button,.mobile-nav .mobile-nav-cta {
+  min-height: 54px;
+  padding: 14px 28px;
+  border-radius: 40px;
+}
 .tide-primary-action { grid-template-columns: 28px minmax(0,1fr) 28px; }
 .tide-primary-action > span { min-width: 0; }
 .tide-actions .tide-secondary-action { padding-inline: 24px; }
@@ -237,6 +242,7 @@ body { font-size: 18px; line-height: 1.6; overflow-x: visible; }
   :is(.hero-actions,.toolkit-actions,.quote-form-actions,.confirmation-actions) { gap: 16px; }
   :is(.primary-button,.secondary-button,.mobile-nav-cta,.view-options,.console-footer button) { padding: 16px 24px; }
   .quote-form-actions > button,.confirmation-actions > button,.view-options { width: 100%; }
+  .confirmation-actions .primary-button,.mobile-nav .mobile-nav-cta { padding: 16px 24px; }
   .hero-copy h1 { font-size: 39px; }
   .seo-hero h1 { font-size: 38px; }
   .hero-quote-panel { padding: 18px 14px; }
