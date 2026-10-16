@@ -1,0 +1,105 @@
+.confirmation-modal:has(.lead-receipt) {
+  width: min(100%, 620px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.lead-receipt {
+  min-width: 0;
+  color: var(--ink, #082d42);
+  text-align: left;
+}
+
+.lead-receipt .lead-receipt-icon {
+  display: inline-grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--teal-dark, #194858);
+  background: var(--soft-strong, #dbe7e3);
+}
+
+.lead-receipt .lead-receipt-title {
+  margin: 18px 0 0;
+  max-width: 15em;
+  color: var(--ink, #082d42);
+  font-size: clamp(27px, 3vw, 34px);
+  line-height: 1.15;
+  text-wrap: pretty;
+}
+
+.lead-receipt :is(p, dt, dd) {
+  overflow-wrap: anywhere;
+  text-transform: none;
+}
+
+.lead-receipt .lead-receipt-intro,
+.lead-receipt .lead-receipt-reassurance,
+.lead-receipt .lead-receipt-preparation {
+  margin: 16px 0 0;
+  color: var(--muted, #365361);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.lead-receipt .lead-receipt-intro strong {
+  color: var(--ink, #082d42);
+}
+
+.lead-receipt .lead-receipt-details {
+  display: grid;
+  gap: 14px;
+  margin: 22px 0 0;
+  padding: 19px;
+  border: 1px solid var(--line, #c5d1d0);
+  border-radius: 18px;
+  background: var(--paper, #fff9ef);
+}
+
+.lead-receipt .lead-receipt-detail {
+  min-width: 0;
+}
+
+.lead-receipt .lead-receipt-detail dt {
+  margin: 0 0 5px;
+  color: var(--teal-dark, #194858);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.lead-receipt .lead-receipt-detail dd {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  color: var(--ink, #082d42);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.lead-receipt .lead-receipt-detail dd span {
+  color: var(--muted, #365361);
+}
+
+.lead-receipt .lead-receipt-boundary,
+.lead-receipt .lead-receipt-reference {
+  margin: 15px 0 0;
+  color: var(--muted, #365361);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.lead-receipt .lead-receipt-reference span {
+  overflow-wrap: anywhere;
+}
+
+.lead-receipt--compact .lead-receipt-title {
+  font-size: 27px;
+}
+
+@media (max-width: 420px) {
+  .lead-receipt .lead-receipt-details { padding: 15px; }
+  .lead-receipt .lead-receipt-title { font-size: 26px; }
+}

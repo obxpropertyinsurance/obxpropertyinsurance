@@ -8,7 +8,7 @@ export const policyPages = [
     heading: 'Your information and your choices',
     sections: [
       {
-        heading: 'Privacy policy · Effective 2026-10-15',
+        heading: 'Privacy policy · Effective 2026-10-16',
         paragraphs: [
           'This policy describes information handled through OBXNCInsurance.com, including requests for an Outer Banks property insurance review. It does not replace a separate privacy notice provided by an insurance agency or insurer when you apply for or obtain insurance.',
         ],
@@ -24,7 +24,8 @@ export const policyPages = [
         heading: 'How requests are used and delivered',
         paragraphs: [
           'We use the information you submit to receive and respond to your requested review, organize the details you provide, and operate and protect the service. Submitting a request does not bind insurance coverage.',
-          'The website uses Cloudflare for hosting and request processing. FormSubmit delivers inquiries to our Proton Mail inbox and may receive a request directly from your browser as a delivery fallback. The submission system also supports storage in a Cloudflare D1 request database when that connection is enabled, and Resend email delivery when configured. A request can be saved even if an email notification fails.',
+          'The website uses Cloudflare for hosting, request processing, and a D1 request database. FormSubmit delivers internal inquiry notifications to our Proton Mail inbox and may receive a request directly from your browser as a delivery fallback. Our domain email inbox, hello@obxncinsurance.com, is hosted by Zoho Mail. Resend sends automatic request acknowledgments when enabled; replies go to our domain inbox. A request can be saved even if an email notification fails.',
+          'An automatic acknowledgment is a receipt, not an insurance quote or a human response. It is limited to eligible email-first requests and uses details such as your first name, request type, and timing. Our delivery records retain the recipient, message, request reference, delivery status, and timestamps to prevent duplicates and investigate failures. We also use hashed recipient information and a keyed hash of the submitting IP address to limit misuse. These records are separate from optional website analytics; email open and click tracking is not enabled for these acknowledgments.',
           'Email notifications can include your contact and property information, notes, the source page, and your IP address. Request storage also includes submission times and browser information. These service providers process information as part of delivering the service. We do not sell your inquiry to lead marketplaces or use it to add you to unrelated marketing lists.',
           'We also keep inquiries in a private lead-management database so we can track replies and follow-up. Those records can include your submitted details, correspondence, inquiry status, assigned reviewer, follow-up dates, and internal service notes. This database is separate from the public website and is not published with website files.',
           'Information needed to handle an insurance request may be provided to the licensed insurance professional handling that request. An agency or insurer may provide a separate notice describing its own information practices. We may also disclose information where required by law or reasonably necessary to protect the service or address fraud.',

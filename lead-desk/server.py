@@ -54,23 +54,6 @@ def safe_mail_url(value):
     return value if parsed.scheme == 'https' and parsed.netloc == 'mail.proton.me' and parsed.path.startswith('/u/') else ''
 
 
-def followup_draft(fields):
-    first = fields['name'].split()[0] if fields.get('name') else 'there'
-    goal = fields.get('lead_goal', '').lower()
-    question = 'Are you still looking for help with your Outer Banks insurance?'
-    if 'renewal' in goal:
-        question = 'Are you still looking for help with your insurance renewal?'
-    elif 'buying' in goal:
-        question = 'Are you still looking for insurance for your property purchase, or have you already arranged coverage?'
-    elif 'research' in goal:
-        question = 'Are you still exploring insurance options for your Outer Banks property?'
-    return (f'Hi {first},\n\nThank you for reaching out through OBXNCInsurance.com. '
-            'I’m sorry we didn’t get back to you sooner.\n\n' + question +
-            ' If you still need help, please reply with your current timeline and the main question you’d like us to help with. '
-            'If you’re all set, just let us know and we’ll close your request.\n\n'
-            'Thank you,\nThe OBXNCInsurance.com team')
-
-
 def import_records(db, records):
     if not isinstance(records, list) or len(records) > 500:
         raise ValueError('Import must be a list of no more than 500 records.')
@@ -103,7 +86,7 @@ def import_records(db, records):
           VALUES (?,?,?,?,?,?,?,?,?,?)''', (lead_id,json.dumps(fields),str(record.get('subject',''))[:500],
           safe_mail_url(str(record.get('mailUrl',''))), fields['submitted_at'],now(),status,
           'Confirm whether help is still needed' if not is_test else '', due,
-          followup_draft(fields) if not is_test else ''))
+          ''))  # Channel-specific suggestions are derived in the UI, not saved as sent or overdue replies.
         if result.rowcount:
             added += 1
             db.execute('INSERT INTO activity(lead_id,at,description) VALUES (?,?,?)',
@@ -207,6 +190,7 @@ def make_handler(data_dir, port, csrf):
                     self.respond({'leads':list_leads(db), 'metadata':meta, 'csrf':csrf, 'statuses':STATUSES})
                 return
             assets = {'/':('index.html','text/html; charset=utf-8'), '/app.js':('app.js','text/javascript'),
+                      '/lead-response.mjs':('../src/leadResponse.mjs','text/javascript'),
                       '/style.css':('style.css','text/css'), '/piper.png':('assets/piper.png','image/png'),
                       '/fraunces.ttf':('assets/fraunces.ttf','font/ttf')}
             if path not in assets:

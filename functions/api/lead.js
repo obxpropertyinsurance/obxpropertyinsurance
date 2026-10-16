@@ -1,3 +1,6 @@
+import { leadRoutingRows, leadNotificationSubject, leadNotificationFooter } from "../../src/leadNotification.mjs";
+import { customerEmailRequestHash, enqueueCustomerAcknowledgment, dispatchCustomerAcknowledgment } from "../_lib/customerEmail.mjs";
+
 const DEFAULT_TO_EMAIL = "obxpropertyinsurance@proton.me";
 const DEFAULT_FROM_EMAIL = "OBXNCInsurance.com <leads@obxncinsurance.com>";
 
@@ -53,6 +56,7 @@ const normalizeLead = (payload) => ({
   selectedCoverage: clean(payload.selectedCoverage),
   sourcePath: clean(payload.sourcePath || "/").split(/[?#]/)[0],
   submittedAt: clean(payload.submittedAt || new Date().toISOString()),
+  submissionId: clean(payload.submissionId),
   companyWebsite: clean(payload.companyWebsite),
 });
 
@@ -66,6 +70,7 @@ const validateLead = (lead) => {
 };
 
 const leadRows = (lead, request, leadRecord = {}) => [
+  ...leadRoutingRows(lead),
   ["Lead ID", leadRecord.leadId],
   ["Database", leadRecord.storage === "d1" ? "Saved in D1" : ""],
   ["Name", lead.fullName],
@@ -102,7 +107,7 @@ const formatTextEmail = (lead, request, leadRecord) => {
     .map(([label, value]) => `${label}: ${value}`)
     .join("\n");
 
-  return `New OBXNCInsurance.com lead\n\n${rows}\n\nReply directly to this email to contact the visitor. Quotes, advice, binding, and servicing should be handled by a local Outer Banks, NC licensed agent. Do not add the visitor to spam or unrelated marketing.`;
+  return `New OBXNCInsurance.com lead\n\n${rows}\n\n${leadNotificationFooter}`;
 };
 
 const formatHtmlEmail = (lead, request, leadRecord) => {
@@ -124,7 +129,7 @@ const formatHtmlEmail = (lead, request, leadRecord) => {
     <h1 style="font-size:22px;margin:0 0 12px;">New OBXNCInsurance.com lead</h1>
     <p style="margin:0 0 18px;color:#5c6980;">A visitor submitted an Outer Banks property insurance check.</p>
     <table style="border-collapse:collapse;width:100%;max-width:720px;border:1px solid #dde8f1;">${rows}</table>
-    <p style="margin-top:18px;color:#5c6980;font-size:13px;">Reply directly to this email to contact the visitor. Quotes, advice, binding, and servicing should be handled by a local Outer Banks, NC licensed agent. Do not add the visitor to spam or unrelated marketing.</p>
+    <p style="margin-top:18px;color:#5c6980;font-size:13px;">${escapeHtml(leadNotificationFooter)}</p>
   </body>
 </html>`;
 };
@@ -216,10 +221,7 @@ const markLeadEmailDelivery = async ({ env, leadId, delivery }) => {
 
 const sendWithResend = async ({ env, lead, request, toEmail, leadRecord }) => {
   const fromEmail = env.LEAD_FROM_EMAIL || DEFAULT_FROM_EMAIL;
-  const subjectContext = lead.searchIntent || "OBX property review";
-  const subject = `New OBX insurance lead: ${subjectContext}${
-    lead.address ? ` - ${lead.address}` : ""
-  }`;
+  const subject = leadNotificationSubject;
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -247,15 +249,13 @@ const appendFormSubmitField = (formData, key, value) => {
 };
 
 const sendWithFormSubmit = async ({ lead, request, toEmail, leadRecord }) => {
-  const subjectContext = lead.searchIntent || "OBX property review";
-  const subject = `New OBX insurance lead: ${subjectContext}${
-    lead.address ? ` - ${lead.address}` : ""
-  }`;
+  const subject = leadNotificationSubject;
   const formData = new FormData();
   formData.set("_subject", subject);
   formData.set("_template", "table");
   formData.set("_captcha", "false");
   formData.set("_replyto", lead.email);
+  formData.set("follow_up_instructions", leadNotificationFooter);
 
   for (const [label, value] of leadRows(lead, request, leadRecord)) {
     appendFormSubmitField(formData, label.toLowerCase().replaceAll(" ", "_"), value);
@@ -276,7 +276,8 @@ const sendWithFormSubmit = async ({ lead, request, toEmail, leadRecord }) => {
   }
 };
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost(context) {
+  const { request, env } = context;
   let payload;
   try {
     payload = await request.json();
@@ -316,6 +317,24 @@ export async function onRequestPost({ request, env }) {
       },
       502,
     );
+  }
+
+  // The existing inquiry and operator notification remain authoritative. This
+  // independent receipt is opt-in and may fail without changing their response.
+  if (leadRecord.storage === "d1" && env.CUSTOMER_EMAIL_ENABLED === "true" && typeof context.waitUntil === "function") {
+    try {
+      const requesterHash = await customerEmailRequestHash({ env, request });
+      if (requesterHash) {
+        const queued = await enqueueCustomerAcknowledgment({
+          env, lead, leadId: leadRecord.leadId, submissionId: lead.submissionId, requesterHash,
+        });
+        if (["queued", "retry", "sending"].includes(queued.state)) {
+          context.waitUntil(dispatchCustomerAcknowledgment({ env, submissionId: queued.submissionId }));
+        }
+      }
+    } catch {
+      // No customer details or provider errors are logged; continue normal intake.
+    }
   }
 
   try {

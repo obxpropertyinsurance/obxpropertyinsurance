@@ -14,6 +14,9 @@ Customer data lives in `~/Library/Application Support/OBX Lead Desk/leads.sqlite
 
 - Searchable queue, due dates, owner, status, next action, internal notes and activity history.
 - Draft replies and links to the original Proton message. Copying/opening a draft never marks it sent.
+- A prominent requested-follow-up plan uses the same deterministic response rules as the website. It shows the recorded contact channel, requested window, deadline priority, reasons for review and a proposed next action. This is a proposal based on the original submission; check later correspondence before acting.
+- The current operational focus is email: eligible email requests show an email draft to copy and an email-thread link. Phone and text preferences remain prominent, with their team/service setup marked pending and no contact launch or draft-copy controls. They are never silently converted into email requests. Contact details remain visible, but there are no generic email/phone shortcuts that invite changing the requested channel. Holds, conflicting instructions, unclear preferences and closed/test records also have no contact launch controls.
+- Existing saved drafts remain editable and preserved separately from newly generated suggestions. New imports do not invent an apology for a delayed email response. Generated suggestions do not update saved records, claim that a message was sent, or replace an operator's work.
 - Keeps explicit test submissions available under All while excluding them from open counts.
 - Requires a follow-up date for every open lead.
 - Uses Piper's approved font and art; responsive layout and keyboard-operable controls.
@@ -30,6 +33,8 @@ python3 lead-desk/server.py --import-mail "$HOME/Library/Application Support/OBX
 The file is a JSON array. Each record has `subject`, `mailUrl` (a Proton message URL) and `fields`, mapping FormSubmit field names to text. Required fields are `name`, `email`, `submitted_at`. Unknown fields are discarded.
 
 This is **not a continuous mailbox connector or a production D1 connection**. The scheduled Codex check can read the authorized Proton inbox, import new records and flag replies or due work while this Mac and its authenticated browser are available. Refresh only reloads saved local records. If authentication expires, the monitor must report that limitation rather than imply there were no new leads.
+
+The shared response module is served only at the explicit `/lead-response.mjs` asset route, with the same Host/Origin restrictions, content-security policy and no-store headers as the rest of this local desk. The server does not expose the repository's `src` directory. An already running desk server needs its normal operator-managed restart to load a changed route; this implementation does not restart the service or modify its schedule.
 
 ## Sending and accountability
 

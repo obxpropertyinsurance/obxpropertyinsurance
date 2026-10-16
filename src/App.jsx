@@ -28,7 +28,10 @@ import {
   X,
 } from "lucide-react";
 import { PrivacyLinks } from "./PrivacyControls.jsx";
+import LeadReceipt from "./LeadReceipt.jsx";
 import { trackEvent, trackStep, trackLead } from "./analytics.mjs";
+import { leadRoutingRows, leadNotificationSubject, leadNotificationFooter } from "./leadNotification.mjs";
+import { createSubmissionIdentity } from "./submissionIdentity.mjs";
 import useAccessibleDialog from "./useAccessibleDialog.js";
 import homeImage from "./assets/piper/coastal-house.jpg";
 import piperIcon from "./assets/piper/piper-icon.png";
@@ -908,15 +911,14 @@ const getTideGuideReply = (message) => {
 
 const buildLeadFormData = (leadPayload) => {
   const formData = new FormData();
-  formData.set(
-    "_subject",
-    `New OBX insurance lead: ${leadPayload.searchIntent || "OBX property review"}${
-      leadPayload.address ? ` - ${leadPayload.address}` : ""
-    }`,
-  );
+  formData.set("_subject", leadNotificationSubject);
   formData.set("_template", "table");
   formData.set("_captcha", "false");
   formData.set("_replyto", leadPayload.email);
+  for (const [label, value] of leadRoutingRows(leadPayload)) {
+    if (value) formData.set(label.toLowerCase().replaceAll(" ", "_"), value);
+  }
+  formData.set("follow_up_instructions", leadNotificationFooter);
   formData.set("name", leadPayload.fullName);
   formData.set("email", leadPayload.email);
   formData.set("phone", leadPayload.phone);
@@ -992,6 +994,7 @@ function Logo() {
 }
 
 function App() {
+  const quoteSubmission = useRef(createSubmissionIdentity());
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [coverage, setCoverage] = useState(750000);
   const [deductible, setDeductible] = useState(2500);
@@ -1055,6 +1058,7 @@ function App() {
   useEffect(() => {
     if (!reviewSeoPage) return;
 
+    quoteSubmission.current.reset();
     setSelectedOption(getReviewOptionForPage(reviewSeoPage));
     setQuoteForm((current) => ({
       ...current,
@@ -1116,6 +1120,7 @@ function App() {
   };
 
   const updateQuoteField = (field) => (event) => {
+    quoteSubmission.current.reset();
     trackStep("quote", quoteStep === 1 ? "contact" : "details", quoteStep);
     setQuoteForm((current) => ({
       ...current,
@@ -1125,6 +1130,7 @@ function App() {
   };
 
   const handleCoverageSelect = (title) => {
+    quoteSubmission.current.reset();
     setSelectedOption(title);
     setQuoteStarted(false);
   };
@@ -1193,6 +1199,7 @@ function App() {
       landingPageTitle: reviewSeoPage?.title || document.title,
       submittedAt: new Date().toISOString(),
     };
+    leadPayload.submissionId = quoteSubmission.current.get(leadPayload);
 
     trackEvent("lead_submit_attempt", { funnel: "quote" });
     setLeadStatus({ state: "submitting", message: "Sending your request..." });
@@ -1205,12 +1212,13 @@ function App() {
       setQuoteStarted(true);
       setLeadStatus({
         state: "success",
-        message: "Your request has been submitted for local Outer Banks, NC licensed agent review.",
+        message: "We received your request, including your contact preference and the details you shared.",
       });
       setConfirmationLead({
-        address: quoteForm.address,
-        name: quoteForm.fullName,
-        delivery: result.delivery || "email",
+        ...leadPayload,
+        leadId: result.leadId || "",
+        storage: result.storage || "",
+        delivery: result.delivery || "",
       });
     } catch (error) {
       trackEvent("lead_submit_error", { funnel: "quote", reason: "delivery_error" });
@@ -1863,8 +1871,8 @@ function App() {
             deductible={deductible}
             readiness={localReadiness}
             selectedOption={selectedOption}
-            onCoverageChange={setCoverage}
-            onDeductibleChange={setDeductible}
+            onCoverageChange={(value) => { quoteSubmission.current.reset(); setCoverage(value); }}
+            onDeductibleChange={(value) => { quoteSubmission.current.reset(); setDeductible(value); }}
             onSelectOption={handleCoverageSelect}
             onContinue={focusQuoteForm}
           />
@@ -2223,7 +2231,7 @@ function App() {
                 <div className="quote-field-grid">
                   <label>
                     Review type
-                    <select value={selectedOption} onChange={(event) => setSelectedOption(event.target.value)}>
+                    <select value={selectedOption} onChange={(event) => { quoteSubmission.current.reset(); setSelectedOption(event.target.value); }}>
                       {coverageOptions.map((option) => (
                         <option key={option.title}>{option.title}</option>
                       ))}
@@ -2365,6 +2373,7 @@ function App() {
           lead={confirmationLead}
           onClose={() => setConfirmationLead(null)}
           onStartAnother={() => {
+            quoteSubmission.current.reset();
             setConfirmationLead(null);
             focusQuoteForm();
           }}
@@ -2517,23 +2526,7 @@ function LeadConfirmationModal({ lead, onClose, onStartAnother }) {
         <button className="modal-close" type="button" onClick={onClose} aria-label="Close confirmation">
           <X size={20} aria-hidden="true" />
         </button>
-        <span className="confirmation-icon">
-          <CheckCircle2 size={32} aria-hidden="true" />
-        </span>
-        <h2 id="confirmation-title">Your OBX coverage brief is on its way</h2>
-        <p>
-          Thanks{lead.name ? `, ${lead.name}` : ""}. We received the details
-          {lead.address ? ` for ${lead.address}` : ""} and will prepare them for
-          review by a local Outer Banks, NC licensed agent.
-        </p>
-        <div className="confirmation-next">
-          <strong>What happens next</strong>
-          <ul>
-            <li>Your request is sent to OBXNCInsurance.com.</li>
-            <li>A local Outer Banks, NC licensed agent can review the property details.</li>
-            <li>No spam. Follow-up is only about your OBX insurance request, such as an elevation certificate, closing date, or current policy.</li>
-          </ul>
-        </div>
+        <LeadReceipt lead={lead} headingId="confirmation-title" />
         <div className="confirmation-actions">
           <button className="primary-button" type="button" onClick={onClose}>
             Done
@@ -2548,6 +2541,7 @@ function LeadConfirmationModal({ lead, onClose, onStartAnother }) {
 }
 
 function ObxGuideChat({ onStartCheck, pageContext }) {
+  const guideSubmission = useRef(createSubmissionIdentity());
   const [isOpen, setIsOpen] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState(tideInitialAnswers);
@@ -2648,6 +2642,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   const progressTrackWidth = `${progress * 0.8}%`;
 
   const updateAnswer = (field, value) => {
+    guideSubmission.current.reset();
     setAnswers((current) => ({
       ...current,
       [field]: value,
@@ -2656,6 +2651,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   };
 
   const chooseOption = (field, value, updates = {}) => {
+    guideSubmission.current.reset();
     setAnswers((current) => ({
       ...current,
       [field]: value,
@@ -2729,6 +2725,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
 
     trackEvent("lead_submit_attempt", { funnel: "guide" });
     const leadPayload = buildTideLeadPayload({ answers, pageContext });
+    leadPayload.submissionId = guideSubmission.current.get(leadPayload);
     setGuideStatus({ state: "submitting", message: "Sending your OBX quote brief to the review team..." });
 
     try {
@@ -2736,13 +2733,14 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
       // Submitted personal details stay out of persistent browser storage.
       trackLead("guide");
       setSubmittedLead({
-        address: answers.address,
-        name: answers.fullName,
-        delivery: result.delivery || "email",
+        ...leadPayload,
+        leadId: result.leadId || "",
+        storage: result.storage || "",
+        delivery: result.delivery || "",
       });
       setGuideStatus({
         state: "success",
-        message: "Piper sent your brief. A real licensed North Carolina insurance agent can review the details.",
+        message: "Piper received your request, including your contact preference and the details you shared.",
       });
     } catch (error) {
       trackEvent("lead_submit_error", { funnel: "guide", reason: "delivery_error" });
@@ -2810,12 +2808,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     if (submittedLead) {
       return (
         <div className="tide-success-card" aria-live="polite">
-          <CheckCircle2 size={34} aria-hidden="true" />
-          <h3>Thanks{submittedLead.name ? `, ${submittedLead.name}` : ""}. Piper sent your OBX brief.</h3>
-          <p>
-            We received the details{submittedLead.address ? ` for ${submittedLead.address}` : ""}.
-            A licensed Outer Banks insurance agent will be in touch about this request. No spam, no lead selling.
-          </p>
+          <LeadReceipt lead={submittedLead} headingId="piper-receipt-title" headingLevel={3} compact />
           <button type="button" className="tide-secondary-action" onClick={tuckTideAway}>
             Done
           </button>
@@ -2827,19 +2820,19 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
       return (
         <>
           <div className="tide-agent-note">
-            <span className="tide-agent-photo" aria-hidden="true">
-              <img className="tide-agent-face" src="/tide-agent-headshot.png" alt="" />
+            <span className="tide-agent-photo">
+              <img className="tide-agent-face" src="/tide-agent-headshot.png" alt="Your human insurance reviewer" width="420" height="420" />
             </span>
             <div>
               <p>
-                <strong>Hey there. I am Piper, your OBX Insurance Advisor.</strong>
+                <strong>Piper helps you get started. A real person reviews your request.</strong>
               </p>
               <p>
-                I am here to save you time, help you avoid costly surprises, and protect you from spam.
-                I ask the questions that matter and help build a quote brief without the spam circus.
+                Piper is our bird guide, here to gather the details. The reviewer pictured here will
+                look at your property information, questions, and timing with care.
               </p>
               <p>
-                <strong>Ready? Let's get the mystery out of this.</strong>
+                Tell us what matters most to you.
               </p>
             </div>
           </div>

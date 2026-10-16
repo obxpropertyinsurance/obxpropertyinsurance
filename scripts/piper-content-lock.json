@@ -6,10 +6,17 @@
     "public/sitemap.xml": "cba15808af93d331ac00973fcfb71a970b81d59b419ea8582304dfb2ec062336",
     "public/robots.txt": "e6b3766ed6ddef5bc6b48ddcf8acfcfa0ede093b022ba1a32fa99df2001c284f",
     "index.html": "0711374bc11bdb037990de9f9619b836e72c237f285058796b48f142aa2cf3c7",
-    "functions/api/lead.js": "9a73e4ff85cb808aad5417cf0aebbfd667cfbc90c4083473c650682731ad05b5",
+    "functions/api/lead.js": "0c9ea688641adcde8542de5f6f94ef4f5461e6f9315cbe6e022d33d4bf778216",
     "functions/api/lead-delivery.js": "aa9ef3cf3b0297ae4396ad5ba18c278b83cbf60d635e589fb45fad6b36f77f28",
     "functions/_middleware.js": "643daaa81419f4c88675ef3b24fc7b720a188a358414f85a08dd65e4d703ebe0",
-    "wrangler.toml": "98d981f2b995449bec11c7868aa99bc4f79090d66f4861f47ed608ab6cbc5d25"
+    "wrangler.toml": "98d981f2b995449bec11c7868aa99bc4f79090d66f4861f47ed608ab6cbc5d25",
+    "src/leadResponse.mjs": "9e386a19b464f191a78c1e8280c0d8975a0ed7d102816d77f0f7624464cf491d",
+    "src/leadNotification.mjs": "c77b423448cc5c0aa34d389411ce6d1da17dae31258945838f2f59ba3fddd7ea",
+    "src/LeadReceipt.jsx": "37926ef15add4cb6be6ac3d7aa082374d8be72fa04aa809d80cf2fc4d9309d40",
+    "src/submissionIdentity.mjs": "2817dc3da432e8525770a9965a50377c31009697fa2329c8f69cae2702057f8d",
+    "functions/_lib/customerEmail.mjs": "2685a9f3b35ca993712105db98454ad661847af2b14eb4223ef0c614cc5baf6b",
+    "migrations/customer-email-outbox-0001.sql": "08879ea11fd56baeddd0ff858b2889dac4cc4889d7716e25e6b87299ca982c88",
+    "src/policyContent.mjs": "dd9bd59e811bd61e4381dc13cb443417c3ea9a82686dd85972e4dbd5b4304499"
   },
   "pages": {
     "index.html": "7736d4058ed7703748c139c20b21857d5fa21426ab666341d0b28ea27d0b2711",
@@ -66,7 +73,11 @@
     "obx-second-home-insurance/index.html": "77cf6ecd49cc0c07677235737f3b3b577dc667c397239a2d67cf221416c6e4f4",
     "outer-banks-shore-home-insurance-coverage/index.html": "b8c8b1b3a2ab91c3181d177dfee1b7e19636055906e622a4c606404c6cbd0365"
   },
-  "appHash": "83d0e862eeb3c56c3e0d89c4666b5cad971b2d39b7c1c927e0df3d5e59be98d6",
+  "appHash": "c1c1d0b761d2b2efcdaee7f4c9dae33fad8fa7deae73fc83c322022cca11bccc",
   "liveSitemapHash": "cba15808af93d331ac00973fcfb71a970b81d59b419ea8582304dfb2ec062336",
-  "sitemapBaselineNote": "Compared to the live 53-URL sitemap on 2026-10-15. Removed the two pending policy entries added by the earlier, undeployed release. Policy pages remain reachable through footer and form links."
+  "sitemapBaselineNote": "Compared to the live 53-URL sitemap on 2026-10-15. Removed the two pending policy entries added by the earlier, undeployed release. Policy pages remain reachable through footer and form links.",
+  "approvedResponseChanges": {
+    "date": "2026-10-16",
+    "scope": "User-requested human introduction, personalized accepted-submission receipts, channel-aware internal notifications, and stable in-memory submission IDs. A separately gated one-off acknowledgment may send only for eligible email-first requests after D1 acceptance, with a durable idempotent outbox, recipient/IP rate caps and trusted-IP HMAC. The privacy notice reflects Zoho, Resend and outbox handling. Existing intake steps, visible fields, validation, lead-table schema, internal recipients, FormSubmit delivery/fallback, 53 SEO HTML pages and sitemap remain locked. The opaque submission ID is added to the existing stored payload; the outbox migration is additive. Source verification does not establish live activation, mailbox monitoring, provider delivery, automatic retries or legal compliance."
+  }
 }
