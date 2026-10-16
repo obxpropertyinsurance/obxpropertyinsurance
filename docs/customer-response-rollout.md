@@ -90,4 +90,4 @@ This records the state before the migration. Restoring it is not an automatic co
 - The daily 9 AM lead watch was updated to check Zoho customer replies as well as original Proton notifications. It stays quiet without actionable changes and depends on this Mac and authenticated sessions. It does not send messages automatically.
 - Evidence: `audit-evidence/customer-response/resend-confirmation-delivered.png`, `zoho-confirmation-received.png`, `human-reviewer-mobile.png`, `live-preservation.json`, and `workers-fetch-runtime-2026-10-16.md`.
 
-The three later visual email concepts are review artifacts only. They do not replace the verified plain-text receipt until the user selects a direction.
+The user subsequently approved option 2, the coastal welcome. Production release `f2a2e9ef-561b-4e4e-9858-828e8ddf8b35` adds its Piper / OBXNC Insurance wordmark and HTML design while preserving the text alternative and delivery rules. See `piper-email-refinement-2026-10-16.md` for release and actual inbox evidence.

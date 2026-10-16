@@ -14,6 +14,22 @@ for (const [file, expected] of Object.entries(lock.protectedFiles)) {
 }
 assert.equal(hash(await readFile('dist/sitemap.xml')), lock.liveSitemapHash, 'Generated sitemap differs from the live production sitemap');
 const app = (await readFile('src/App.jsx', 'utf8'))
+  // User-confirmed Allen introduction; the synthetic placeholder is explicitly labeled.
+  .replace(`            <figure className="tide-reviewer-portrait">
+              <span className="tide-agent-photo">
+                <img className="tide-agent-face" src="/allen-illustrative-portrait.png" alt="AI-generated illustrative portrait, not a photograph of Allen" width="420" height="420" />
+              </span>
+              <figcaption>Illustrative portrait</figcaption>
+            </figure>`, `            <span className="tide-agent-photo">
+              <img className="tide-agent-face" src="/tide-agent-headshot.png" alt="Your human insurance reviewer" width="420" height="420" />
+            </span>`)
+  .replace(`<strong>Hi, I'm Allen. Your local Outer Banks insurance guide!</strong>`, '<strong>Piper helps you get started. A real person reviews your request.</strong>')
+  .replace(`                I live in this area so helping you get the best insurance is personal to me.
+              </p>
+              <p>
+                Piper helps gather the details. I'll review your property information, questions,
+                and timing with care.`, `                Piper is our bird guide, here to gather the details. The reviewer pictured here will
+                look at your property information, questions, and timing with care.`)
   .replace(/\bPiper\b/g, 'Tide')
   .replace('import homeImage from "./assets/piper/coastal-house.jpg";\nimport piperIcon from "./assets/piper/piper-icon.png";', 'import homeImage from "./assets/obx-coastal-home-1280.jpg";')
   .replaceAll('src={piperIcon}', 'src="/tide-agent-headshot.png"')

@@ -14,9 +14,10 @@
     "src/leadNotification.mjs": "c77b423448cc5c0aa34d389411ce6d1da17dae31258945838f2f59ba3fddd7ea",
     "src/LeadReceipt.jsx": "37926ef15add4cb6be6ac3d7aa082374d8be72fa04aa809d80cf2fc4d9309d40",
     "src/submissionIdentity.mjs": "2817dc3da432e8525770a9965a50377c31009697fa2329c8f69cae2702057f8d",
-    "functions/_lib/customerEmail.mjs": "2685a9f3b35ca993712105db98454ad661847af2b14eb4223ef0c614cc5baf6b",
+    "functions/_lib/customerEmail.mjs": "cd43232633cc434aefc8a1e912b115cfca5fbaf285cfe52f77825313b220a105",
     "migrations/customer-email-outbox-0001.sql": "08879ea11fd56baeddd0ff858b2889dac4cc4889d7716e25e6b87299ca982c88",
-    "src/policyContent.mjs": "dd9bd59e811bd61e4381dc13cb443417c3ea9a82686dd85972e4dbd5b4304499"
+    "src/policyContent.mjs": "dd9bd59e811bd61e4381dc13cb443417c3ea9a82686dd85972e4dbd5b4304499",
+    "functions/_lib/customerEmailHTML.mjs": "d51df8b64f6f16bf27358f287742450d5e956940f53d7171b4b2dfe7ad99258c"
   },
   "pages": {
     "index.html": "7736d4058ed7703748c139c20b21857d5fa21426ab666341d0b28ea27d0b2711",

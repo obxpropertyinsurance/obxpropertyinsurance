@@ -66,7 +66,7 @@ test('email-first only, no holds/conflicts, valid IDs and single recipient', asy
   assert.equal(f.row(), undefined);
 });
 
-test('queues one frozen personalized plain-text receipt, dedupes and rejects changed submission reuse', async () => {
+test('queues one frozen personalized HTML and plain-text receipt, dedupes and rejects changed submission reuse', async () => {
   const f = fixture();
   await Promise.all([f.enqueue(), f.enqueue()]);
   assert.equal(f.sqlite.prepare('SELECT COUNT(*) n FROM customer_email_outbox').get().n, 1);
@@ -76,7 +76,10 @@ test('queues one frozen personalized plain-text receipt, dedupes and rejects cha
   assert.match(body.text, /Hi Robin/);
   assert.match(body.text, /October 20, 2026/);
   assert.doesNotMatch(body.text, /Private fixture address/);
-  assert.equal(body.html, undefined);
+  assert.match(body.html, /Your request is in/);
+  assert.match(body.html, /Robin\./);
+  assert.match(body.html, /October 20, 2026/);
+  assert.doesNotMatch(body.html, /Private fixture address/);
   assert.equal(body.cc, undefined);
   assert.equal((await f.enqueue({ lead: { ...lead, email: 'other@example.com' } })).state, 'submission_conflict');
   assert.deepEqual(JSON.parse(f.row().request_json).to, ['robin@example.com']);
@@ -105,7 +108,27 @@ test('uncertain timeout retries frozen bytes/key only after due time', async () 
   assert.equal(premature, false);
   assert.equal((await f.send(async (_, opts) => { requests.push(opts); return success(); }, { now: start + 60_000 })).state, 'accepted');
   assert.equal(requests[0].body, requests[1].body);
+  assert.match(JSON.parse(requests[0].body).html, /Your request is in/);
+  assert.equal(JSON.parse(requests[0].body).html, JSON.parse(requests[1].body).html);
   assert.equal(requests[0].headers['Idempotency-Key'], requests[1].headers['Idempotency-Key']);
+});
+
+test('re-enqueue preserves earlier HTML and legacy plain-text-only payloads without regenerating them', async () => {
+  for (const priorHTML of ['<p>Earlier approved template</p>', undefined]) {
+    const f = fixture(); await f.enqueue();
+    const previous = JSON.parse(f.row().request_json);
+    if (priorHTML === undefined) delete previous.html;
+    else previous.html = priorHTML;
+    const frozen = JSON.stringify(previous);
+    f.sqlite.prepare('UPDATE customer_email_outbox SET request_json = ? WHERE submission_id = ?').run(frozen, submissionId);
+    await f.enqueue({ now: start + 30_000 });
+    assert.equal(f.row().request_json, frozen);
+    await f.send(async (_, options) => {
+      assert.equal(options.body, frozen);
+      assert.equal(JSON.parse(options.body).html, priorHTML);
+      return success();
+    });
+  }
 });
 
 test('Workers-compatible manual redirect never follows a provider redirect or retries it', async () => {

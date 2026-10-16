@@ -1,4 +1,5 @@
 import { buildLeadResponse } from '../../src/leadResponse.mjs';
+import { renderCustomerAcknowledgmentHTML } from './customerEmailHTML.mjs';
 
 const RETRY_WINDOW = 23 * 60 * 60 * 1000; // Resend idempotency expires at 24h; leave a safety margin.
 const LEASE_MS = 60_000;
@@ -70,7 +71,8 @@ export async function enqueueCustomerAcknowledgment({ env, lead, leadId, submiss
     return { state: 'ineligible' };
   }
   const request = JSON.stringify({ from: config.from, to: [email], reply_to: config.replyTo,
-    subject: plan.drafts.email.subject, text: plan.drafts.email.body });
+    subject: plan.drafts.email.subject, text: plan.drafts.email.body,
+    html: renderCustomerAcknowledgmentHTML(lead, { now }) });
   try {
     const hash = await fingerprint(lead);
     const recipientHash = await hashText(email);

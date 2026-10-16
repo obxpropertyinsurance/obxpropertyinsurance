@@ -2820,16 +2820,22 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
       return (
         <>
           <div className="tide-agent-note">
-            <span className="tide-agent-photo">
-              <img className="tide-agent-face" src="/tide-agent-headshot.png" alt="Your human insurance reviewer" width="420" height="420" />
-            </span>
+            <figure className="tide-reviewer-portrait">
+              <span className="tide-agent-photo">
+                <img className="tide-agent-face" src="/allen-illustrative-portrait.png" alt="AI-generated illustrative portrait, not a photograph of Allen" width="420" height="420" />
+              </span>
+              <figcaption>Illustrative portrait</figcaption>
+            </figure>
             <div>
               <p>
-                <strong>Piper helps you get started. A real person reviews your request.</strong>
+                <strong>Hi, I'm Allen. Your local Outer Banks insurance guide!</strong>
               </p>
               <p>
-                Piper is our bird guide, here to gather the details. The reviewer pictured here will
-                look at your property information, questions, and timing with care.
+                I live in this area so helping you get the best insurance is personal to me.
+              </p>
+              <p>
+                Piper helps gather the details. I'll review your property information, questions,
+                and timing with care.
               </p>
               <p>
                 Tell us what matters most to you.

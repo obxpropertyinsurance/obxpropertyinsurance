@@ -1,6 +1,6 @@
 # Confirmation email design review
 
-Open `index.html` through the existing local Vite server to compare three concepts. These are review artifacts, not active sending templates. The verified production plain-text receipt remains in place.
+Open `index.html` through the existing local Vite server to compare three concepts. Option 2 was approved and implemented as the live HTML confirmation, with a Piper / OBXNC Insurance masthead. Its standalone HTML now comes from the production renderer with fictional sample details. Options 1 and 3 remain review concepts.
 
 The user requested a team of email marketing designers and copywriters. Three specialists developed and critiqued the directions, using the approved Piper bird, coastal painting, Fraunces and cream/navy/coral palette. All sample details are fictional.
 
@@ -18,4 +18,4 @@ The gallery includes desktop/mobile width controls and a Georgia fallback previe
 
 Browser QA covered the three 390px layouts, gallery phone width, loaded imagery, fallback-font toggle and modal controls. A small narrow-screen masthead overflow in option 3 was corrected. Browser previews are not Gmail/Outlook certification; images-off, dark mode and actual inbox checks remain part of implementation after selection.
 
-`comparison.png` is the full comparison board. Existing production artwork is referenced, not duplicated. No website SEO, forms, sitemap, analytics or live email template was changed for these concepts.
+`comparison.png` is the full comparison board. The comparison board records the original three concepts. The approved option now uses stable versioned assets under public/email. The release record is docs/piper-email-refinement-2026-10-16.md. The original intake and SEO structure remain preserved.
