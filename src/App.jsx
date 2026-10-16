@@ -30,6 +30,9 @@ import {
 import { PrivacyLinks } from "./PrivacyControls.jsx";
 import LeadReceipt from "./LeadReceipt.jsx";
 import BrandLogo from "./BrandLogo.jsx";
+import SiteFooter from "./SiteFooter.jsx";
+import SeoLandingContent from "./SeoLandingContent.jsx";
+import { getGuideImage } from "./guidePresentation.mjs";
 import { trackEvent, trackStep, trackLead } from "./analytics.mjs";
 import { leadRoutingRows, leadNotificationSubject, leadNotificationFooter } from "./leadNotification.mjs";
 import { createSubmissionIdentity } from "./submissionIdentity.mjs";
@@ -1327,25 +1330,7 @@ function App({ pathname = typeof window === "undefined" ? "/" : window.location.
         />
       )}
 
-      <footer className="site-footer">
-        <Logo />
-        <nav aria-label="Footer navigation">
-          <a href="#coverage">Home coverage</a>
-          <a href="#wind-flood">Wind & flood</a>
-          <a href="#service-area">OBX towns</a>
-          <a href="/tide-obx-insurance-guide/">Ask Piper</a>
-          <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
-          <a href="/obx-insurance-toolkit/">Toolkit</a>
-          <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
-          <PrivacyLinks />
-          <a href="/obx-insurance-trust-and-source-standards/">About and licensing</a>
-        </nav>
-        <p>
-          OBXNCInsurance.com helps Outer Banks property owners prepare a coverage
-          request. Insurance advice, quotes, binding and policy service require a licensed North Carolina insurance professional.
-          No spam or unrelated marketing. Options vary by property and carrier.
-        </p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
@@ -1394,7 +1379,7 @@ function LeadConfirmationModal({ lead, onClose, onStartAnother }) {
   );
 }
 
-function ObxGuideChat({ onStartCheck, pageContext }) {
+function ObxGuideChat({ onStartCheck, pageContext, openRequest = 0 }) {
   const guideSubmission = useRef(createSubmissionIdentity());
   const [isOpen, setIsOpen] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
@@ -1412,6 +1397,8 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   const [submittedLead, setSubmittedLead] = useState(null);
   const messageListRef = useRef(null);
   const panelRef = useRef(null);
+  const launcherRef = useRef(null);
+  const [launcherOccluded, setLauncherOccluded] = useState(false);
 
   const openTide = ({ automated = false } = {}) => {
     trackEvent("cta_click", { cta_id: "guide_open", placement: "guide" });
@@ -1429,6 +1416,27 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     setAskOpen(false);
     setTideStorageValue(tideDismissedStorageKey, new Date().toISOString());
   };
+
+  useEffect(() => {
+    if (!openRequest) return;
+    openTide();
+    setAskOpen(true);
+  }, [openRequest]);
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return undefined;
+    const visibleRegions = new Set();
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visibleRegions.add(entry.target);
+        else visibleRegions.delete(entry.target);
+      }
+      // Keep a keyboard-focused launcher available until focus moves away.
+      setLauncherOccluded(visibleRegions.size > 0 && document.activeElement !== launcherRef.current);
+    });
+    document.querySelectorAll(".guide-hero, [data-piper-inline], .obx-footer").forEach(region => observer.observe(region));
+    return () => observer.disconnect();
+  }, [pageContext?.slug]);
 
   useAccessibleDialog(panelRef, isOpen, tuckTideAway);
   const guideStepIds = ["property", "details", "needs", "contact", "review"];
@@ -2132,6 +2140,8 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
 
       <button
         className="chat-launcher tide-launcher"
+        ref={launcherRef}
+        hidden={!isOpen && launcherOccluded}
         type="button"
         onClick={() => {
           if (!isOpen) {
@@ -2141,7 +2151,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
           setAskOpen((value) => !value);
         }}
         aria-expanded={isOpen}
-        aria-label={isOpen ? "Ask Piper a question" : "Open Piper OBX guide"}
+        aria-label={isOpen ? "Ask Piper a question" : "Ask Piper — open OBX insurance guide"}
       >
         <img className="tide-launcher-face" src={piperIcon} alt="" />
         <span className="tide-launcher-copy" aria-hidden="true">
@@ -2214,221 +2224,19 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
   );
 }
 
-function SiteFooter() {
-  return (
-    <footer className="site-footer">
-      <Logo />
-      <PrivacyLinks />
-      <nav aria-label="Footer navigation">
-        <a href="/outer-banks-insurance/">Outer Banks insurance</a>
-        <a href="/outer-banks-homeowners-insurance/">Homeowners insurance</a>
-        <a href="/#wind-flood">Wind & flood</a>
-        <a href="/#service-area">OBX towns</a>
-        <a href="/outer-banks-property-insurance/">Property insurance</a>
-        <a href="/north-carolina-vacation-home-insurance/">Vacation homes</a>
-        <a href="/outer-banks-flood-insurance/">Flood insurance</a>
-        <a href="/tide-obx-insurance-guide/">Ask Piper</a>
-        <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
-        <a href="/obx-insurance-toolkit/">Toolkit</a>
-        <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
-      </nav>
-      <p>
-        OBXNCInsurance.com helps Outer Banks property owners prepare a coverage
-        request. Insurance advice, quotes, binding and policy service require a licensed North Carolina insurance professional.
-        No spam or unrelated marketing. Options vary by property and carrier.
-      </p>
-    </footer>
-  );
-}
-
 function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
   const quoteHref = getQuoteReviewHref(page);
-  const relatedPages = page.relatedSlugs?.length
-    ? page.relatedSlugs
-        .map((slug) => getSeoPageBySlug(slug))
-        .filter(Boolean)
-        .filter((related) => related.slug !== page.slug)
-    : seoPages.filter((related) => related.slug !== page.slug).slice(0, 6);
+  const [piperOpenRequest, setPiperOpenRequest] = useState(0);
   const goToQuoteForm = () => {
     window.location.href = quoteHref;
   };
 
   return (
     <div id="top" className="site-shell">
-      <SiteHeader
-        mobileNavOpen={mobileNavOpen}
-        setMobileNavOpen={setMobileNavOpen}
-        quoteHref={quoteHref}
-      />
-      <main className="seo-page" id="main-content" tabIndex={-1}>
-        <nav className="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span>{page.slug !== "outer-banks-insurance-atlas" && <><a href="/outer-banks-insurance-atlas/">Insurance guides</a><span aria-hidden="true"> / </span></>}<span aria-current="page">{page.eyebrow}</span></nav>
-        <section className="seo-hero" aria-labelledby="seo-title">
-          <div>
-            <span className="seo-eyebrow">{page.eyebrow}</span>
-            <h1 id="seo-title">{page.h1}</h1>
-            <p>{page.intro}</p>
-            <p>{page.support}</p>
-            <div className="hero-actions">
-              <a className="primary-button" href={quoteHref}>
-                Prepare my insurance request
-                <ArrowRight size={19} aria-hidden="true" />
-              </a>
-              <a className="text-button" href="/outer-banks-insurance-atlas/">
-                View insurance atlas
-                <ArrowRight size={18} aria-hidden="true" />
-              </a>
-            </div>
-          </div>
-          <div className="seo-side">
-            <figure className="seo-local-image">
-              <img src={page.image.url} alt={page.image.alt} loading="eager" decoding="async" width="1280" height="853" />
-              <figcaption>
-                <strong>{page.image.caption}</strong> <a href={page.image.creditUrl} target="_blank" rel="noreferrer">Photo: {page.image.credit}</a>
-              </figcaption>
-            </figure>
-            <aside className="seo-summary-card" aria-label="Page summary">
-              <strong>{page.intent}</strong>
-              <ul>
-                {page.checklist.map((item) => (
-                  <li key={item}>
-                    <CheckCircle2 size={18} aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </aside>
-          </div>
-        </section>
-
-        <section className="seo-content-grid" aria-label={`${page.eyebrow} guide`}>
-          {page.sections.map((section) => (
-            <article key={section.heading}>
-              <h2>{section.heading}</h2>
-              <p>{section.body}</p>
-              {section.links?.length > 0 && <ul className="context-links">{section.links.map(link => <li key={link.slug || link.href}><a href={link.href || `/${link.slug}/`}>{link.label}</a></li>)}</ul>}
-            </article>
-          ))}
-        </section>
-
-        {page.dataTable && (
-          <section className="seo-data-section" aria-labelledby="seo-data-title">
-            <div className="seo-data-copy">
-              <span className="seo-eyebrow">{page.dataTable.eyebrow}</span>
-              <h2 id="seo-data-title">{page.dataTable.title}</h2>
-              <p>{page.dataTable.intro}</p>
-            </div>
-            <div className="seo-data-table-wrap" role="region" aria-label="Scrollable rate comparison table" tabIndex={0}>
-              <table>
-                <thead>
-                  <tr>
-                    {page.dataTable.columns.map((column) => (
-                      <th key={column.key}>{column.label}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {page.dataTable.rows.map((row) => (
-                    <tr key={row.territory || JSON.stringify(row)}>
-                      {page.dataTable.columns.map((column) => (
-                        <td key={column.key}>{row[column.key]}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            {page.dataTable.note && <p className="seo-data-note">{page.dataTable.note}</p>}
-          </section>
-        )}
-
-        {page.localInsights.length > 0 && (
-          <section className="seo-local-details-section" aria-labelledby="seo-local-details-title">
-            <div>
-              <span className="seo-eyebrow">Property details to discuss</span>
-              <h2 id="seo-local-details-title">What matters for {page.eyebrow}</h2>
-              <p>
-                A local Outer Banks review starts with the practical details that
-                can change follow-up, timing, and available paths for this property.
-              </p>
-              <a className="primary-button" href={quoteHref}>
-                Prepare my insurance request
-                <ArrowRight size={19} aria-hidden="true" />
-              </a>
-            </div>
-            <div className="seo-local-detail-list">
-              {page.localInsights.map((insight) => (
-                <article key={insight}>
-                  <CheckCircle2 size={22} aria-hidden="true" />
-                  <p>{insight}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-        )}
-
-        <section className="seo-topic-section" aria-labelledby="seo-topic-title">
-          <h2 id="seo-topic-title">Insurance help for this area</h2>
-          <p>
-            {page.topicHelpText ||
-              `Use this guide when you are trying to understand ${page.eyebrow}. Start with the property facts that can shape the review: address, occupancy, rental use, roof age, wind exposure, flood questions, current coverage, and timing.`}
-          </p>
-        </section>
-
-        {page.sources?.length > 0 && (
-          <section className="seo-source-section" aria-labelledby="seo-source-title">
-            <div>
-              <span className="seo-eyebrow">Official-source context</span>
-              <h2 id="seo-source-title">Resources to verify while you prepare</h2>
-              <p>
-                These official resources support the educational side of the guide.
-                Your property-specific quotes, advice, binding, and servicing still
-                come from a licensed North Carolina insurance agent.
-              </p>
-              {page.lastReviewed && (
-                <p className="seo-reviewed-note">Last reviewed: {page.lastReviewed}</p>
-              )}
-            </div>
-            <div className="official-resource-links">
-              {page.sources.map((source) => (
-                <a href={source.url} key={source.name} target="_blank" rel="noreferrer">
-                  <span>
-                    <strong>{source.name}</strong>
-                    <small>{source.text}</small>
-                  </span>
-                  <ExternalLink size={16} aria-hidden="true" />
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
-
-        <section className="seo-faq-section" aria-labelledby="seo-faq-title">
-          <h2 id="seo-faq-title">Questions about {page.eyebrow}</h2>
-          <div>
-            {page.faqs.map((faq) => (
-              <article key={faq.question}>
-                <h3>{faq.question}</h3>
-                <p>{faq.answer}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {page.slug === "outer-banks-insurance-atlas" && <GuideDirectory />}
-        <section className="seo-related-section" aria-labelledby="related-title">
-          <h2 id="related-title">Related OBX insurance pages</h2>
-          <div className="seo-related-links">
-            {relatedPages.slice(0, 6).map((related) => (
-              <a href={`/${related.slug}/`} key={related.slug}>
-                {related.eyebrow}
-                <ArrowRight size={16} aria-hidden="true" />
-              </a>
-            ))}
-          </div>
-        </section>
-      </main>
-      <SiteFooter />
-      <ObxGuideChat onStartCheck={goToQuoteForm} pageContext={page} />
+      <SiteHeader mobileNavOpen={mobileNavOpen} setMobileNavOpen={setMobileNavOpen} quoteHref={quoteHref} />
+      <SeoLandingContent page={page} quoteHref={quoteHref} onAskPiper={() => setPiperOpenRequest(value => value + 1)} />
+      <SiteFooter image={getGuideImage(page)} />
+      <ObxGuideChat onStartCheck={goToQuoteForm} pageContext={page} openRequest={piperOpenRequest} />
       <QuickCallBar href={quoteHref} />
     </div>
   );

@@ -24,59 +24,94 @@ const notFoundHtml = `<!doctype html>
     <meta name="robots" content="noindex" />
     <title>Page Not Found | OBXNCInsurance.com</title>
     <style>
+      * { box-sizing: border-box; }
       body {
         margin: 0;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        color: #07112b;
-        background: #ffffff;
-      }
-      main {
         min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 48px 24px;
+        min-height: 100dvh;
+        font-family: Georgia, "Times New Roman", serif;
+        color: #082d42;
+        background: #fff9ef;
       }
+      .not-found-wrap { width: min(100% - 48px, 960px); margin-inline: auto; }
+      header { padding-block: 32px; }
+      header a { display: inline-flex; align-items: center; min-height: 44px; }
+      header img { display: block; width: min(340px, 100%); height: auto; }
       section {
-        width: min(720px, 100%);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 160px;
+        align-items: center;
+        gap: 36px;
+        padding: 56px;
+        border: 1px solid #c5d1d0;
+        border-radius: 28px;
+        background: #f5e8d5;
       }
+      .not-found-code { margin: 0 0 12px; color: #88351a; font-size: 18px; }
+      .not-found-piper { display: block; width: 100%; height: auto; }
       h1 {
-        margin: 0 0 18px;
-        font-size: clamp(42px, 7vw, 78px);
-        line-height: 0.98;
-        letter-spacing: 0;
+        margin: 0 0 22px;
+        font-size: clamp(36px, 5vw, 56px);
+        line-height: 1.15;
+        letter-spacing: -.035em;
       }
       p {
         margin: 0 0 28px;
         max-width: 620px;
-        color: #5c6980;
+        color: #365361;
         font-size: 20px;
-        line-height: 1.55;
+        line-height: 1.6;
       }
       nav {
         display: flex;
         flex-wrap: wrap;
-        gap: 14px;
+        align-items: center;
+        gap: 10px 24px;
       }
       a {
-        color: #007f83;
-        font-weight: 800;
-        text-decoration: none;
-      }
-      a.primary {
         display: inline-flex;
         align-items: center;
+        min-height: 44px;
+        color: #082d42;
+        font-size: 17px;
+        font-weight: 600;
+        line-height: 1.5;
+        text-underline-offset: 4px;
+      }
+      a.primary {
         justify-content: center;
-        min-height: 48px;
-        padding: 0 20px;
-        border-radius: 8px;
-        color: #ffffff;
-        background: #ff4b43;
+        min-height: 56px;
+        padding: 16px 24px;
+        border-radius: 999px;
+        color: #fff9ef;
+        background: #082d42;
+        text-decoration: none;
+        text-align: center;
+      }
+      a.primary:hover { background: #194858; }
+      a:focus-visible { outline: 3px solid #0a6885; outline-offset: 5px; }
+      footer { display: flex; flex-wrap: wrap; gap: 8px 28px; padding-block: 24px 36px; }
+      footer a { font-size: 16px; font-weight: 400; }
+      @media (max-width: 650px) {
+        .not-found-wrap { width: calc(100% - 32px); }
+        header { padding-block: 24px; }
+        header img { width: 280px; max-width: 100%; }
+        section { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 32px 24px; border-radius: 22px; }
+        .not-found-piper { width: 120px; justify-self: center; }
+        p { font-size: 18px; }
+        nav { align-items: stretch; flex-direction: column; gap: 8px; }
+        a { font-size: 16px; }
+        a.primary { width: 100%; }
       }
     </style>
   </head>
   <body>
+    <div class="not-found-wrap">
+    <header><a href="/" aria-label="OBXNC Insurance home"><img src="/brand/obxnc-insurance-wordmark.svg" width="868" height="180" alt="OBXNC Insurance"></a></header>
     <main>
       <section>
+        <div>
+        <p class="not-found-code" aria-hidden="true">404</p>
         <h1>Page not found</h1>
         <p>
           This OBX insurance page is not available. Start with the main guide, homeowners insurance page, or insurance atlas to find the right local resource.
@@ -87,8 +122,12 @@ const notFoundHtml = `<!doctype html>
           <a href="/outer-banks-homeowners-insurance/">Homeowners insurance</a>
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
         </nav>
+        </div>
+        <img class="not-found-piper" src="/brand/piper-mark.png" width="256" height="256" alt="">
       </section>
     </main>
+    <footer><a href="/privacy-policy/">Privacy policy</a><a href="/accessibility/">Accessibility</a></footer>
+    </div>
   </body>
 </html>`;
 
