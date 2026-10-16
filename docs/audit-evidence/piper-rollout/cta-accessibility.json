@@ -1,0 +1,142 @@
+[
+  {
+    "url": "/",
+    "viewport": [
+      320,
+      780
+    ],
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(1) > .rate-bar-track > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(2) > .rate-bar-track > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".rate-chart-row:nth-child(1) > .rate-bars > .rate-bar-line:nth-child(3) > .rate-bar-track > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(1) > .rate-bar-track > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(2) > .rate-bar-track > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".rate-chart-row:nth-child(2) > .rate-bars > .rate-bar-line:nth-child(3) > .rate-bar-track > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".readiness-meter > div > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".readiness-meter > div > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": 53
+  },
+  {
+    "url": "/",
+    "viewport": [
+      320,
+      780
+    ],
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".active.tide-progress-step > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".active.tide-progress-step > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".tide-progress-step:nth-child(3) > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".tide-progress-step:nth-child(3) > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".tide-progress-step:nth-child(4) > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".tide-progress-step:nth-child(4) > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".tide-progress-step:nth-child(5) > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".tide-progress-step:nth-child(5) > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".tide-progress-step:nth-child(6) > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          },
+          {
+            "target": [
+              ".tide-progress-step:nth-child(6) > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      }
+    ],
+    "passes": 33
+  }
+]

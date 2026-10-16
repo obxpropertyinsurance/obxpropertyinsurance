@@ -1407,33 +1407,33 @@ const atlasScenarioProfiles = [
 const atlasSeoPages = [
   {
     slug: "tide-obx-insurance-guide",
-    title: "Tide OBX Insurance Advisor | Free Outer Banks Quote Brief",
+    title: "Piper OBX Insurance Advisor | Free Outer Banks Quote Brief",
     description:
-      "Meet Tide, the friendly OBX Insurance Advisor that helps Outer Banks homeowners save time, ask questions, avoid costly surprises, and prepare a no-spam quote brief for licensed review.",
-    eyebrow: "Tide OBX Insurance Advisor",
-    h1: "Meet Tide, your OBX Insurance Advisor",
+      "Meet Piper, the friendly OBX Insurance Advisor that helps Outer Banks homeowners save time, ask questions, avoid costly surprises, and prepare a no-spam quote brief for licensed review.",
+    eyebrow: "Piper OBX Insurance Advisor",
+    h1: "Meet Piper, your OBX Insurance Advisor",
     intro:
-      "Tide is the friendly OBX Insurance Advisor built for homeowners who want answers before a sales call. Ask the questions, clear up the coastal insurance confusion, save time, and build a cleaner quote brief when you are ready.",
+      "Piper is the friendly OBX Insurance Advisor built for homeowners who want answers before a sales call. Ask the questions, clear up the coastal insurance confusion, save time, and build a cleaner quote brief when you are ready.",
     support:
-      "Use Tide before a homeowners, property, wind, flood, second home, vacation rental, renewal, buying, or multi-property review. Your details stay with OBXNCInsurance.com and our licensed review team. No spam, no lead selling, and no pressure parade.",
+      "Use Piper before a homeowners, property, wind, flood, second home, vacation rental, renewal, buying, or multi-property review. Your details stay with OBXNCInsurance.com and our licensed review team. No spam, no lead selling, and no pressure parade.",
     intent: "For OBX homeowners who want fast, no-spam quote prep before licensed review.",
     topicHelpText:
-      "Use Tide when you want a faster, clearer way to ask OBX insurance questions, avoid costly surprises, and prepare the property facts a licensed North Carolina insurance agent will need for review.",
+      "Use Piper when you want a faster, clearer way to ask OBX insurance questions, avoid costly surprises, and prepare the property facts a licensed North Carolina insurance agent will need for review.",
     sections: [
       {
-        heading: "Tide starts with the property",
+        heading: "Piper starts with the property",
         body:
           "A useful Outer Banks insurance review starts with the home itself: property type, address, town, occupancy, rental use, year built, roof age, flood details, elevation certificate status, and wind exposure.",
       },
       {
         heading: "Ask before you are ready to talk",
         body:
-          "Tide is built for homeowners who want to learn first. Ask about wind, flood, rentals, roof age, renewals, rate changes, nonrenewals, and town-specific OBX questions without feeling like a phone call is required.",
+          "Piper is built for homeowners who want to learn first. Ask about wind, flood, rentals, roof age, renewals, rate changes, nonrenewals, and town-specific OBX questions without feeling like a phone call is required.",
       },
       {
         heading: "The brief makes follow-up faster",
         body:
-          "Instead of asking a homeowner to repeat scattered details, Tide organizes the facts a licensed North Carolina insurance agent can review first. That helps the follow-up focus on the real coverage questions.",
+          "Instead of asking a homeowner to repeat scattered details, Piper organizes the facts a licensed North Carolina insurance agent can review first. That helps the follow-up focus on the real coverage questions.",
       },
       {
         heading: "Built for coastal questions",
@@ -1443,13 +1443,13 @@ const atlasSeoPages = [
       {
         heading: "No spam, no lead selling",
         body:
-          "Tide is designed for trust. Your information is used for your OBX insurance request and is not sold to a lead marketplace, shared with a phone-call swarm, or added to an unrelated marketing list.",
+          "Piper is designed for trust. Your information is used for your OBX insurance request and is not sold to a lead marketplace, shared with a phone-call swarm, or added to an unrelated marketing list.",
       },
     ],
     sources: [officialSourceLinks[0], officialSourceLinks[1], officialSourceLinks[2], officialSourceLinks[3]],
     keywords: [
-      "Tide OBX insurance guide",
-      "Tide OBX insurance advisor",
+      "Piper OBX insurance guide",
+      "Piper OBX insurance advisor",
       "OBX Insurance Advisor",
       "Outer Banks insurance quote brief",
       "OBX homeowners insurance guide",
@@ -1458,10 +1458,10 @@ const atlasSeoPages = [
       "Outer Banks wind flood rental insurance review",
     ],
     localInsights: [
-      "Tide is useful when an owner is buying soon, renewing, reviewing a current policy, adding another property, or trying to understand wind and flood questions.",
+      "Piper is useful when an owner is buying soon, renewing, reviewing a current policy, adding another property, or trying to understand wind and flood questions.",
       "The best first answers are property type, address, rental use, year built, roof age, flood details, elevation certificate status, current carrier, and timing.",
       "The brief does not replace licensed advice. It prepares the information so a licensed North Carolina insurance agent can review the request with better context.",
-      "Tide answers from the same educational foundation as the site: OBX town pages, wind and flood guidance, rental-use guidance, rate context, renewal guides, roof-age guidance, official resources, and no-spam trust standards.",
+      "Piper answers from the same educational foundation as the site: OBX town pages, wind and flood guidance, rental-use guidance, rate context, renewal guides, roof-age guidance, official resources, and no-spam trust standards.",
     ],
     checklist: [
       "Property type and address",
@@ -1472,14 +1472,14 @@ const atlasSeoPages = [
     ],
     faqs: [
       {
-        question: "Is Tide a licensed insurance agent?",
+        question: "Is Piper a licensed insurance agent?",
         answer:
-          "No. Tide is a guided quote-prep tool. Quotes, advice, binding, recommendations, and policy service come from a licensed North Carolina insurance agent.",
+          "No. Piper is a guided quote-prep tool. Quotes, advice, binding, recommendations, and policy service come from a licensed North Carolina insurance agent.",
       },
       {
-        question: "What does Tide send to the review team?",
+        question: "What does Piper send to the review team?",
         answer:
-          "Tide organizes the property address, home use, rental details, roof age, year built, flood and wind details, policy timing, current carrier, notes, and your preferred contact information.",
+          "Piper organizes the property address, home use, rental details, roof age, year built, flood and wind details, policy timing, current carrier, notes, and your preferred contact information.",
       },
       {
         question: "Will my information be sold?",

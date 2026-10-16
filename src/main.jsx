@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./App.css";
 import "./privacy.css";
+import "./piper.css";
 import PrivacyControls from "./PrivacyControls.jsx";
 import PolicyPage from "./PolicyPage.jsx";
 import { policyPages } from "./policyContent.mjs";

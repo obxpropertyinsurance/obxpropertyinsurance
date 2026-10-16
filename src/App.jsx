@@ -30,7 +30,8 @@ import {
 import { PrivacyLinks } from "./PrivacyControls.jsx";
 import { trackEvent, trackStep, trackLead } from "./analytics.mjs";
 import useAccessibleDialog from "./useAccessibleDialog.js";
-import homeImage from "./assets/obx-coastal-home-1280.jpg";
+import homeImage from "./assets/piper/coastal-house.jpg";
+import piperIcon from "./assets/piper/piper-icon.png";
 import {
   getSeoPageByPath,
   getSeoPageBySlug,
@@ -477,8 +478,8 @@ const getReviewPageFromUrl = () => {
 const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
 
 const tideAgent = {
-  name: "Tide",
-  title: "Tide, your OBX Insurance Advisor",
+  name: "Piper",
+  title: "Piper, your OBX Insurance Advisor",
   promise: "Save time. Avoid costly surprises. No spam.",
 };
 
@@ -497,7 +498,7 @@ const setTideStorageValue = (key, value) => {
   try {
     window.localStorage.setItem(key, value);
   } catch {
-    // Tide still works if a browser blocks localStorage.
+    // Piper still works if a browser blocks localStorage.
   }
 };
 
@@ -583,7 +584,7 @@ const tideGoalOptions = [
   {
     value: "Just researching",
     label: "Just researching",
-    detail: "Tide can still organize the basics and explain what matters first.",
+    detail: "Piper can still organize the basics and explain what matters first.",
   },
 ];
 
@@ -761,13 +762,13 @@ const getTideKnowledgeReply = (message) => {
   const related = secondary ? ` Related guide: ${secondary.title}.` : "";
   return {
     text:
-      `Tide take: ${primary.text} Tide can add this context to your quote brief so the licensed Outer Banks review starts with better facts. Helpful guide: ${primary.title}.${related}`,
+      `Piper take: ${primary.text} Piper can add this context to your quote brief so the licensed Outer Banks review starts with better facts. Helpful guide: ${primary.title}.${related}`,
   };
 };
 
 const buildTideNotes = (answers, pageContext) => {
   const notes = [
-    "Tide guided intake",
+    "Piper guided intake",
     pageContext?.eyebrow ? `Guide context: ${pageContext.eyebrow}` : "",
     answers.notes ? `Visitor notes: ${answers.notes}` : "",
   ].filter(Boolean);
@@ -850,14 +851,14 @@ const getTideGuideReply = (message) => {
   if (text.includes("phone") || text.includes("call") || text.includes("sales") || text.includes("pressure")) {
     return {
       text:
-        "Tide is built for people who want answers before a call. You can ask questions, build the brief, and choose your preferred follow-up. A licensed Outer Banks insurance agent follows up about this request, not to pressure you into a phone marathon.",
+        "Piper is built for people who want answers before a call. You can ask questions, build the brief, and choose your preferred follow-up. A licensed Outer Banks insurance agent follows up about this request, not to pressure you into a phone marathon.",
     };
   }
 
   if (text.includes("agent") || text.includes("licensed") || text.includes("human")) {
     return {
       text:
-        "Tide organizes the details and explains what matters. Quotes, advice, binding, recommendations, and policy service come from a licensed North Carolina insurance agent after your brief is submitted.",
+        "Piper organizes the details and explains what matters. Quotes, advice, binding, recommendations, and policy service come from a licensed North Carolina insurance agent after your brief is submitted.",
     };
   }
 
@@ -901,7 +902,7 @@ const getTideGuideReply = (message) => {
 
   return {
     text:
-      "That is a very OBX insurance question, which is exactly why Tide exists. Share the property type, address, use, wind, flood, roof, timing, or renewal concern you are thinking about, and Tide will organize it into a cleaner brief for licensed review.",
+      "That is a very OBX insurance question, which is exactly why Piper exists. Share the property type, address, use, wind, flood, roof, timing, or renewal concern you are thinking about, and Piper will organize it into a cleaner brief for licensed review.",
   };
 };
 
@@ -1257,7 +1258,7 @@ function App() {
           <a href="/outer-banks-insurance/">OBX insurance</a>
           <a href="/outer-banks-homeowners-insurance/">Homeowners</a>
           <a href="/#wind-flood">Wind & flood</a>
-          <a href="/tide-obx-insurance-guide/">Ask Tide</a>
+          <a href="/tide-obx-insurance-guide/">Ask Piper</a>
           <a href="#service-area">OBX towns</a>
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
         </nav>
@@ -1288,7 +1289,7 @@ function App() {
             Wind & flood
           </a>
           <a href="/tide-obx-insurance-guide/" onClick={() => setMobileNavOpen(false)}>
-            Ask Tide
+            Ask Piper
           </a>
           <a href="#how-it-works" onClick={() => setMobileNavOpen(false)}>
             How it works
@@ -1341,7 +1342,7 @@ function App() {
             </div>
           </div>
 
-          <div className="hero-visual" aria-label="OBX property insurance brief preview">
+          <div className="hero-visual" role="group" aria-label="OBX property insurance brief preview">
             <img src={homeImage} alt="Outer Banks beach house elevated on pilings near dunes" />
             <form className="hero-quote-panel" onSubmit={continueToQuoteForm}>
               <div className="panel-step">
@@ -1528,7 +1529,7 @@ function App() {
               </div>
             </div>
 
-            <div className="rate-chart-card" aria-label="Outer Banks homeowners insurance base-rate change chart">
+            <div className="rate-chart-card" role="group" aria-label="Outer Banks homeowners insurance base-rate change chart">
               <div className="rate-chart-header">
                 <div>
                   <strong>NC homeowners base-rate changes</strong>
@@ -1639,7 +1640,7 @@ function App() {
             </div>
           </aside>
 
-          <div className="rate-source-links" aria-label="Rate change sources">
+          <div className="rate-source-links" role="group" aria-label="Rate change sources">
             {rateSourceLinks.map((source) => (
               <a href={source.url} key={source.name} target="_blank" rel="noreferrer">
                 <span>
@@ -1701,7 +1702,7 @@ function App() {
             </div>
           </div>
 
-          <div className="coverage-map-panel" aria-label="Three layers of OBX insurance review">
+          <div className="coverage-map-panel" role="group" aria-label="Three layers of OBX insurance review">
             <div className="coverage-map-topline">
               <Layers3 size={24} aria-hidden="true" />
               <strong>The OBX 3-layer coverage map</strong>
@@ -2107,7 +2108,7 @@ function App() {
               />
             </label>
 
-            <div className="quote-progress" aria-label="Lead form progress">
+            <div className="quote-progress" role="group" aria-label="Lead form progress">
               <span className={quoteStep === 1 ? "active" : "complete"}>1. Brief basics</span>
               <span className={quoteStep === 2 ? "active" : ""}>2. Optional OBX details</span>
             </div>
@@ -2376,7 +2377,7 @@ function App() {
           <a href="#coverage">Home coverage</a>
           <a href="#wind-flood">Wind & flood</a>
           <a href="#service-area">OBX towns</a>
-          <a href="/tide-obx-insurance-guide/">Ask Tide</a>
+          <a href="/tide-obx-insurance-guide/">Ask Piper</a>
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
           <a href="/obx-insurance-toolkit/">Toolkit</a>
           <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
@@ -2462,7 +2463,7 @@ function CoverageConsole({
         </label>
       </div>
 
-      <div className="readiness-meter" aria-label={`Coverage readiness ${readiness}%`}>
+      <div className="readiness-meter" role="group" aria-label={`Coverage readiness ${readiness}%`}>
         <div>
           <span>Coverage readiness</span>
           <strong>{readiness}%</strong>
@@ -2668,7 +2669,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
   };
 
   const getStepError = () => {
-    if (stepIndex === 0 && !answers.propertyUse) return "Choose the property type so Tide can tailor the next questions.";
+    if (stepIndex === 0 && !answers.propertyUse) return "Choose the property type so Piper can tailor the next questions.";
     if (stepIndex === 1 && !answers.address.trim()) return "Add the OBX property address, town, or community.";
     if (stepIndex === 2 && !answers.leadGoal) return "Choose what you want the review to solve first.";
     if (stepIndex === 3) {
@@ -2741,7 +2742,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
       });
       setGuideStatus({
         state: "success",
-        message: "Tide sent your brief. A real licensed North Carolina insurance agent can review the details.",
+        message: "Piper sent your brief. A real licensed North Carolina insurance agent can review the details.",
       });
     } catch (error) {
       trackEvent("lead_submit_error", { funnel: "guide", reason: "delivery_error" });
@@ -2750,7 +2751,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
         message:
           error instanceof Error
             ? error.message
-            : "Tide could not send the brief. You can still use the full form below.",
+            : "Piper could not send the brief. You can still use the full form below.",
       });
     }
   };
@@ -2810,7 +2811,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
       return (
         <div className="tide-success-card" aria-live="polite">
           <CheckCircle2 size={34} aria-hidden="true" />
-          <h3>Thanks{submittedLead.name ? `, ${submittedLead.name}` : ""}. Tide sent your OBX brief.</h3>
+          <h3>Thanks{submittedLead.name ? `, ${submittedLead.name}` : ""}. Piper sent your OBX brief.</h3>
           <p>
             We received the details{submittedLead.address ? ` for ${submittedLead.address}` : ""}.
             A licensed Outer Banks insurance agent will be in touch about this request. No spam, no lead selling.
@@ -2827,11 +2828,11 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
         <>
           <div className="tide-agent-note">
             <span className="tide-agent-photo" aria-hidden="true">
-              <img className="tide-agent-face" src="/tide-agent-headshot.png" alt="" />
+              <img className="tide-agent-face" src={piperIcon} alt="" />
             </span>
             <div>
               <p>
-                <strong>Hey there. I am Tide, your OBX Insurance Advisor.</strong>
+                <strong>Hey there. I am Piper, your OBX Insurance Advisor.</strong>
               </p>
               <p>
                 I am here to save you time, help you avoid costly surprises, and protect you from spam.
@@ -2851,7 +2852,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     if (stepIndex === 1) {
       return (
         <>
-          <h3>Tell us the property details Tide should organize.</h3>
+          <h3>Tell us the property details Piper should organize.</h3>
           <p>The exact address is best. Town or community is okay if you are still shopping.</p>
           <label className="tide-field">
             OBX property address, town, or community
@@ -2860,6 +2861,9 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               onChange={(event) => updateAnswer("address", event.target.value)}
               placeholder="123 Ocean Trail, Corolla or Nags Head"
               autoComplete="street-address"
+              aria-required="true"
+              aria-invalid={(guideStatus.state === "error" && !answers.address.trim()) || undefined}
+              aria-describedby={guideStatus.state === "error" && !answers.address.trim() ? "tide-step-status" : undefined}
             />
           </label>
           <div className="tide-chip-grid" role="group" aria-label="Rental use">
@@ -2978,7 +2982,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
         <>
           <h3>Where should the real agent follow up?</h3>
           <p>Name, email and phone are required.</p>
-          <p>Tide sends this as a no-spam quote brief for licensed review.</p>
+          <p>Piper sends this as a no-spam quote brief for licensed review.</p>
           <label className="honeypot-field" aria-hidden="true">
             Company website
             <input
@@ -3059,7 +3063,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
     return (
       <>
         <h3>Review your quote brief.</h3>
-        <p>These are the details Tide will send for licensed review. You can go back and edit anything before sending.</p>
+        <p>These are the details Piper will send for licensed review. You can go back and edit anything before sending.</p>
         <div className="tide-review-list">
           {reviewRows.map((item) => (
             <div key={item.label}>
@@ -3081,7 +3085,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
           ref={panelRef}
           role="dialog"
           aria-modal="true"
-          aria-label="Tide OBX insurance quote guide"
+          aria-label="Piper OBX insurance quote guide"
         >
           <div className="tide-header">
             <span className="tide-crest" aria-hidden="true">
@@ -3096,19 +3100,19 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               </small>
             </div>
             <div className="tide-window-actions">
-              <button type="button" onClick={tuckTideAway} aria-label="Minimize Tide and keep researching">
+              <button type="button" onClick={tuckTideAway} aria-label="Minimize Piper and keep researching">
                 <span aria-hidden="true">-</span>
               </button>
-              <button type="button" onClick={tuckTideAway} aria-label="Close Tide and keep researching">
+              <button type="button" onClick={tuckTideAway} aria-label="Close Piper and keep researching">
                 <X size={25} aria-hidden="true" />
               </button>
             </div>
           </div>
 
           <div
-            className="tide-progress"
+            className="tide-progress" role="group"
             style={{ "--tide-progress-width": progressTrackWidth }}
-            aria-label={`Tide progress ${progress}%`}
+            aria-label={`Piper progress ${progress}%`}
           >
             <span className="tide-progress-fill" aria-hidden="true" />
             {tideSteps.map((label, index) => (
@@ -3127,14 +3131,14 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
           <p className="tide-research-note">
             <Waves size={18} aria-hidden="true" />
             <span>
-              Just researching? Use the top-right controls to tuck Tide away and keep reading.
-              Tide will wait in the corner when you want help.
+              Just researching? Use the top-right controls to tuck Piper away and keep reading.
+              Piper will wait in the corner when you want help.
             </span>
           </p>
 
           <div className="tide-body">
             <div className="tide-main">{renderStep()}</div>
-            <aside className="tide-summary" aria-label="Tide quote brief summary">
+            <aside className="tide-summary" aria-label="Piper quote brief summary">
               <div className="tide-summary-title">
                 <ClipboardCheck size={30} aria-hidden="true" />
                 <span>
@@ -3217,7 +3221,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               )}
               <button type="button" className="tide-ask-toggle" onClick={() => setAskOpen((value) => !value)}>
                 <Waves size={18} aria-hidden="true" />
-                {askOpen ? "Hide Tide questions" : "Ask Tide a question"}
+                {askOpen ? "Hide Piper questions" : "Ask Piper a question"}
               </button>
               <button
                 type="button"
@@ -3229,7 +3233,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
               >
                 Use the full form instead
               </button>
-              <small>Ask Tide anything. When your brief is ready, a licensed Outer Banks insurance agent will be in touch.</small>
+              <small>Ask Piper anything. When your brief is ready, a licensed Outer Banks insurance agent will be in touch.</small>
             </div>
           )}
 
@@ -3242,7 +3246,7 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
                 </p>
               ))}
             </div>
-            <div className="tide-quick-questions" aria-label="Ask Tide quick questions">
+            <div className="tide-quick-questions" role="group" aria-label="Ask Piper quick questions">
               {tideQuickQuestions.map((question) => (
                 <button
                   type="button"
@@ -3262,15 +3266,15 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
             </div>
             <form className="tide-question-form" onSubmit={submitGuideQuestion}>
               <label className="sr-only" htmlFor="tide-question-input">
-                Ask Tide an OBX insurance question
+                Ask Piper an OBX insurance question
               </label>
               <input
                 id="tide-question-input"
                 value={questionDraft}
                 onChange={(event) => setQuestionDraft(event.target.value)}
-                placeholder="Ask Tide about wind, flood, rentals..."
+                placeholder="Ask Piper about wind, flood, rentals..."
               />
-              <button type="submit" aria-label="Ask Tide">
+              <button type="submit" aria-label="Ask Piper">
                 <Send size={17} aria-hidden="true" />
               </button>
             </form>
@@ -3290,11 +3294,11 @@ function ObxGuideChat({ onStartCheck, pageContext }) {
           setAskOpen((value) => !value);
         }}
         aria-expanded={isOpen}
-        aria-label={isOpen ? "Ask Tide a question" : "Open Tide OBX guide"}
+        aria-label={isOpen ? "Ask Piper a question" : "Open Piper OBX guide"}
       >
-        <img className="tide-launcher-face" src="/tide-agent-headshot.png" alt="" />
+        <img className="tide-launcher-face" src={piperIcon} alt="" />
         <span className="tide-launcher-copy" aria-hidden="true">
-          <strong>Ask Tide</strong>
+          <strong>Ask Piper</strong>
           <small>OBX advisor. No spam.</small>
         </span>
         <span className="tide-launcher-wave" aria-hidden="true">
@@ -3315,7 +3319,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
           <a href="/outer-banks-insurance/">OBX insurance</a>
           <a href="/outer-banks-homeowners-insurance/">Homeowners</a>
           <a href="/#wind-flood">Wind & flood</a>
-          <a href="/tide-obx-insurance-guide/">Ask Tide</a>
+          <a href="/tide-obx-insurance-guide/">Ask Piper</a>
           <a href="/#service-area">OBX towns</a>
           <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
         </nav>
@@ -3346,7 +3350,7 @@ function SiteHeader({ mobileNavOpen, setMobileNavOpen, quoteHref = "/#quote" }) 
             Wind & flood
           </a>
           <a href="/tide-obx-insurance-guide/" onClick={() => setMobileNavOpen(false)}>
-            Ask Tide
+            Ask Piper
           </a>
           <a href="/#how-it-works" onClick={() => setMobileNavOpen(false)}>
             How it works
@@ -3379,7 +3383,7 @@ function SiteFooter() {
         <a href="/outer-banks-property-insurance/">Property insurance</a>
         <a href="/north-carolina-vacation-home-insurance/">Vacation homes</a>
         <a href="/outer-banks-flood-insurance/">Flood insurance</a>
-        <a href="/tide-obx-insurance-guide/">Ask Tide</a>
+        <a href="/tide-obx-insurance-guide/">Ask Piper</a>
         <a href="/outer-banks-insurance-atlas/">Insurance atlas</a>
         <a href="/obx-insurance-toolkit/">Toolkit</a>
         <a href="mailto:obxpropertyinsurance@proton.me">Contact</a>
@@ -3468,7 +3472,7 @@ function SeoLandingPage({ page, mobileNavOpen, setMobileNavOpen }) {
               <h2 id="seo-data-title">{page.dataTable.title}</h2>
               <p>{page.dataTable.intro}</p>
             </div>
-            <div className="seo-data-table-wrap">
+            <div className="seo-data-table-wrap" role="region" aria-label="Scrollable rate comparison table" tabIndex={0}>
               <table>
                 <thead>
                   <tr>
