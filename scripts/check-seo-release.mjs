@@ -33,6 +33,22 @@ for(const page of all) {
   const schemas=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m=>JSON.parse(m[1]));
   assert.equal(schemas.length,1,path+' single page graph');
   const graph=schemas[0]['@graph'];
+  if(page.image) {
+    const image=page.image;
+    assert.ok(image.alt && image.credit && image.creditUrl && image.license && image.licenseUrl,path+' reviewed image attribution');
+    assert.ok(image.width > 0 && image.height > 0,path+' intrinsic image dimensions');
+    assert.ok(html.includes(`srcSet="${image.srcSet}"`),path+' responsive image variants');
+    for(const variant of image.srcSet.split(', ')) {
+      const assetPath=variant.split(' ')[0];
+      assert.match(assetPath,/^\/images\/places\/[a-z0-9-]+\.webp$/,path+' self-hosted image');
+      const bytes=await readFile('dist'+assetPath);
+      assert.equal(bytes.toString('ascii',0,4),'RIFF',path+' valid image file');
+      assert.equal(bytes.toString('ascii',8,12),'WEBP',path+' WebP image');
+    }
+    const absoluteImage=new URL(image.url,site).href;
+    assert.equal(graph.find(n=>n['@type']==='Article').image,absoluteImage,path+' schema image matches visible image');
+    assert.ok(html.includes(`property="og:image"\n      content="${absoluteImage}"`),path+' social image matches visible image');
+  }
   assert.equal(graph.filter(n=>n['@type']==='Service').length,page.slug?0:1,path+' no inherited service');
   if(page.faqs?.length) {
     const faqs=graph.filter(n=>n['@type']==='FAQPage'); assert.equal(faqs.length,1,path+' one FAQ');

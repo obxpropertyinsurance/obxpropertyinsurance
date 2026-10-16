@@ -47,7 +47,7 @@ export default function SeoLandingContent({ page, quoteHref, onAskPiper }) {
       <div className="guide-hero-heading"><p className="guide-eyebrow">{page.eyebrow}</p><h1 id="seo-title">{page.h1}</h1></div>
       <div className="guide-hero-actions"><QuoteLink href={quoteHref} /><a className="guide-text-link" href="/outer-banks-insurance-atlas/">View insurance atlas <ArrowUpRight size={19} aria-hidden="true" /></a></div>
       <figure className="guide-hero-photo">
-        <img src={image.url} alt={image.alt} loading="eager" decoding="async" width="1280" height="854" fetchPriority="high" />
+        <img src={image.url} srcSet={image.srcSet} sizes="(max-width: 760px) calc(100vw - 36px), (max-width: 1440px) 48vw, 640px" alt={image.alt} loading="eager" decoding="async" width={image.width} height={image.height} style={{ objectPosition: image.objectPosition }} fetchPriority="high" />
         <figcaption><span>{image.caption}</span><a href={image.creditUrl} target="_blank" rel="noreferrer">Photo: {image.credit}{image.license ? ` · ${image.license}` : ''}</a></figcaption>
       </figure>
       <div className="guide-hero-copy"><p>{page.intro}</p></div>

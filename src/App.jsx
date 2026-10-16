@@ -945,7 +945,7 @@ function App({ pathname = typeof window === "undefined" ? "/" : window.location.
           </div>
 
           <div className="hero-visual" role="group" aria-label="OBX property insurance brief preview">
-            <img src={homeImage} srcSet={`${homeImageSmall} 640w, ${homeImage} 1280w`} sizes="(max-width: 760px) 100vw, 50vw" width="1280" height="431" fetchPriority="high" alt="Outer Banks beach house elevated on pilings near dunes" />
+            <img src={homeImage} srcSet={`${homeImageSmall} 640w, ${homeImage} 1280w`} sizes="(max-width: 760px) 100vw, 50vw" width="1280" height="431" fetchPriority="high" alt="Illustration of an Outer Banks beach house on pilings, with dunes and the ocean beyond." />
             <form className="hero-quote-panel" onSubmit={continueToQuoteForm}>
               <div className="panel-step">
                 <span>1.</span>

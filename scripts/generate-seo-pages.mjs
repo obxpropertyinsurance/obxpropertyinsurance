@@ -28,7 +28,7 @@ try {
       .replace(/(<meta\s+property="og:url"\s+content=")[^"]*("\s*\/?>)/,(_,a,b)=>a+canonical+b)
       .replace(/(<meta\s+(?:property="og:title"|name="twitter:title")\s+content=")[^"]*("\s*\/?>)/g,(_,a,b)=>a+escapeHtml(page.title)+b)
       .replace(/(<meta\s+(?:property="og:description"|name="twitter:description")\s+content=")[^"]*("\s*\/?>)/g,(_,a,b)=>a+escapeHtml(page.description)+b);
-    if(page.image) html=html.replace(/(<meta\s+(?:property="og:image"|name="twitter:image")\s+content=")[^"]*("\s*\/?>)/g,(_,a,b)=>a+escapeHtml(page.image.url)+b).replace(/(<meta\s+property="og:image:alt"\s+content=")[^"]*("\s*\/?>)/,(_,a,b)=>a+escapeHtml(page.image.alt)+b);
+    if(page.image) html=html.replace(/(<meta\s+(?:property="og:image"|name="twitter:image")\s+content=")[^"]*("\s*\/?>)/g,(_,a,b)=>a+escapeHtml(new URL(page.image.url,siteUrl).href)+b).replace(/(<meta\s+property="og:image:alt"\s+content=")[^"]*("\s*\/?>)/,(_,a,b)=>a+escapeHtml(page.image.alt)+b);
     html=html.replace('</head>',`<script type="application/ld+json">${jsonForHtml(pageSchema(page))}</script>\n</head>`)
       .replace('<div id="root"></div>',`<div id="root">${render(path)}</div><noscript><p>To send an insurance request, enable JavaScript or email <a href="mailto:obxpropertyinsurance@proton.me">obxpropertyinsurance@proton.me</a>. The coverage guides remain available below.</p></noscript>`);
     const dir=join(distDir,page.slug); await mkdir(dir,{recursive:true}); await writeFile(join(dir,'index.html'),html);
